@@ -12,9 +12,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
+import lk.ijse.dao.custom.SupplierDAO;
 import lk.ijse.dto.Supplier;
 import lk.ijse.dto.dtm.SupplierTm;
-import lk.ijse.dao.custom.impl.SupplierRepo;
+import lk.ijse.dao.custom.impl.SupplierDAOImpl;
 import lk.ijse.util.Regex;
 
 import java.sql.SQLException;
@@ -55,6 +56,9 @@ public class SupplierFormController {
 
     @FXML
     private TextField txtSupplierName;
+
+    //dependency injection
+    SupplierDAO supplierDAO = new SupplierDAOImpl();
 
     public void initialize() throws SQLException {
         animateLabelTyping();
@@ -112,7 +116,7 @@ public class SupplierFormController {
         }
 
         try {
-            boolean isDeleted = SupplierRepo.delete(supplierID);
+            boolean isDeleted = supplierDAO.delete(supplierID);
             if(isDeleted) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Supplier deleted!").show();
                 getAllSuppliers();
@@ -143,7 +147,7 @@ public class SupplierFormController {
         try {
             boolean isSaved = false;
             if (isValid()) {
-                isSaved = SupplierRepo.save(supplier);
+                isSaved = supplierDAO.save(supplier);
             }else {
                 new Alert(Alert.AlertType.ERROR, "Please check Text Fields... ").show();
             }
@@ -177,7 +181,7 @@ public class SupplierFormController {
         try {
             boolean isUpdated = false;
             if (isValid()) {
-                isUpdated = SupplierRepo.update(supplier);
+                isUpdated = supplierDAO.update(supplier);
             }else {
                 new Alert(Alert.AlertType.ERROR, "Please check Text Fields... ").show();
             }
@@ -202,7 +206,7 @@ public class SupplierFormController {
     public void txtOnActionSearch(ActionEvent actionEvent) throws SQLException {
         String supplierID = txtSupplierID.getText();
 
-        Supplier supplier = SupplierRepo.searchById(supplierID);
+        Supplier supplier = supplierDAO.searchById(supplierID);
         if (supplier != null) {
             txtSupplierID.setText(supplier.getSupplierId());
             txtSupplierName.setText(supplier.getSupplierName());
@@ -220,7 +224,7 @@ public class SupplierFormController {
     void getAllSuppliers() throws SQLException {
 
         ObservableList<SupplierTm> obList = FXCollections.observableArrayList();
-        List<Supplier> supplierList = SupplierRepo.getAll();
+        List<Supplier> supplierList = supplierDAO.getAll();
 
         for ( Supplier supplier: supplierList){
             obList.add(new SupplierTm(

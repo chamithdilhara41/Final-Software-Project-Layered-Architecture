@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StockRepo {
+
     public static boolean save(Stock stock) throws SQLException {
         String sql = "insert into stock values(?,?,?,'active')";
 

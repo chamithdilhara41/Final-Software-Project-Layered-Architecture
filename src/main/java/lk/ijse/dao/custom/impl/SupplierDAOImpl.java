@@ -1,6 +1,7 @@
 package lk.ijse.dao.custom.impl;
 
 import javafx.scene.control.Alert;
+import lk.ijse.dao.custom.SupplierDAO;
 import lk.ijse.db.DbConnection;
 import lk.ijse.dto.Supplier;
 import java.sql.Connection;
@@ -10,9 +11,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SupplierRepo {
+public class SupplierDAOImpl implements SupplierDAO {
 
-    public static boolean save(Supplier supplier) throws SQLException {
+    public boolean save(Supplier supplier) throws SQLException {
         String sql = "INSERT INTO supplier VALUES(?, ?, ?, ?, ?);";
 
         PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
@@ -26,7 +27,7 @@ public class SupplierRepo {
         return pstm.executeUpdate() > 0;
     }
 
-    public static Supplier searchById(String supplierID) throws SQLException {
+    public Supplier searchById(String supplierID) throws SQLException {
 
         String sql = "SELECT * FROM supplier WHERE supplierID = ?";
 
@@ -48,7 +49,7 @@ public class SupplierRepo {
         return null;
     }
 
-    public static boolean update(Supplier supplier) throws SQLException {
+    public boolean update(Supplier supplier) throws SQLException {
         String sql = "UPDATE supplier SET name=?, address=?, contact=?, gender=? WHERE supplierId = ?;";
 
         Connection connection = DbConnection.getInstance().getConnection();
@@ -62,7 +63,8 @@ public class SupplierRepo {
 
         return pstm.executeUpdate() > 0;
     }
-    public static List<Supplier> getAll() throws SQLException {
+
+    public List<Supplier> getAll() throws SQLException {
         Connection con = DbConnection.getInstance().getConnection();
         String sql = "SELECT * FROM supplier";
 
@@ -81,7 +83,7 @@ public class SupplierRepo {
         return data;
     }
 
-    public static boolean delete(String supplierID) throws SQLException {
+    public boolean delete(String supplierID) throws SQLException {
         String sql = "DELETE FROM supplier WHERE supplierId = ?";
 
         Connection connection = DbConnection.getInstance().getConnection();
@@ -91,7 +93,7 @@ public class SupplierRepo {
         return pstm.executeUpdate() > 0;
     }
 
-    public static Supplier searchBySupplierIdForPayment(String supplierID) throws SQLException {
+    public Supplier searchBySupplierIdForPayment(String supplierID) throws SQLException {
         String sql = "SELECT * FROM supplier WHERE supplierID = ?";
 
         PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
@@ -111,7 +113,7 @@ public class SupplierRepo {
         return null;
     }
 
-    public static List<String> getIds() throws SQLException {
+    public List<String> getIds() throws SQLException {
         String sql = "SELECT supplierId FROM supplier";
         PreparedStatement pstm = DbConnection.getInstance().getConnection()
                 .prepareStatement(sql);
@@ -126,4 +128,5 @@ public class SupplierRepo {
         return idList;
 
     }
+
 }

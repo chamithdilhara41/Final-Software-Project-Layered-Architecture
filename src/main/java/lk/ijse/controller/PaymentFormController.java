@@ -12,11 +12,12 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 import lk.ijse.dao.custom.PaymentDAO;
+import lk.ijse.dao.custom.SupplierDAO;
 import lk.ijse.dto.Payment;
 import lk.ijse.dto.Supplier;
 import lk.ijse.dto.dtm.PaymentTm;
 import lk.ijse.dao.custom.impl.PaymentDAOImpl;
-import lk.ijse.dao.custom.impl.SupplierRepo;
+import lk.ijse.dao.custom.impl.SupplierDAOImpl;
 import lk.ijse.util.Regex;
 
 import java.sql.SQLException;
@@ -65,6 +66,7 @@ public class PaymentFormController {
 
     //dependency injection
     PaymentDAO paymentDAO = new PaymentDAOImpl();
+    SupplierDAO supplierDAO = new SupplierDAOImpl();
 
     public void initialize() throws SQLException {
         animateLabelTyping();
@@ -289,7 +291,7 @@ public class PaymentFormController {
     void txtOnActionSearchSupplier(ActionEvent event) throws SQLException {
         String supplierID = txtSupplierID.getText();
 
-        Supplier supplier = SupplierRepo.searchBySupplierIdForPayment(supplierID);
+        Supplier supplier = supplierDAO.searchBySupplierIdForPayment(supplierID);
         if(supplier != null){
             lblSupplierName.setText(supplier.getSupplierName());
 
