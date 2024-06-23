@@ -57,6 +57,7 @@ public class BuyerFormController {
     @FXML
     private TextField txtBuyerName;
 
+    //dependency injection
     BuyerDAO buyerDAO = new BuyerDAOImpl();
 
 

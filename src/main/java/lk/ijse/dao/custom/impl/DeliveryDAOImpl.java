@@ -1,5 +1,6 @@
 package lk.ijse.dao.custom.impl;
 
+import lk.ijse.dao.custom.DeliveryDAO;
 import lk.ijse.db.DbConnection;
 import lk.ijse.dto.Delivery;
 
@@ -9,8 +10,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeliveryRepo {
-    public static boolean save(Delivery delivery) throws SQLException {
+public class DeliveryDAOImpl implements DeliveryDAO {
+
+    public boolean save(Delivery delivery) throws SQLException {
 
         String sql = "INSERT INTO delivery VALUES(?,?,?,?)";
 
@@ -23,7 +25,7 @@ public class DeliveryRepo {
         return pstm.executeUpdate() > 0;
     }
 
-    public static boolean update(Delivery delivery) throws SQLException {
+    public boolean update(Delivery delivery) throws SQLException {
 
         String sql = "UPDATE delivery SET date =?,orderId =?,vehicleNo =? WHERE deliveryId =?";
 
@@ -37,7 +39,7 @@ public class DeliveryRepo {
 
     }
 
-    public static boolean delete(String deliveryID) throws SQLException {
+    public boolean delete(String deliveryID) throws SQLException {
 
         String sql = "DELETE FROM delivery WHERE deliveryId =?";
 
@@ -47,7 +49,7 @@ public class DeliveryRepo {
         return pstm.executeUpdate() > 0;
     }
 
-    public static Delivery searchByDeliveryId(String deliveryID) throws SQLException {
+    public Delivery searchByDeliveryId(String deliveryID) throws SQLException {
         String sql = "SELECT * FROM delivery WHERE deliveryId =?";
         PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
         pstm.setObject(1,deliveryID);
@@ -63,7 +65,7 @@ public class DeliveryRepo {
         return null;
     }
 
-    public static List<Delivery> getAll() throws SQLException {
+    public List<Delivery> getAll() throws SQLException {
          String sql = "SELECT * FROM delivery";
          List<Delivery> deliveryList = new ArrayList<Delivery>();
         ResultSet resultSet = DbConnection.getInstance().getConnection().createStatement().executeQuery(sql);
@@ -77,4 +79,5 @@ public class DeliveryRepo {
         }
         return deliveryList;
     }
+
 }

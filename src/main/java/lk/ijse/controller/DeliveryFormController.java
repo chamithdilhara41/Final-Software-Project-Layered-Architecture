@@ -13,8 +13,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 import lk.ijse.dao.custom.BuyerDAO;
+import lk.ijse.dao.custom.DeliveryDAO;
 import lk.ijse.dao.custom.impl.BuyerDAOImpl;
-import lk.ijse.dao.custom.impl.DeliveryRepo;
+import lk.ijse.dao.custom.impl.DeliveryDAOImpl;
 import lk.ijse.dao.custom.impl.StockRepo;
 import lk.ijse.dao.custom.impl.VehicleRepo;
 import lk.ijse.dto.Buyer;
@@ -65,6 +66,7 @@ public class DeliveryFormController {
 
     //dependency injection
     BuyerDAO buyerDAO = new BuyerDAOImpl();
+    DeliveryDAO deliveryDAO = new DeliveryDAOImpl();
 
     public void initialize() throws SQLException {
         animateLabelTyping();
@@ -100,7 +102,7 @@ public class DeliveryFormController {
 
     private void getAllDeliveries() throws SQLException {
         ObservableList<Object> obList = FXCollections.observableArrayList();
-        List<Delivery> deliveryList = DeliveryRepo.getAll();
+        List<Delivery> deliveryList = deliveryDAO.getAll();
 
         for (Delivery delivery : deliveryList) {
             obList.add(new DeliveryTm(
@@ -151,7 +153,7 @@ public class DeliveryFormController {
         }
 
         try {
-            boolean isDeleted = DeliveryRepo.delete(deliveryID);
+            boolean isDeleted = deliveryDAO.delete(deliveryID);
             if (isDeleted) {
                 new Alert(Alert.AlertType.CONFIRMATION,"Delivery deleted!").show();
                 clearFields();
@@ -182,7 +184,7 @@ public class DeliveryFormController {
         try {
             boolean isSaved = false;
             if (isValid()) {
-                isSaved = DeliveryRepo.save(delivery);
+                isSaved = deliveryDAO.save(delivery);
             }else {
                 new Alert(Alert.AlertType.ERROR, "Please check Text Fields... ").show();
             }
@@ -215,7 +217,7 @@ public class DeliveryFormController {
         try {
             boolean isUpdated = false;
             if (isValid()) {
-                isUpdated = DeliveryRepo.update(delivery);
+                isUpdated = deliveryDAO.update(delivery);
             }else {
                 new Alert(Alert.AlertType.ERROR, "Please check Text Fields... ",ButtonType.OK).show();
             }
@@ -270,7 +272,7 @@ public class DeliveryFormController {
     void txtOnActionSearch(ActionEvent event) throws SQLException {
         String deliveryID = txtDeliveryID.getText();
 
-        Delivery delivery = DeliveryRepo.searchByDeliveryId(deliveryID);
+        Delivery delivery = deliveryDAO.searchByDeliveryId(deliveryID);
         if(delivery != null){
             new Alert(Alert.AlertType.INFORMATION, "Delivery Searched").show();
             txtDeliveryID.setText(delivery.getDeliveryId());
