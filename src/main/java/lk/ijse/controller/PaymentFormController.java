@@ -11,10 +11,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
+import lk.ijse.dao.custom.PaymentDAO;
 import lk.ijse.dto.Payment;
 import lk.ijse.dto.Supplier;
 import lk.ijse.dto.dtm.PaymentTm;
-import lk.ijse.dao.custom.impl.PaymentRepo;
+import lk.ijse.dao.custom.impl.PaymentDAOImpl;
 import lk.ijse.dao.custom.impl.SupplierRepo;
 import lk.ijse.util.Regex;
 
@@ -62,6 +63,9 @@ public class PaymentFormController {
     @FXML
     private TextField txtSupplierID;
 
+    //dependency injection
+    PaymentDAO paymentDAO = new PaymentDAOImpl();
+
     public void initialize() throws SQLException {
         animateLabelTyping();
         txtDate.setText(LocalDate.now().toString());
@@ -107,7 +111,7 @@ public class PaymentFormController {
 
     private void getAllPayments() throws SQLException {
         ObservableList<PaymentTm> obList = FXCollections.observableArrayList();
-        List<Payment> paymentList = PaymentRepo.getAll();
+        List<Payment> paymentList = paymentDAO.getAll();
 
         for (Payment payment : paymentList) {
             obList.add(new PaymentTm(
@@ -171,7 +175,7 @@ public class PaymentFormController {
         }
 
         try {
-            boolean isDeleted = PaymentRepo.delete(paymentID);
+            boolean isDeleted = paymentDAO.delete(paymentID);
             if(isDeleted){
                 new Alert(Alert.AlertType.CONFIRMATION, "Payment Deleted").show();
                 clearFields();
@@ -203,7 +207,7 @@ public class PaymentFormController {
         try {
             boolean isSaved = false;
             if (isValid()) {
-                isSaved = PaymentRepo.save(payment);
+                isSaved = paymentDAO.save(payment);
             }else {
                 new Alert(Alert.AlertType.ERROR, "Please check Text Fields... ").show();
             }
@@ -240,7 +244,7 @@ public class PaymentFormController {
         try {
             boolean isUpdated = false;
             if (isValid()) {
-                isUpdated = PaymentRepo.update(payment);
+                isUpdated = paymentDAO.update(payment);
             }else {
                 new Alert(Alert.AlertType.ERROR, "Please check Text Fields... ").show();
             }
@@ -260,7 +264,7 @@ public class PaymentFormController {
         String paymentID = txtPaymentID.getText();
 
         try {
-            Payment payment = PaymentRepo.searchByPaymentId(paymentID);
+            Payment payment = paymentDAO.searchByPaymentId(paymentID);
             if (payment != null) {
                 new Alert(Alert.AlertType.INFORMATION, "Payment Found").show();
                 txtPaymentID.setText(payment.getPaymentId());

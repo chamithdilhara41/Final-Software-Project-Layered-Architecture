@@ -8,10 +8,11 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class OrderDetailRepo {
+
     public static boolean save(List<OrderDetail> odList) throws SQLException {
         System.out.println(odList);
         for (OrderDetail od : odList) {
-            boolean isSaved = save(od);
+            boolean isSaved = saveOrderDetailsAndStocks(od);
             if(!isSaved) {
                 return false;
             }
@@ -19,7 +20,7 @@ public class OrderDetailRepo {
         return true;
     }
 
-    private static boolean save(OrderDetail od) throws SQLException {
+    private static boolean saveOrderDetailsAndStocks(OrderDetail od) throws SQLException {
         String sql = "INSERT INTO ordersstockinfo VALUES(?, ?, ?)";
 
         PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);

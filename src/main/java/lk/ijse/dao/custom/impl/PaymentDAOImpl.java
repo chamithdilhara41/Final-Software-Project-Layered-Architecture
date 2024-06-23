@@ -1,5 +1,6 @@
 package lk.ijse.dao.custom.impl;
 
+import lk.ijse.dao.custom.PaymentDAO;
 import lk.ijse.db.DbConnection;
 import lk.ijse.dto.Payment;
 
@@ -9,10 +10,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PaymentRepo {
+public class PaymentDAOImpl implements PaymentDAO {
 
+    public boolean save(Payment payment) throws SQLException {
 
-    public static boolean save(Payment payment) throws SQLException {
         String sql = "INSERT INTO payment VALUES(?,?,?,?,?);";
 
         PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
@@ -25,7 +26,7 @@ public class PaymentRepo {
         return pstm.executeUpdate() > 0;
     }
 
-    public static boolean update(Payment payment) throws SQLException {
+    public boolean update(Payment payment) throws SQLException {
         String sql ="UPDATE payment SET description=?, amount=?, date=?, supplierId=? WHERE paymentId=?;";
 
         PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
@@ -39,7 +40,7 @@ public class PaymentRepo {
 
     }
 
-    public static boolean delete(String paymentID) throws SQLException {
+    public boolean delete(String paymentID) throws SQLException {
         String sql = "DELETE FROM payment WHERE paymentId=?;";
         PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
         pstm.setObject(1, paymentID);
@@ -47,7 +48,7 @@ public class PaymentRepo {
         return pstm.executeUpdate() > 0;
     }
 
-    public static Payment searchByPaymentId(String paymentID) throws SQLException {
+    public Payment searchByPaymentId(String paymentID) throws SQLException {
         String sql = "SELECT * FROM payment WHERE paymentId=?;";
 
         PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
@@ -65,7 +66,7 @@ public class PaymentRepo {
         return null;
     }
 
-    public static List<Payment> getAll() throws SQLException {
+    public List<Payment> getAll() throws SQLException {
         String sql = "SELECT * FROM payment;";
         List<Payment> payments = new ArrayList<>();
         ResultSet resultSet = DbConnection.getInstance().getConnection().createStatement().executeQuery(sql);
@@ -80,4 +81,5 @@ public class PaymentRepo {
         }
         return payments;
     }
+
 }

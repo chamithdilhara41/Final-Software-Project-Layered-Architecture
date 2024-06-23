@@ -12,10 +12,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
+import lk.ijse.dao.custom.EmployeeDAO;
 import lk.ijse.dto.Employee;
 import lk.ijse.dto.Vehicle;
 import lk.ijse.dto.dtm.EmployeeTm;
-import lk.ijse.dao.custom.impl.EmployeeRepo;
+import lk.ijse.dao.custom.impl.EmployeeDAOImpl;
 import lk.ijse.dao.custom.impl.VehicleRepo;
 import lk.ijse.util.Regex;
 
@@ -66,6 +67,9 @@ public class EmployeeFormController {
 
     @FXML
     private TextField txtEmployeeSalary;
+
+    //dependency injection
+    EmployeeDAO employeeDAO = new EmployeeDAOImpl();
 
     public void initialize() throws SQLException {
         animateLabelTyping();
@@ -157,7 +161,7 @@ public class EmployeeFormController {
         }
 
         try {
-            boolean isDeleted = EmployeeRepo.delete(EmployeeID);
+            boolean isDeleted = employeeDAO.delete(EmployeeID);
             if(isDeleted) {
                 new Alert(Alert.AlertType.INFORMATION, "Employee deleted!").show();
                 clearFields();
@@ -194,7 +198,7 @@ public class EmployeeFormController {
         try {
             boolean isSaved = false;
             if (isValid()) {
-                isSaved = EmployeeRepo.save(employee);
+                isSaved = employeeDAO.save(employee);
             }else {
                 new Alert(Alert.AlertType.ERROR, "Please check Text Fields... ").show();
             }
@@ -232,7 +236,7 @@ public class EmployeeFormController {
         try {
             boolean isUpdated = false;
             if (isValid()) {
-                isUpdated = EmployeeRepo.update(employee);
+                isUpdated = employeeDAO.update(employee);
             }else {
                 new Alert(Alert.AlertType.ERROR, "Please check Text Fields... ",ButtonType.OK).show();
             }
@@ -251,7 +255,7 @@ public class EmployeeFormController {
     void txtOnActionSearch(ActionEvent event) throws SQLException {
         String employeeID = txtEmployeeID.getText();
 
-        Employee employee = EmployeeRepo.searchById(employeeID);
+        Employee employee = employeeDAO.searchById(employeeID);
         if (employee != null) {
             txtEmployeeID.setText(employee.getEmployeeId());
             txtEmployeeName.setText(employee.getEmployeeName());
@@ -306,7 +310,7 @@ public class EmployeeFormController {
 
     private void getAllEmployees() throws SQLException {
         ObservableList<EmployeeTm> obList = FXCollections.observableArrayList();
-        List<Employee> employeesList = EmployeeRepo.getAll();
+        List<Employee> employeesList = employeeDAO.getAll();
 
         for ( Employee employee: employeesList){
             obList.add(new EmployeeTm(

@@ -1,5 +1,6 @@
 package lk.ijse.dao.custom.impl;
 
+import lk.ijse.dao.custom.EmployeeDAO;
 import lk.ijse.db.DbConnection;
 import lk.ijse.dto.Employee;
 
@@ -10,8 +11,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeRepo {
-    public static boolean save(Employee employee) throws SQLException {
+public class EmployeeDAOImpl implements EmployeeDAO {
+
+    public boolean save(Employee employee) throws SQLException {
 
         String sql = "INSERT INTO employee values(?,?,?,?,?,?)";
 
@@ -26,7 +28,7 @@ public class EmployeeRepo {
         return pstm.executeUpdate() > 0;
     }
 
-    public static List<Employee> getAll() throws SQLException {
+    public List<Employee> getAll() throws SQLException {
         Connection con = DbConnection.getInstance().getConnection();
         String sql = "SELECT * FROM employee";
 
@@ -47,7 +49,7 @@ public class EmployeeRepo {
 
     }
 
-    public static boolean update(Employee employee) throws SQLException {
+    public boolean update(Employee employee) throws SQLException {
         String sql = "UPDATE employee SET name=?, address=?, contact=?, salary=?, vehicleNo=? WHERE employeeId = ?;";
 
         PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
@@ -61,7 +63,7 @@ public class EmployeeRepo {
         return pstm.executeUpdate() > 0;
     }
 
-    public static boolean delete(String employeeID) throws SQLException {
+    public boolean delete(String employeeID) throws SQLException {
         String sql = "DELETE FROM employee WHERE employeeId = ?";
 
         PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
@@ -70,7 +72,7 @@ public class EmployeeRepo {
         return pstm.executeUpdate() > 0;
     }
 
-    public static Employee searchById(String employeeID) throws SQLException {
+    public Employee searchById(String employeeID) throws SQLException {
         
         String sql = "SELECT * FROM employee WHERE employeeId = ?";
 
@@ -90,4 +92,5 @@ public class EmployeeRepo {
 
         return null;
     }
+
 }
