@@ -1,4 +1,4 @@
-package lk.ijse.dao;
+package lk.ijse.dao.custom.impl;
 
 import lk.ijse.db.DbConnection;
 import lk.ijse.dto.Buyer;
@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BuyerRepo {
+public class BuyerDAOImpl {
     public static boolean save(Buyer buyer) throws SQLException {
         String sql = "INSERT INTO buyer VALUES(?, ?, ?, ?, ?);";
 

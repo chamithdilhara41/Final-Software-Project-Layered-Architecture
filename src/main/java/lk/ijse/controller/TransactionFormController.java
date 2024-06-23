@@ -15,9 +15,9 @@ import javafx.util.Duration;
 import lk.ijse.dto.Buyer;
 import lk.ijse.dto.Transaction;
 import lk.ijse.dto.dtm.TransactionTm;
-import lk.ijse.dao.BuyerRepo;
-import lk.ijse.dao.OrderRepo;
-import lk.ijse.dao.TransactionRepo;
+import lk.ijse.dao.custom.impl.BuyerDAOImpl;
+import lk.ijse.dao.custom.impl.OrderRepo;
+import lk.ijse.dao.custom.impl.TransactionRepo;
 import lk.ijse.util.Regex;
 
 import java.sql.SQLException;
@@ -287,7 +287,7 @@ Regex.setTextColor(lk.ijse.util.TextField.ACCOUNTNo,txtAccountNo);
         String oId = cmbOrderID.getValue();
 
         try {
-            Buyer buyer = BuyerRepo.searchByStockIdForTransaction(oId);
+            Buyer buyer = BuyerDAOImpl.searchByStockIdForTransaction(oId);
             if(buyer != null){
                 lblBuyerName.setText(buyer.getBuyerName());
             }

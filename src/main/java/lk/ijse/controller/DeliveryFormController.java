@@ -12,11 +12,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
+import lk.ijse.dao.custom.impl.BuyerDAOImpl;
+import lk.ijse.dao.custom.impl.DeliveryRepo;
+import lk.ijse.dao.custom.impl.StockRepo;
+import lk.ijse.dao.custom.impl.VehicleRepo;
 import lk.ijse.dto.Buyer;
 import lk.ijse.dto.Delivery;
 import lk.ijse.dto.Vehicle;
 import lk.ijse.dto.dtm.DeliveryTm;
-import lk.ijse.dao.*;
 import lk.ijse.util.Regex;
 
 import java.sql.SQLException;
@@ -228,7 +231,7 @@ public class DeliveryFormController {
         String sId = cmbStockID.getValue();
 
         try {
-            Buyer buyer = BuyerRepo.searchByStockIdForTransaction(sId);
+            Buyer buyer = BuyerDAOImpl.searchByStockIdForTransaction(sId);
             if(buyer != null){
                 lblBuyerName.setText(buyer.getBuyerName());
             }else {

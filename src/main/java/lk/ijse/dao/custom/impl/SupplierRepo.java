@@ -1,4 +1,4 @@
-package lk.ijse.dao;
+package lk.ijse.dao.custom.impl;
 
 import javafx.scene.control.Alert;
 import lk.ijse.db.DbConnection;

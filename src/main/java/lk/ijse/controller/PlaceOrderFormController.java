@@ -19,10 +19,10 @@ import lk.ijse.util.AnimationUtil;
 import lk.ijse.db.DbConnection;
 import lk.ijse.dto.*;
 import lk.ijse.dto.dtm.OrderCartTm;
-import lk.ijse.dao.BuyerRepo;
-import lk.ijse.dao.OrderRepo;
-import lk.ijse.dao.PlaceOrderRepo;
-import lk.ijse.dao.StockRepo;
+import lk.ijse.dao.custom.impl.BuyerDAOImpl;
+import lk.ijse.dao.custom.impl.OrderRepo;
+import lk.ijse.dao.custom.impl.PlaceOrderRepo;
+import lk.ijse.dao.custom.impl.StockRepo;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
@@ -239,7 +239,7 @@ public class PlaceOrderFormController {
     void cmbBuyerIdOnAction(ActionEvent event) {
         String No = cmbBuyerId.getValue();
         try {
-            Buyer buyer = BuyerRepo.searchByBuyerIdForOrder(No);
+            Buyer buyer = BuyerDAOImpl.searchByBuyerIdForOrder(No);
 
             if (buyer != null) {
                 lblBuyerName.setText(buyer.getBuyerName());
@@ -277,7 +277,7 @@ public class PlaceOrderFormController {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         try {
-            List<String> NoList = BuyerRepo.getIds();
+            List<String> NoList = BuyerDAOImpl.getIds();
 
             for(String No : NoList) {
                 obList.add(No);

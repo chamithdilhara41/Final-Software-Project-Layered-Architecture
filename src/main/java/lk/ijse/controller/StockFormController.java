@@ -17,9 +17,9 @@ import lk.ijse.dto.Supplier;
 import lk.ijse.dto.SupplierStockDetail;
 import lk.ijse.dto.dtm.StockTm;
 import lk.ijse.dto.dtm.SupplierStockDetailTm;
-import lk.ijse.dao.StockRepo;
-import lk.ijse.dao.SupplierRepo;
-import lk.ijse.dao.SupplierStockDetailRepo;
+import lk.ijse.dao.custom.impl.StockRepo;
+import lk.ijse.dao.custom.impl.SupplierRepo;
+import lk.ijse.dao.custom.impl.SupplierStockDetailRepo;
 import lk.ijse.util.Regex;
 
 import java.sql.Date;

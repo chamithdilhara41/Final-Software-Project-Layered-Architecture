@@ -13,7 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 import lk.ijse.dto.Vehicle;
 import lk.ijse.dto.dtm.VehicleTm;
-import lk.ijse.dao.VehicleRepo;
+import lk.ijse.dao.custom.impl.VehicleRepo;
 import lk.ijse.util.Regex;
 
 import java.sql.SQLException;

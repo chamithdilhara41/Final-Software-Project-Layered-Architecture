@@ -24,7 +24,7 @@ import java.util.*;
 
 import javafx.scene.chart.LineChart;
 import lk.ijse.dto.dtm.OrderBuyerTm;
-import lk.ijse.dao.OrderRepo;
+import lk.ijse.dao.custom.impl.OrderRepo;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;

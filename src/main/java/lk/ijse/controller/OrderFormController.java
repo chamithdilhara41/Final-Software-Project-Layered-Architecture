@@ -18,7 +18,7 @@ import lk.ijse.util.AnimationUtil;
 import lk.ijse.dto.Order;
 import lk.ijse.dto.dtm.OrderStockTm;
 import lk.ijse.dto.dtm.OrderTm;
-import lk.ijse.dao.OrderRepo;
+import lk.ijse.dao.custom.impl.OrderRepo;
 
 import java.io.IOException;
 import java.sql.SQLException;

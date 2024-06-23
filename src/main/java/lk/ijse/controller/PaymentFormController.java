@@ -14,8 +14,8 @@ import javafx.util.Duration;
 import lk.ijse.dto.Payment;
 import lk.ijse.dto.Supplier;
 import lk.ijse.dto.dtm.PaymentTm;
-import lk.ijse.dao.PaymentRepo;
-import lk.ijse.dao.SupplierRepo;
+import lk.ijse.dao.custom.impl.PaymentRepo;
+import lk.ijse.dao.custom.impl.SupplierRepo;
 import lk.ijse.util.Regex;
 
 import java.sql.SQLException;

@@ -14,7 +14,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 import lk.ijse.dto.Supplier;
 import lk.ijse.dto.dtm.SupplierTm;
-import lk.ijse.dao.SupplierRepo;
+import lk.ijse.dao.custom.impl.SupplierRepo;
 import lk.ijse.util.Regex;
 
 import java.sql.SQLException;
