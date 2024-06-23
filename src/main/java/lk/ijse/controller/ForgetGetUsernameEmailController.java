@@ -18,6 +18,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import lk.ijse.db.DbConnection;
+import lk.ijse.util.JavaMailUtil;
 
 import java.io.IOException;
 import java.sql.PreparedStatement;

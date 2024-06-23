@@ -1,4 +1,4 @@
-package lk.ijse.controller;
+package lk.ijse.util;
 import javafx.scene.control.Alert;
 
 import javax.mail.*;
