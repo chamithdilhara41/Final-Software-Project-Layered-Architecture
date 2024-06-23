@@ -13,7 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 import lk.ijse.dao.custom.VehicleDAO;
 import lk.ijse.dto.Vehicle;
-import lk.ijse.dto.dtm.VehicleTm;
+import lk.ijse.dto.tdm.VehicleTm;
 import lk.ijse.dao.custom.impl.VehicleDAOImpl;
 import lk.ijse.util.Regex;
 

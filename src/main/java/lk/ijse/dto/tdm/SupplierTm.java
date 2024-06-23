@@ -1,4 +1,4 @@
-package lk.ijse.dto.dtm;
+package lk.ijse.dto.tdm;
 
 import lombok.*;
 

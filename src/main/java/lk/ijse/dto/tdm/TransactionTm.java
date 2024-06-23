@@ -1,4 +1,4 @@
-package lk.ijse.dto.dtm;
+package lk.ijse.dto.tdm;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,10 +8,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 
-public class PaymentTm {
-    private String paymentId;
+public class TransactionTm {
+    private String transactionId;
+    private String orderId;
+    private String accountNo;
     private String description;
     private Double amount;
     private String date;
-    private String supplierId;
+    private String method;
 }

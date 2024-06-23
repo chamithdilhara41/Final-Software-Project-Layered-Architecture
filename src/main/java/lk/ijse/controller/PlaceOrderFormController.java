@@ -16,14 +16,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import lk.ijse.dao.custom.BuyerDAO;
+import lk.ijse.dao.custom.OrderDAO;
+import lk.ijse.dao.custom.PlaceOrderDAO;
+import lk.ijse.dao.custom.StockDAO;
+import lk.ijse.dao.custom.impl.*;
 import lk.ijse.util.AnimationUtil;
 import lk.ijse.db.DbConnection;
 import lk.ijse.dto.*;
-import lk.ijse.dto.dtm.OrderCartTm;
-import lk.ijse.dao.custom.impl.BuyerDAOImpl;
-import lk.ijse.dao.custom.impl.OrderRepo;
-import lk.ijse.dao.custom.impl.PlaceOrderRepo;
-import lk.ijse.dao.custom.impl.StockRepo;
+import lk.ijse.dto.tdm.OrderCartTm;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
@@ -87,6 +87,10 @@ public class PlaceOrderFormController {
 
     //dependency injection
     BuyerDAO buyerDAO = new BuyerDAOImpl();
+    StockDAO stockDAO = new StockDAOImpl();
+    OrderDAO orderDAO = new OrderDAOImpl();
+    PlaceOrderDAO placeOrderDAO = new PlaceOrderDAOImpl();
+
 
     public void initialize() {
         animateLabelTyping();
@@ -183,7 +187,7 @@ public class PlaceOrderFormController {
 
         try {
 
-            boolean isPlaced = PlaceOrderRepo.placeOrder(po);
+            boolean isPlaced = placeOrderDAO.placeOrder(po);
             if(isPlaced) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Order Placed!",ButtonType.OK).show();
                 getStockIds();
@@ -262,7 +266,7 @@ public class PlaceOrderFormController {
     void cmbStockIdOnAction(ActionEvent event) {
         String No = cmbStockID.getValue();
         try {
-            Stock stock = StockRepo.searchByStockIdForOrder(No);
+            Stock stock = stockDAO.searchByStockIdForOrder(No);
 
             if (stock != null) {
                 lblStockWeight.setText(String.valueOf(stock.getWeight()));
@@ -298,7 +302,7 @@ public class PlaceOrderFormController {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         try {
-            List<String> NoList = StockRepo.getIds();
+            List<String> NoList = stockDAO.getIds();
 
             for(String No : NoList) {
                 obList.add(No);
@@ -313,7 +317,7 @@ public class PlaceOrderFormController {
 
     private void getCurrentOrderId() {
         try {
-            String currentId = OrderRepo.getCurrentId();
+            String currentId = orderDAO.getCurrentId();
 
             String nextOrderId = generateNextOrderId(currentId);
             lblOrderID.setText(nextOrderId);

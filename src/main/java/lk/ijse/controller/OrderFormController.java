@@ -14,11 +14,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import lk.ijse.dao.custom.OrderDAO;
 import lk.ijse.util.AnimationUtil;
 import lk.ijse.dto.Order;
-import lk.ijse.dto.dtm.OrderStockTm;
-import lk.ijse.dto.dtm.OrderTm;
-import lk.ijse.dao.custom.impl.OrderRepo;
+import lk.ijse.dto.tdm.OrderStockTm;
+import lk.ijse.dto.tdm.OrderTm;
+import lk.ijse.dao.custom.impl.OrderDAOImpl;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -68,6 +69,9 @@ public class OrderFormController {
     @FXML
     private TextField txtOrderID;
 
+    //dependency injection
+    OrderDAO orderDAO = new OrderDAOImpl();
+
     public void initialize() throws SQLException {
         getAllOrders();
         setCellValueFactoryOrders();
@@ -80,7 +84,7 @@ public class OrderFormController {
 
     private void getAllOrderStocks() throws SQLException {
         ObservableList<OrderStockTm> obList = FXCollections.observableArrayList();
-        List<OrderStockTm> OrderStockList = OrderRepo.getAllOrderStocks();
+        List<OrderStockTm> OrderStockList = orderDAO.getAllOrderStocks();
         for ( OrderStockTm OrderStock: OrderStockList){
             obList.add(new OrderStockTm(
                     OrderStock.getStockID(),
@@ -104,7 +108,7 @@ public class OrderFormController {
 
     private void getAllOrders() throws SQLException {
         ObservableList<OrderTm> obList = FXCollections.observableArrayList();
-        List<Order> ordersList = OrderRepo.getAll();
+        List<Order> ordersList = orderDAO.getAll();
 
         for ( Order order: ordersList){
             obList.add(new OrderTm(

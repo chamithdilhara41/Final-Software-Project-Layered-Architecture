@@ -1,5 +1,6 @@
 package lk.ijse.dao.custom.impl;
 
+import lk.ijse.dao.custom.StockDAO;
 import lk.ijse.db.DbConnection;
 import lk.ijse.dto.Stock;
 
@@ -10,9 +11,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StockRepo {
+public class StockDAOImpl implements StockDAO {
 
-    public static boolean save(Stock stock) throws SQLException {
+    public boolean save(Stock stock) throws SQLException {
         String sql = "insert into stock values(?,?,?,'active')";
 
         PreparedStatement pstm = DbConnection.getInstance().getConnection()
@@ -24,7 +25,7 @@ public class StockRepo {
         return pstm.executeUpdate() > 0;
     }
 
-    public static List<Stock> getAll() throws SQLException {
+    public List<Stock> getAll() throws SQLException {
         String sql = "select * from stock";
 
         List<Stock> data = new ArrayList<Stock>();
@@ -40,7 +41,7 @@ public class StockRepo {
         return data;
     }
 
-    public static boolean updateWeight(String stockID, String supplierID, Double weight) throws SQLException {
+    public boolean updateWeight(String stockID, String supplierID, Double weight) throws SQLException {
         String sql = "update stock set TotalWeight = TotalWeight + ? where stockID = ?";
 
         PreparedStatement pstm = DbConnection.getInstance().getConnection()
@@ -51,7 +52,7 @@ public class StockRepo {
         return pstm.executeUpdate() > 0;
     }
 
-    public static List<String> getIds() throws SQLException {
+    public List<String> getIds() throws SQLException {
         String sql = "SELECT stockId FROM stock WHERE status ='active'";
 
         PreparedStatement pstm = DbConnection.getInstance().getConnection()
@@ -67,7 +68,7 @@ public class StockRepo {
         return idList;
     }
 
-    public static Stock searchByStockIdForOrder(String no) throws SQLException {
+    public Stock searchByStockIdForOrder(String no) throws SQLException {
         String sql = "select * from stock where stockID = ?";
 
         PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
@@ -83,7 +84,7 @@ public class StockRepo {
         return null;
     }
 
-    public static boolean delete(String stockID) throws SQLException {
+    public boolean delete(String stockID) throws SQLException {
 
         String sql = "delete from stock where stockID = ?";
 
@@ -92,4 +93,5 @@ public class StockRepo {
         return pstm.executeUpdate() > 0;
 
     }
+
 }

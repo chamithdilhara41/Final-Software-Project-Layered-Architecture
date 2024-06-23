@@ -1,5 +1,6 @@
 package lk.ijse.dao.custom.impl;
 
+import lk.ijse.dao.custom.OrderDetailDAO;
 import lk.ijse.db.DbConnection;
 import lk.ijse.dto.OrderDetail;
 
@@ -7,9 +8,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
-public class OrderDetailRepo {
+public class OrderDetailDAOImpl implements OrderDetailDAO {
 
-    public static boolean save(List<OrderDetail> odList) throws SQLException {
+    public boolean save(List<OrderDetail> odList) throws SQLException {
         System.out.println(odList);
         for (OrderDetail od : odList) {
             boolean isSaved = saveOrderDetailsAndStocks(od);
@@ -20,7 +21,7 @@ public class OrderDetailRepo {
         return true;
     }
 
-    private static boolean saveOrderDetailsAndStocks(OrderDetail od) throws SQLException {
+    public boolean saveOrderDetailsAndStocks(OrderDetail od) throws SQLException {
         String sql = "INSERT INTO ordersstockinfo VALUES(?, ?, ?)";
 
         PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
@@ -40,4 +41,5 @@ public class OrderDetailRepo {
         return pstm.executeUpdate() > 0 ;    //false ->  |
 
     }
+
 }

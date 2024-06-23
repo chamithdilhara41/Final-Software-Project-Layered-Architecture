@@ -1,8 +1,9 @@
 package lk.ijse.dao.custom.impl;
 
+import lk.ijse.dao.custom.SupplierStockDetailDAO;
 import lk.ijse.db.DbConnection;
 import lk.ijse.dto.SupplierStockDetail;
-import lk.ijse.dto.dtm.SupplierStockDetailTm;
+import lk.ijse.dto.tdm.SupplierStockDetailTm;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,9 +11,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SupplierStockDetailRepo {
+public class SupplierStockDetailDAOImpl implements SupplierStockDetailDAO {
 
-    public static boolean save(SupplierStockDetail supplierStockDetail) throws SQLException {
+    public boolean save(SupplierStockDetail supplierStockDetail) throws SQLException {
         String sql = "insert into supplierstockinfo values(?,?,?)";
 
         PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
@@ -23,7 +24,7 @@ public class SupplierStockDetailRepo {
         return pstm.executeUpdate() > 0;
     }
 
-    public static List<SupplierStockDetailTm> searchSuppliersWithStockId(String stockID) throws SQLException {
+    public List<SupplierStockDetailTm> searchSuppliersWithStockId(String stockID) throws SQLException {
         String sql = "SELECT s.supplierId, s.name, si.Weight FROM supplier s JOIN supplierstockinfo si ON s.supplierId = si.supplierId WHERE si.stockId = ?;";
         List<SupplierStockDetailTm> data = new ArrayList<>();
 
@@ -39,4 +40,5 @@ public class SupplierStockDetailRepo {
         }
         return data;
     }
+
 }

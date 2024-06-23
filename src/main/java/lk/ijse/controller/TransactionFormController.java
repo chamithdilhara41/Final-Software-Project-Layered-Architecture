@@ -13,12 +13,13 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 import lk.ijse.dao.custom.BuyerDAO;
+import lk.ijse.dao.custom.OrderDAO;
 import lk.ijse.dao.custom.TransactionDAO;
 import lk.ijse.dto.Buyer;
 import lk.ijse.dto.Transaction;
-import lk.ijse.dto.dtm.TransactionTm;
+import lk.ijse.dto.tdm.TransactionTm;
 import lk.ijse.dao.custom.impl.BuyerDAOImpl;
-import lk.ijse.dao.custom.impl.OrderRepo;
+import lk.ijse.dao.custom.impl.OrderDAOImpl;
 import lk.ijse.dao.custom.impl.TransactionDAOImpl;
 import lk.ijse.util.Regex;
 
@@ -81,6 +82,7 @@ public class TransactionFormController {
     //dependency injection
     BuyerDAO buyerDAO = new BuyerDAOImpl();
     TransactionDAO transactionDAO = new TransactionDAOImpl();
+    OrderDAO orderDAO = new OrderDAOImpl();
 
 
     public void initialize() throws SQLException {
@@ -332,7 +334,7 @@ Regex.setTextColor(lk.ijse.util.TextField.ACCOUNTNo,txtAccountNo);
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         try {
-            List<String> NoList = OrderRepo.getIds();
+            List<String> NoList = orderDAO.getIds();
 
             for(String No : NoList) {
                 obList.add(No);

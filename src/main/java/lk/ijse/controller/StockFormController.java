@@ -12,15 +12,17 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
+import lk.ijse.dao.custom.StockDAO;
 import lk.ijse.dao.custom.SupplierDAO;
+import lk.ijse.dao.custom.SupplierStockDetailDAO;
 import lk.ijse.dto.Stock;
 import lk.ijse.dto.Supplier;
 import lk.ijse.dto.SupplierStockDetail;
-import lk.ijse.dto.dtm.StockTm;
-import lk.ijse.dto.dtm.SupplierStockDetailTm;
-import lk.ijse.dao.custom.impl.StockRepo;
+import lk.ijse.dto.tdm.StockTm;
+import lk.ijse.dto.tdm.SupplierStockDetailTm;
+import lk.ijse.dao.custom.impl.StockDAOImpl;
 import lk.ijse.dao.custom.impl.SupplierDAOImpl;
-import lk.ijse.dao.custom.impl.SupplierStockDetailRepo;
+import lk.ijse.dao.custom.impl.SupplierStockDetailDAOImpl;
 import lk.ijse.util.Regex;
 
 import java.sql.Date;
@@ -76,6 +78,8 @@ public class StockFormController {
 
     //dependency injection
     SupplierDAO supplierDAO = new SupplierDAOImpl();
+    SupplierStockDetailDAO supplierStockDetailDAO = new SupplierStockDetailDAOImpl();
+    StockDAO stockDAO = new StockDAOImpl();
 
     public void initialize() throws SQLException {
         animateLabelTyping();
@@ -120,7 +124,7 @@ public class StockFormController {
 
     private void getAllStocks() throws SQLException {
         ObservableList<StockTm> obList = FXCollections.observableArrayList();
-        List<Stock> stocksList = StockRepo.getAll();
+        List<Stock> stocksList = stockDAO.getAll();
 
         for (Stock t : stocksList) {
             obList.add(new StockTm(
@@ -145,7 +149,7 @@ public class StockFormController {
         String stockID = colStockID.getCellData(index).toString();
         ObservableList<SupplierStockDetailTm> obList = FXCollections.observableArrayList();
 
-        List<SupplierStockDetailTm> supplierStockDetail = SupplierStockDetailRepo.searchSuppliersWithStockId(stockID);
+        List<SupplierStockDetailTm> supplierStockDetail = supplierStockDetailDAO.searchSuppliersWithStockId(stockID);
 
             for (SupplierStockDetailTm No : supplierStockDetail) {
                 obList.add(new SupplierStockDetailTm(
@@ -173,7 +177,7 @@ public class StockFormController {
         String stockID = txtStockID.getText();
 
         try {
-            boolean isDeleted = StockRepo.delete(stockID);
+            boolean isDeleted = stockDAO.delete(stockID);
             if (isDeleted) {
                 getAllStocks();
                 setCellValueFactoryForStocks();
@@ -196,7 +200,7 @@ public class StockFormController {
             String stockID = txtSuppliersStockID.getText();
             ObservableList<SupplierStockDetailTm> obList = FXCollections.observableArrayList();
 
-            List<SupplierStockDetailTm> supplierStockDetail = SupplierStockDetailRepo.searchSuppliersWithStockId(stockID);
+            List<SupplierStockDetailTm> supplierStockDetail = supplierStockDetailDAO.searchSuppliersWithStockId(stockID);
 
             if (supplierStockDetail.isEmpty()) {
                 new Alert(Alert.AlertType.ERROR, "Suppliers not found").show();
@@ -241,14 +245,14 @@ public class StockFormController {
         try {
             boolean issaved1 = false;
             if (isValid()) {
-                issaved1 = StockRepo.save(stock);
+                issaved1 = stockDAO.save(stock);
             }else {
                 new Alert(Alert.AlertType.ERROR, "Please check Text Fields... ").show();
             }
             boolean isSaved = false;
                 if (issaved1 ) {
                     if (isValid()) {
-                        isSaved = SupplierStockDetailRepo.save(supplierStockDetail);
+                        isSaved = supplierStockDetailDAO.save(supplierStockDetail);
                     }else {
                         new Alert(Alert.AlertType.ERROR, "Please check Text Fields... ").show();
                     }
@@ -263,10 +267,10 @@ public class StockFormController {
                 }
             } catch (SQLException e) {
 
-            boolean isUpdateWeight = StockRepo.updateWeight(stockID,supplierID, Double.valueOf(weight));
+            boolean isUpdateWeight = stockDAO.updateWeight(stockID,supplierID, Double.valueOf(weight));
             if (isUpdateWeight) {
 
-                boolean fuck = SupplierStockDetailRepo.save(supplierStockDetail);
+                boolean fuck = supplierStockDetailDAO.save(supplierStockDetail);
                 if (fuck) {
                     new Alert(Alert.AlertType.INFORMATION, " weight updated!").show();
                     getAllStocks();
@@ -287,7 +291,7 @@ public class StockFormController {
 
         Stock stock = new Stock(stockID, weight, date);
         try {
-            boolean isSaved = StockRepo.save(stock);
+            boolean isSaved = stockDAO.save(stock);
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }

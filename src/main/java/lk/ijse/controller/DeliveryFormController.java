@@ -14,15 +14,16 @@ import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 import lk.ijse.dao.custom.BuyerDAO;
 import lk.ijse.dao.custom.DeliveryDAO;
+import lk.ijse.dao.custom.StockDAO;
 import lk.ijse.dao.custom.VehicleDAO;
 import lk.ijse.dao.custom.impl.BuyerDAOImpl;
 import lk.ijse.dao.custom.impl.DeliveryDAOImpl;
-import lk.ijse.dao.custom.impl.StockRepo;
+import lk.ijse.dao.custom.impl.StockDAOImpl;
 import lk.ijse.dao.custom.impl.VehicleDAOImpl;
 import lk.ijse.dto.Buyer;
 import lk.ijse.dto.Delivery;
 import lk.ijse.dto.Vehicle;
-import lk.ijse.dto.dtm.DeliveryTm;
+import lk.ijse.dto.tdm.DeliveryTm;
 import lk.ijse.util.Regex;
 
 import java.sql.SQLException;
@@ -69,6 +70,7 @@ public class DeliveryFormController {
     BuyerDAO buyerDAO = new BuyerDAOImpl();
     DeliveryDAO deliveryDAO = new DeliveryDAOImpl();
     VehicleDAO vehicleDAO = new VehicleDAOImpl();
+    StockDAO stockDAO = new StockDAOImpl();
 
     public void initialize() throws SQLException {
         animateLabelTyping();
@@ -309,7 +311,7 @@ public class DeliveryFormController {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         try {
-            List<String> NoList = StockRepo.getIds();
+            List<String> NoList = stockDAO.getIds();
 
             for(String No : NoList) {
                 obList.add(No);

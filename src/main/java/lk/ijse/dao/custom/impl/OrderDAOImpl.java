@@ -1,9 +1,10 @@
 package lk.ijse.dao.custom.impl;
 
+import lk.ijse.dao.custom.OrderDAO;
 import lk.ijse.db.DbConnection;
 import lk.ijse.dto.Order;
-import lk.ijse.dto.dtm.OrderBuyerTm;
-import lk.ijse.dto.dtm.OrderStockTm;
+import lk.ijse.dto.tdm.OrderBuyerTm;
+import lk.ijse.dto.tdm.OrderStockTm;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,9 +13,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderRepo {
+public class OrderDAOImpl implements OrderDAO {
 
-    public static boolean save(Order order) throws SQLException {
+    public boolean save(Order order) throws SQLException {
         String sql = "INSERT INTO orders VALUES (?,?);";
 
         PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
@@ -24,7 +25,7 @@ public class OrderRepo {
         return pstm.executeUpdate() > 0;
     }
 
-    public static boolean update(Order order) throws SQLException {
+    public boolean update(Order order) throws SQLException {
         String sql = "UPDATE orders SET date = ? WHERE orderId = ?;";
 
         PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
@@ -34,7 +35,7 @@ public class OrderRepo {
         return pstm.executeUpdate() > 0;
     }
 
-    public static boolean delete(String orderID) throws SQLException {
+    public boolean delete(String orderID) throws SQLException {
         String sql = "DELETE FROM orders WHERE orderId = ?;";
 
         PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
@@ -44,7 +45,7 @@ public class OrderRepo {
     }
 
 
-    public static List<Order> getAll() throws SQLException {
+    public List<Order> getAll() throws SQLException {
         Connection con = DbConnection.getInstance().getConnection();
         String sql = "SELECT * FROM orders";
 
@@ -60,7 +61,7 @@ public class OrderRepo {
         return data;
     }
 
-    public static List<String> getIds() throws SQLException {
+    public List<String> getIds() throws SQLException {
         String sql = "SELECT orderId FROM orders";
 
         PreparedStatement pstm = DbConnection.getInstance().getConnection()
@@ -76,7 +77,7 @@ public class OrderRepo {
         return idList;
     }
 
-    public static String getCurrentId() throws SQLException {
+    public String getCurrentId() throws SQLException {
         String sql = "SELECT orderId FROM orders ORDER BY orderId DESC LIMIT 1";
         PreparedStatement pstm = DbConnection.getInstance().getConnection()
                 .prepareStatement(sql);
@@ -89,7 +90,7 @@ public class OrderRepo {
         return null;
     }
 
-    public static List<OrderStockTm> getAllOrderStocks() throws SQLException {
+    public List<OrderStockTm> getAllOrderStocks() throws SQLException {
         Connection con = DbConnection.getInstance().getConnection();
         String sql = "SELECT * FROM ordersstockinfo";
 
@@ -106,7 +107,7 @@ public class OrderRepo {
         return data;
     }
 
-    public static List<OrderBuyerTm> getAllOrderBuyerNames() throws SQLException {
+    public List<OrderBuyerTm> getAllOrderBuyerNames() throws SQLException {
         String sql = "SELECT DISTINCT osi.orderId, b.name AS buyerName FROM ordersstockinfo osi JOIN buyer b ON osi.buyerId = b.buyerId;";
         Connection con = DbConnection.getInstance().getConnection();
 
@@ -121,4 +122,5 @@ public class OrderRepo {
         }
         return data;
     }
+
 }

@@ -14,6 +14,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
+import lk.ijse.dao.custom.OrderDAO;
 import lk.ijse.db.DbConnection;
 
 import java.sql.Connection;
@@ -23,8 +24,8 @@ import java.sql.SQLException;
 import java.util.*;
 
 import javafx.scene.chart.LineChart;
-import lk.ijse.dto.dtm.OrderBuyerTm;
-import lk.ijse.dao.custom.impl.OrderRepo;
+import lk.ijse.dto.tdm.OrderBuyerTm;
+import lk.ijse.dao.custom.impl.OrderDAOImpl;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
@@ -65,6 +66,9 @@ public class DashboardFormController {
 
     @FXML
     private LineChart<?, ?> LineChart;
+
+    //dependency injection
+    OrderDAO orderDAO = new OrderDAOImpl();
 
     public void initialize() throws SQLException {
         LineChar();
@@ -158,7 +162,7 @@ public class DashboardFormController {
 
     private void getAllOrderBuyerNames() throws SQLException {
         ObservableList<OrderBuyerTm> obList = FXCollections.observableArrayList();
-        List<OrderBuyerTm> ordersList = OrderRepo.getAllOrderBuyerNames();
+        List<OrderBuyerTm> ordersList = orderDAO.getAllOrderBuyerNames();
 
         for ( OrderBuyerTm order: ordersList){
             obList.add(new OrderBuyerTm(
