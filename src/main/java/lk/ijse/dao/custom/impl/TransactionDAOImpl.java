@@ -1,5 +1,6 @@
 package lk.ijse.dao.custom.impl;
 
+import lk.ijse.dao.custom.TransactionDAO;
 import lk.ijse.db.DbConnection;
 import lk.ijse.dto.Transaction;
 import java.sql.Connection;
@@ -9,8 +10,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TransactionRepo {
-    public static boolean save(Transaction transaction) throws SQLException {
+public class TransactionDAOImpl implements TransactionDAO {
+
+    public boolean save(Transaction transaction) throws SQLException {
         String sql = "insert into transection values(?,?,?,?,?,?,?)";
 
         PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
@@ -25,7 +27,7 @@ public class TransactionRepo {
         return pstm.executeUpdate() > 0;
     }
 
-    public static boolean update(Transaction transaction) throws SQLException {
+    public boolean update(Transaction transaction) throws SQLException {
         String sql = "UPDATE transection SET description = ?,amount = ?,date = ?,accountNo = ?,method = ?,orderId = ? WHERE transectionId = ?";
 
         PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
@@ -41,7 +43,7 @@ public class TransactionRepo {
 
     }
 
-    public static boolean delete(String transactionID) throws SQLException {
+    public boolean delete(String transactionID) throws SQLException {
         String sql = "DELETE FROM transection WHERE transectionId = ?";
 
         PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
@@ -50,7 +52,7 @@ public class TransactionRepo {
         return pstm.executeUpdate() > 0;
     }
 
-    public static List<Transaction> getAll() throws SQLException {
+    public List<Transaction> getAll() throws SQLException {
         Connection con = DbConnection.getInstance().getConnection();
         String sql = "select * from transection";
         List<Transaction> data = new ArrayList<>();
@@ -69,7 +71,7 @@ public class TransactionRepo {
         return data;
     }
 
-    public static Transaction searchByTransactionId(String transactionID) throws SQLException {
+    public Transaction searchByTransactionId(String transactionID) throws SQLException {
         String sql = "select * from transection where transectionId = ?";
         PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
         pstm.setObject(1, transactionID);
@@ -87,4 +89,5 @@ public class TransactionRepo {
         }
         return null;
     }
+
 }

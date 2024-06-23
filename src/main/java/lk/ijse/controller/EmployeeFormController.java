@@ -13,11 +13,12 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 import lk.ijse.dao.custom.EmployeeDAO;
+import lk.ijse.dao.custom.VehicleDAO;
 import lk.ijse.dto.Employee;
 import lk.ijse.dto.Vehicle;
 import lk.ijse.dto.dtm.EmployeeTm;
 import lk.ijse.dao.custom.impl.EmployeeDAOImpl;
-import lk.ijse.dao.custom.impl.VehicleRepo;
+import lk.ijse.dao.custom.impl.VehicleDAOImpl;
 import lk.ijse.util.Regex;
 
 import java.sql.SQLException;
@@ -70,6 +71,7 @@ public class EmployeeFormController {
 
     //dependency injection
     EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+    VehicleDAO vehicleDAO = new VehicleDAOImpl();
 
     public void initialize() throws SQLException {
         animateLabelTyping();
@@ -276,7 +278,7 @@ public class EmployeeFormController {
     public void cmbVehicleNoOnAction(ActionEvent actionEvent) {
         String No = cmbVehicleNo.getValue();
         try {
-            Vehicle vehicle = VehicleRepo.searchByVehicleNoForEmp(No);
+            Vehicle vehicle = vehicleDAO.searchByVehicleNoForEmp(No);
 
             if (vehicle != null) {
                 lblVehicleType.setText(vehicle.getVehicleType());
@@ -295,7 +297,7 @@ public class EmployeeFormController {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         try {
-            List<String> NoList = VehicleRepo.getNos();
+            List<String> NoList = vehicleDAO.getNos();
 
             for(String No : NoList) {
                 obList.add(No);

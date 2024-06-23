@@ -11,9 +11,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
+import lk.ijse.dao.custom.VehicleDAO;
 import lk.ijse.dto.Vehicle;
 import lk.ijse.dto.dtm.VehicleTm;
-import lk.ijse.dao.custom.impl.VehicleRepo;
+import lk.ijse.dao.custom.impl.VehicleDAOImpl;
 import lk.ijse.util.Regex;
 
 import java.sql.SQLException;
@@ -37,6 +38,9 @@ public class VehicleFormController {
 
     @FXML
     private TextField txtVehicleType;
+
+    //dependency injection
+    VehicleDAO vehicleDAO = new VehicleDAOImpl();
 
     public void initialize() throws SQLException {
         animateLabelTyping();
@@ -89,7 +93,7 @@ public class VehicleFormController {
         }
 
         try {
-            boolean isDeleted = VehicleRepo.delete(vehicleNo);
+            boolean isDeleted = vehicleDAO.delete(vehicleNo);
             if (isDeleted){
                 new Alert(Alert.AlertType.INFORMATION , "Vehicle Deleted").showAndWait();
                 clearFields();
@@ -119,7 +123,7 @@ public class VehicleFormController {
         try {
             boolean isSaved = false;
             if (isValid()) {
-                isSaved = VehicleRepo.save(vehicle);
+                isSaved = vehicleDAO.save(vehicle);
             }else {
                 new Alert(Alert.AlertType.ERROR, "Please check Text Fields... ").show();
             }
@@ -141,7 +145,7 @@ public class VehicleFormController {
 
     private void getAllVehicles() throws SQLException {
         ObservableList<VehicleTm> obList = FXCollections.observableArrayList();
-        List<Vehicle> vehiclesList = VehicleRepo.getAll();
+        List<Vehicle> vehiclesList = vehicleDAO.getAll();
 
         for ( Vehicle vehicle: vehiclesList){
             obList.add(new VehicleTm(
@@ -167,7 +171,7 @@ public class VehicleFormController {
         try {
             boolean isUpdated = false;
             if (isValid()) {
-                isUpdated = VehicleRepo.update(vehicle);
+                isUpdated = vehicleDAO.update(vehicle);
             }else {
                 new Alert(Alert.AlertType.ERROR, "Please check Text Fields... ").show();
             }
@@ -185,7 +189,7 @@ public class VehicleFormController {
     void txtOnActionSearch(ActionEvent event) throws SQLException {
         String vehicleNo = txtVehicleNo.getText();
 
-        Vehicle vehicle = VehicleRepo.searchByVehicleNo(vehicleNo);
+        Vehicle vehicle = vehicleDAO.searchByVehicleNo(vehicleNo);
 
         if(vehicle != null) {
             txtVehicleNo.setText(vehicle.getVehicleNo());

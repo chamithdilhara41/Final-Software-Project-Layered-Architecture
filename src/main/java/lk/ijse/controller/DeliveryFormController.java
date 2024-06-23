@@ -14,10 +14,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 import lk.ijse.dao.custom.BuyerDAO;
 import lk.ijse.dao.custom.DeliveryDAO;
+import lk.ijse.dao.custom.VehicleDAO;
 import lk.ijse.dao.custom.impl.BuyerDAOImpl;
 import lk.ijse.dao.custom.impl.DeliveryDAOImpl;
 import lk.ijse.dao.custom.impl.StockRepo;
-import lk.ijse.dao.custom.impl.VehicleRepo;
+import lk.ijse.dao.custom.impl.VehicleDAOImpl;
 import lk.ijse.dto.Buyer;
 import lk.ijse.dto.Delivery;
 import lk.ijse.dto.Vehicle;
@@ -67,6 +68,7 @@ public class DeliveryFormController {
     //dependency injection
     BuyerDAO buyerDAO = new BuyerDAOImpl();
     DeliveryDAO deliveryDAO = new DeliveryDAOImpl();
+    VehicleDAO vehicleDAO = new VehicleDAOImpl();
 
     public void initialize() throws SQLException {
         animateLabelTyping();
@@ -252,7 +254,7 @@ public class DeliveryFormController {
     void cmbVehicleNoOnAction(ActionEvent event) {
         String No = cmbVehicleNo.getValue();
         try {
-            Vehicle vehicle = VehicleRepo.searchByVehicleNoForEmp(No);
+            Vehicle vehicle = vehicleDAO.searchByVehicleNoForEmp(No);
 
             if (vehicle != null) {
                 lblVehicleType.setText(vehicle.getVehicleType());
@@ -290,7 +292,7 @@ public class DeliveryFormController {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         try {
-            List<String> NoList = VehicleRepo.getNos();
+            List<String> NoList = vehicleDAO.getNos();
 
             for(String No : NoList) {
                 obList.add(No);

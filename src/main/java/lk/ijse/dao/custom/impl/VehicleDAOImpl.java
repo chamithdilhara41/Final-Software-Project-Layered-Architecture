@@ -1,6 +1,7 @@
 package lk.ijse.dao.custom.impl;
 
 import javafx.scene.control.Alert;
+import lk.ijse.dao.custom.VehicleDAO;
 import lk.ijse.db.DbConnection;
 import lk.ijse.dto.Vehicle;
 import org.jetbrains.annotations.Nullable;
@@ -12,9 +13,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VehicleRepo {
+public class VehicleDAOImpl implements VehicleDAO {
 
-    public static boolean save(Vehicle vehicle) throws SQLException {
+    public boolean save(Vehicle vehicle) throws SQLException {
         String sql = "INSERT INTO vehicle VALUES(?, ?);";
 
         PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
@@ -25,7 +26,7 @@ public class VehicleRepo {
         return pstm.executeUpdate() > 0;
     }
 
-    public static List<Vehicle> getAll() throws SQLException {
+    public List<Vehicle> getAll() throws SQLException {
         Connection con = DbConnection.getInstance().getConnection();
         String sql = "SELECT * FROM vehicle";
 
@@ -41,7 +42,7 @@ public class VehicleRepo {
         return data;
     }
 
-    public static boolean update(Vehicle vehicle) throws SQLException {
+    public boolean update(Vehicle vehicle) throws SQLException {
         String sql = "UPDATE vehicle SET type = ? WHERE vehicleNo = ?;";
 
         Connection connection = DbConnection.getInstance().getConnection();
@@ -52,7 +53,7 @@ public class VehicleRepo {
         return pstm.executeUpdate() > 0;
     }
 
-    public static Vehicle searchByVehicleNo(String vehicleNO) throws SQLException {
+    public Vehicle searchByVehicleNo(String vehicleNO) throws SQLException {
 
         String sql = "SELECT * FROM vehicle WHERE vehicleNo = ?;";
 
@@ -69,9 +70,7 @@ public class VehicleRepo {
         return null;
     }
 
-
-    @Nullable
-    public static Vehicle searchByVehicleNoForEmp(String vehicleNO) throws SQLException {
+    public Vehicle searchByVehicleNoForEmp(String vehicleNO) throws SQLException {
 
         String sql = "SELECT * FROM vehicle WHERE vehicleNo = ?;";
 
@@ -87,7 +86,7 @@ public class VehicleRepo {
         return null;
     }
 
-    public static boolean delete(String vehicleNo) throws SQLException {
+    public boolean delete(String vehicleNo) throws SQLException {
         String sql = "DELETE FROM vehicle WHERE vehicleNo = ?;";
 
         PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
@@ -96,7 +95,7 @@ public class VehicleRepo {
         return pstm.executeUpdate() > 0;
     }
 
-    public static List<String> getNos() throws SQLException {
+    public List<String> getNos() throws SQLException {
 
         String sql = "SELECT vehicleNo FROM vehicle";
 
@@ -112,4 +111,5 @@ public class VehicleRepo {
         }
         return idList;
     }
+
 }

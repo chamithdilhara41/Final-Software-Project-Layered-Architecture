@@ -13,12 +13,13 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 import lk.ijse.dao.custom.BuyerDAO;
+import lk.ijse.dao.custom.TransactionDAO;
 import lk.ijse.dto.Buyer;
 import lk.ijse.dto.Transaction;
 import lk.ijse.dto.dtm.TransactionTm;
 import lk.ijse.dao.custom.impl.BuyerDAOImpl;
 import lk.ijse.dao.custom.impl.OrderRepo;
-import lk.ijse.dao.custom.impl.TransactionRepo;
+import lk.ijse.dao.custom.impl.TransactionDAOImpl;
 import lk.ijse.util.Regex;
 
 import java.sql.SQLException;
@@ -79,6 +80,7 @@ public class TransactionFormController {
 
     //dependency injection
     BuyerDAO buyerDAO = new BuyerDAOImpl();
+    TransactionDAO transactionDAO = new TransactionDAOImpl();
 
 
     public void initialize() throws SQLException {
@@ -122,7 +124,7 @@ Regex.setTextColor(lk.ijse.util.TextField.ACCOUNTNo,txtAccountNo);
 
     private void getAllTransactions() throws SQLException {
         ObservableList<TransactionTm> obList = FXCollections.observableArrayList();
-        List<Transaction> transactinList = TransactionRepo.getAll();
+        List<Transaction> transactinList = transactionDAO.getAll();
 
         for (Transaction t : transactinList) {
             obList.add(new TransactionTm(
@@ -196,7 +198,7 @@ Regex.setTextColor(lk.ijse.util.TextField.ACCOUNTNo,txtAccountNo);
         }
 
         try {
-            boolean isDeleted = TransactionRepo.delete(transactionID);
+            boolean isDeleted = transactionDAO.delete(transactionID);
             if(isDeleted){
                 new Alert(Alert.AlertType.INFORMATION, "Transaction deleted").show();
                 clearFields();
@@ -233,7 +235,7 @@ Regex.setTextColor(lk.ijse.util.TextField.ACCOUNTNo,txtAccountNo);
         try {
             boolean isSaved = false;
             if (isValid()) {
-                isSaved = TransactionRepo.save(transaction);
+                isSaved = transactionDAO.save(transaction);
             }else {
                 new Alert(Alert.AlertType.ERROR, "Please check Text Fields... ").show();
             }
@@ -272,7 +274,7 @@ Regex.setTextColor(lk.ijse.util.TextField.ACCOUNTNo,txtAccountNo);
         try {
             boolean isUpdated = false;
             if (isValid()) {
-                isUpdated = TransactionRepo.update(transaction);
+                isUpdated = transactionDAO.update(transaction);
             }else {
                 new Alert(Alert.AlertType.ERROR, "Please check Text Fields... ").show();
             }
@@ -305,7 +307,7 @@ Regex.setTextColor(lk.ijse.util.TextField.ACCOUNTNo,txtAccountNo);
     void txtOnActionSearch(ActionEvent event) throws SQLException {
         String transactionID = txtTransactionID.getText();
 
-        Transaction transaction = TransactionRepo.searchByTransactionId(transactionID);
+        Transaction transaction = transactionDAO.searchByTransactionId(transactionID);
         if(transaction != null){
             new Alert(Alert.AlertType.INFORMATION, "Transaction Found").show();
             txtTransactionID.setText(transaction.getTransactionId());

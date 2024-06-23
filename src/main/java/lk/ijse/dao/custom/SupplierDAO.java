@@ -1,11 +1,12 @@
 package lk.ijse.dao.custom;
 
+import lk.ijse.dao.CrudDAO;
 import lk.ijse.dto.Supplier;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public interface SupplierDAO {
+public interface SupplierDAO extends CrudDAO {
 
     public boolean save(Supplier supplier) throws SQLException ;
 
