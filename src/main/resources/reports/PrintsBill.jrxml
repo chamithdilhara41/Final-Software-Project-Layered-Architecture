@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.2.final using JasperReports Library version 6.21.2-8434a0bd7c3bbc37cbf916f2968d35e4b165821a  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PrintsBill" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fe8c8964-f92e-452f-8b4d-3b68eaca6ed3">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter (3)"/>
+	<parameter name="orderId" class="java.lang.String"/>
+	<parameter name="netWeight" class="java.lang.String"/>
+	<parameter name="date" class="java.lang.String"/>
+	<parameter name="time" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT o.orderId, b.buyerId, b.name AS buyerName, o.date AS orderDate,
+       osi.stockId, s.TotalWeight AS stockTotalWeight
+FROM orders o
+JOIN ordersStockinfo osi ON o.orderId = osi.orderId
+JOIN buyer b ON osi.buyerId = b.buyerId
+JOIN Stock s ON osi.stockId = s.stockId
+WHERE o.orderId =$P{orderId};]]>
+	</queryString>
+	<field name="orderId" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="orderId"/>
+		<property name="com.jaspersoft.studio.field.label" value="orderId"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="orders"/>
+	</field>
+	<field name="buyerId" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="buyerId"/>
+		<property name="com.jaspersoft.studio.field.label" value="buyerId"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="buyer"/>
+	</field>
+	<field name="buyerName" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="name"/>
+		<property name="com.jaspersoft.studio.field.label" value="buyerName"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="buyer"/>
+	</field>
+	<field name="orderDate" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="date"/>
+		<property name="com.jaspersoft.studio.field.label" value="orderDate"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="orders"/>
+	</field>
+	<field name="stockId" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="stockId"/>
+		<property name="com.jaspersoft.studio.field.label" value="stockId"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ordersstockinfo"/>
+	</field>
+	<field name="stockTotalWeight" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="TotalWeight"/>
+		<property name="com.jaspersoft.studio.field.label" value="stockTotalWeight"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="stock"/>
+	</field>
+	<group name="orderId">
+		<groupExpression><![CDATA[$F{orderId}]]></groupExpression>
+	</group>
+	<group name="buyerId">
+		<groupExpression><![CDATA[$F{buyerId}]]></groupExpression>
+	</group>
+	<group name="buyerName">
+		<groupExpression><![CDATA[$F{buyerName}]]></groupExpression>
+	</group>
+	<group name="orderDate">
+		<groupExpression><![CDATA[$F{orderDate}]]></groupExpression>
+	</group>
+	<group name="stockId">
+		<groupExpression><![CDATA[$F{stockId}]]></groupExpression>
+	</group>
+	<group name="stockTotalWeight">
+		<groupExpression><![CDATA[$F{stockTotalWeight}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="90" splitType="Stretch">
+			<staticText>
+				<reportElement x="195" y="0" width="170" height="40" uuid="9cdfe175-2950-43f8-b6af-4e0cd1953d68"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AWS Tea Collecting
+Center]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="221" y="39" width="119" height="15" uuid="d2a9372f-50fa-480e-95d2-5acec568f272"/>
+				<text><![CDATA[Palawaththa road Elpitiya.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="166" y="54" width="230" height="16" uuid="bc634164-72d7-4b63-9a10-c6e47567da07"/>
+				<textElement textAlignment="Center">
+					<font fontName="Courier New"/>
+				</textElement>
+				<text><![CDATA[Contact - 0779036121, 0912291689]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="63" splitType="Stretch">
+			<staticText>
+				<reportElement x="18" y="38" width="62" height="20" uuid="030c5c0f-1eb9-4025-a858-7db72eadfe62"/>
+				<textElement textAlignment="Left">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Order ID :-]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="203" y="-1" width="153" height="21" uuid="64f4b88f-e572-41ee-958a-80316824570e"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="13" isBold="true" isItalic="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Stock Details. ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="87" y="41" width="81" height="17" uuid="b29163ee-3ca7-41e2-a8bd-35b94b3c5d1c"/>
+				<textFieldExpression><![CDATA[$P{orderId}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="64" splitType="Stretch">
+			<staticText>
+				<reportElement x="17" y="20" width="80" height="30" uuid="1412e952-6c2e-4bf6-bfe3-48ab2cdf7469">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4cdd9125-ef12-41be-aaa1-c9790ba9ebff"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Buyer Id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="97" y="20" width="160" height="30" uuid="4327a8bf-7b1a-4372-963d-129b2795d1a0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b9be1812-33ca-47c9-9b82-0f4a35177cfb"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Buyer Name (Tea Factory)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="257" y="20" width="92" height="30" uuid="66da83c8-5703-46cc-9d0c-f86861ae9b90">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="367c6a28-1e78-4120-a423-5667f8dda644"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Order Place Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="355" y="20" width="80" height="30" uuid="acd17d56-3955-470f-95e9-1dc9997237d4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b33c08ea-24d2-4476-8a6e-a84e905f3b3c"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Stock ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="437" y="20" width="92" height="30" uuid="600ef364-a679-4b9c-8e25-77d09c3798d4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2d3287fe-d40f-4d69-8a4b-da20c7a02c41"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[One Stock
+Weight]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="37" splitType="Stretch">
+			<textField>
+				<reportElement x="17" y="2" width="80" height="30" uuid="3f07b2b8-cc44-410f-b5e2-718d07b39261">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4cdd9125-ef12-41be-aaa1-c9790ba9ebff"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{buyerId}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="97" y="2" width="160" height="30" uuid="b5b5d94e-4fd6-4921-92a1-cc72cb30895d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b9be1812-33ca-47c9-9b82-0f4a35177cfb"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{buyerName}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Auto">
+				<reportElement x="257" y="2" width="92" height="30" uuid="b74e4d6c-f136-4083-a671-f4a90479d767">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="367c6a28-1e78-4120-a423-5667f8dda644"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{orderDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="355" y="2" width="80" height="30" uuid="8f3f1ef5-a7d8-43e3-ada6-188fac01c63c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b33c08ea-24d2-4476-8a6e-a84e905f3b3c"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{stockId}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="436" y="2" width="92" height="30" uuid="d20e16b4-7c6c-46e6-96cf-be13f00d948b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2d3287fe-d40f-4d69-8a4b-da20c7a02c41"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{stockTotalWeight}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="17" y="-10" width="512" height="1" uuid="0a044495-ea30-4fad-9540-f4706d18d233"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="53" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="62" splitType="Stretch">
+			<staticText>
+				<reportElement x="389" y="-52" width="79" height="50" uuid="f3c838bc-ad33-4093-9376-353c971b05d7"/>
+				<textElement>
+					<font size="16" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Total
+Weight :-]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="467" y="-29" width="106" height="26" uuid="951a630f-eb21-4401-a2d0-1b4e1c977ec1"/>
+				<textElement>
+					<font size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{netWeight}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="7" width="50" height="20" uuid="73dd8752-268e-4ebb-9692-3adcecb84088"/>
+				<textElement textAlignment="Left">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date :-]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="28" width="50" height="20" uuid="67e17912-5503-48cd-8fdc-20dd5436141c"/>
+				<textElement textAlignment="Left">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Time :-]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="72" y="9" width="70" height="21" uuid="7844f5a7-3110-44e9-927e-9735e5154d75"/>
+				<textFieldExpression><![CDATA[$P{date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="72" y="31" width="70" height="20" uuid="8eb77078-6da8-49a3-9c62-d096d5d1f283"/>
+				<textFieldExpression><![CDATA[$P{time}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="403" y="27" width="190" height="35" uuid="1b2c13b8-3e9d-4fe8-b46c-4e26cdb16424"/>
+				<textElement>
+					<font fontName="Cambria" size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Thank You.......]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="50" splitType="Stretch"/>
+	</summary>
+</jasperReport>

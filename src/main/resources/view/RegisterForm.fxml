@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.controller.RegisterFormController">
+   <children>
+      <AnchorPane layoutX="385.0" prefHeight="500.0" prefWidth="315.0" style="-fx-background-color: #2ECC71;">
+         <children>
+            <ImageView fitHeight="486.0" fitWidth="330.0" layoutX="1.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/tea-plant-green-landscape%20fgg.jpg" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <Label fx:id="lblRegister" layoutX="39.0" layoutY="21.0" text="Register here....">
+         <font>
+            <Font name="Candara Bold" size="32.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtUsernameRegister" layoutX="54.0" layoutY="90.0" onKeyReleased="#txtUsernameOnKeyReleased" prefHeight="48.0" prefWidth="290.0" promptText="type username here" style="-fx-background-radius: 10 10 10 10;">
+         <font>
+            <Font name="Calibri" size="15.0" />
+         </font>
+      </TextField>
+      <Label layoutX="54.0" layoutY="67.0" text="Username *">
+         <font>
+            <Font name="Calibri Light" size="19.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtEmailRegister" layoutX="54.0" layoutY="166.0" onKeyReleased="#txtEmailOnKeyReleased" prefHeight="48.0" prefWidth="290.0" promptText="type e-mail here" style="-fx-background-radius: 10 10 10 10;">
+         <font>
+            <Font name="Calibri" size="15.0" />
+         </font>
+      </TextField>
+      <Label layoutX="54.0" layoutY="143.0" text="E-mail *">
+         <font>
+            <Font name="Calibri Light" size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="54.0" layoutY="216.0" text="Name *">
+         <font>
+            <Font name="Calibri Light" size="19.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtNameRegister" layoutX="54.0" layoutY="238.0" onKeyReleased="#txtNameOnKeyReleased" prefHeight="48.0" prefWidth="290.0" promptText="type name here" style="-fx-background-radius: 10 10 10 10;">
+         <font>
+            <Font name="Calibri" size="15.0" />
+         </font>
+      </TextField>
+      <Label layoutX="55.0" layoutY="289.0" text="Password *">
+         <font>
+            <Font name="Calibri Light" size="19.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="txtPasswordRegister" layoutX="55.0" layoutY="311.0" onKeyReleased="#txtPasswordOnKeyReleased" prefHeight="48.0" prefWidth="290.0" promptText="type password here" style="-fx-background-radius: 10 10 10 10;">
+         <font>
+            <Font name="Calibri" size="15.0" />
+         </font>
+      </PasswordField>
+      <JFXButton buttonType="RAISED" layoutX="78.0" layoutY="375.0" onAction="#btnRegisterOnAction" prefHeight="48.0" prefWidth="239.0" ripplerFill="#0c8c08" style="-fx-background-color: #9FE2BF; -fx-background-radius: 20 20 20 20;" text="REGISTER">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <Bloom />
+         </effect>
+      </JFXButton>
+      <Label layoutX="121.0" layoutY="453.0" text="Do you have an account ?">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Line endX="154.5999755859375" layoutX="201.0" layoutY="442.0" startX="-160.60000610351562">
+         <stroke>
+            <LinearGradient endX="0.007575761639710632" endY="1.0" startX="1.0" startY="0.4128788456772313">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.0476413257420063" green="0.5473684072494507" blue="0.030409356579184532" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Line>
+      <Hyperlink layoutX="153.0" layoutY="467.0" onAction="#hyperOnActionLogin" text="Login here......" />
+   </children>
+</AnchorPane>

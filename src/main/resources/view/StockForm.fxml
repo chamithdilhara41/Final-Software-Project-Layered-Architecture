@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="656.0" prefWidth="945.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.controller.StockFormController">
+    <children>
+        <Label layoutX="29.0" layoutY="21.0" text="Tea Leaves Stock Details">
+            <font>
+                <Font name="Candara Italic" size="24.0" />
+            </font>
+        </Label>
+        <TableView id="tblSupplier" fx:id="tblStock" layoutX="27.0" layoutY="72.0" onMouseClicked="#OnMouseClicked" prefHeight="273.0" prefWidth="434.0">
+            <columns>
+                <TableColumn fx:id="colStockID" prefWidth="139.19997787475586" text="StockID" />
+                <TableColumn fx:id="colTotalWeight" prefWidth="178.40003967285156" text="Total Weight (kg)" />
+            <TableColumn fx:id="colDate" prefWidth="114.39998779296877" text="Date" />
+            </columns>
+        </TableView>
+        <Label layoutX="29.0" layoutY="389.0" prefHeight="20.0" prefWidth="74.0" text="Stock ID :-">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <TextField fx:id="txtStockID" layoutX="103.0" layoutY="385.0" onAction="#txtOnActionSearch" onKeyReleased="#txtStockIdOnKeyReleased" prefHeight="30.0" prefWidth="190.0" style="-fx-background-radius: 15 15 15 15;">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </TextField>
+      <JFXComboBox fx:id="cmbSupplierID" layoutX="120.0" layoutY="435.0" onAction="#cmbSupplierIdOnAction" prefHeight="30.0" prefWidth="170.0" />
+      <Label layoutX="29.0" layoutY="450.0" prefHeight="20.0" prefWidth="84.0" text="Supplier ID :-">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="29.0" layoutY="516.0" prefHeight="20.0" prefWidth="111.0" text="Supplier Name :-">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblSupplierName" layoutX="149.0" layoutY="516.0" prefHeight="20.0" prefWidth="170.0">
+         <font>
+            <Font name="System Bold Italic" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="352.0" layoutY="450.0" prefHeight="20.0" prefWidth="92.0" text="Weight (Kg.) :-">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtWeight" layoutX="448.0" layoutY="445.0" onKeyReleased="#txtWeightOnKeyReleased" prefHeight="30.0" prefWidth="133.0" style="-fx-background-radius: 15 15 15 15;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Label layoutX="354.0" layoutY="515.0" prefHeight="20.0" prefWidth="53.0" text="Date :-">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtDate" layoutX="404.0" layoutY="511.0" onAction="#txtOnActionSearch" onKeyReleased="#txtDateOnKeyReleased" prefHeight="30.0" prefWidth="133.0" style="-fx-background-radius: 15 15 15 15;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <JFXButton buttonType="RAISED" layoutX="744.0" layoutY="603.0" onAction="#btnOnActionAddWeight" prefHeight="42.0" prefWidth="151.0" style="-fx-background-color: #0b8a21;" text="+ Add Weight for Stock" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <Glow />
+         </effect>
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXButton>
+      <AnchorPane layoutX="476.0" layoutY="59.0" opacity="0.29" prefHeight="355.0" prefWidth="418.0" style="-fx-background-color: yellow;">
+         <children>
+            <Label layoutX="100.0" layoutY="322.0" prefHeight="20.0" prefWidth="262.0" text="(Press Enter after can get suppliers)">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+        <JFXButton buttonType="RAISED" layoutX="475.0" layoutY="603.0" onAction="#btnOnActionClear" prefHeight="41.0" prefWidth="111.0" ripplerFill="BLACK" style="-fx-background-color: #7f8c8d;" text="Clear">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+            <graphic>
+                <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/icons8-broom-26.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </JFXButton>
+        <JFXButton buttonType="RAISED" layoutX="610.0" layoutY="603.0" onAction="#btnOnActionDelete" prefHeight="41.0" prefWidth="111.0" style="-fx-background-color: #e74c3c;" text="Delete">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+            <graphic>
+                <ImageView fitHeight="25.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/icons8-delete-100.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </JFXButton>
+        <Label fx:id="lblStockForm" layoutX="30.0" layoutY="594.0" text="Stock Form">
+            <font>
+                <Font size="36.0" />
+            </font>
+        </Label>
+      <TableView id="tblSupplier" fx:id="tblSupplierStock" layoutX="504.0" layoutY="73.0" onMouseClicked="#OnMouseClicked" prefHeight="250.0" prefWidth="332.0">
+         <columns>
+            <TableColumn fx:id="colSupplierID" prefWidth="88.800048828125" text="Supplier ID" />
+            <TableColumn fx:id="colSupplierName" prefWidth="151.199951171875" text="Name" />
+            <TableColumn fx:id="colWeight" prefWidth="92.00006103515625" text="Weight (kg)" />
+         </columns>
+      </TableView>
+      <Label layoutX="504.0" layoutY="352.0" prefHeight="20.0" prefWidth="74.0" text="Stock ID :-">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtSuppliersStockID" layoutX="578.0" layoutY="348.0" onAction="#txtOnActionSearchSuppliers" onKeyReleased="#txtSupStockIdOnKeyReleased" prefHeight="30.0" prefWidth="142.0" promptText="Search for Suppliers" style="-fx-background-radius: 15 15 15 15;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Label layoutX="481.0" layoutY="21.0" text="Supplier Stock Details (only view)">
+         <font>
+            <Font name="Candara Italic" size="24.0" />
+         </font>
+      </Label>
+    </children>
+</AnchorPane>

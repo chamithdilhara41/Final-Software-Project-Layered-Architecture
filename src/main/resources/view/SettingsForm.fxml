@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="656.0" prefWidth="945.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.controller.SettingsFormController">
+    <children>
+        <Label layoutX="29.0" layoutY="21.0" text="Change Password">
+            <font>
+                <Font name="Candara Italic" size="24.0" />
+            </font>
+        </Label>
+        <Label layoutX="105.0" layoutY="177.0" prefHeight="22.0" prefWidth="186.0" text="Type new password *">
+            <font>
+                <Font name="Calibri Light" size="19.0" />
+            </font>
+        </Label>
+        <TextField fx:id="txtNewPassword1" layoutX="104.0" layoutY="201.0" onKeyReleased="#txtNewPassword1OnKeyReleased" prefHeight="42.0" prefWidth="273.0" style="-fx-background-radius: 10 10 10 10;">
+            <font>
+                <Font name="Calibri" size="15.0" />
+            </font>
+        </TextField>
+        <JFXButton buttonType="RAISED" layoutX="107.0" layoutY="426.0" onAction="#btnOnActionSaveNewPassword" prefHeight="42.0" prefWidth="265.0" style="-fx-background-color: #9FE2BF; -fx-background-radius: 15 15 15 15;" text="Change Password">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+            <effect>
+                <Glow />
+            </effect>
+            <font>
+                <Font name="System Bold" size="17.0" />
+            </font>
+        </JFXButton>
+        <Label fx:id="lblSettingsForm" layoutX="30.0" layoutY="594.0" text="Settings Form">
+            <font>
+                <Font size="36.0" />
+            </font>
+        </Label>
+      <Line endX="-89.79998779296875" endY="414.60003662109375" layoutX="562.0" layoutY="140.0" startX="-89.79998779296875" startY="-40.59996795654297">
+         <stroke>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Line>
+      <Label layoutX="473.0" layoutY="21.0" text="Change e-mail">
+         <font>
+            <Font name="Candara Italic" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="105.0" layoutY="289.0" prefHeight="22.0" prefWidth="194.0" text="Re-Type new password *">
+         <font>
+            <Font name="Calibri Light" size="19.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtNewPassword2" layoutX="104.0" layoutY="313.0" onKeyReleased="#txtNewPassword2OnKeyReleased" prefHeight="42.0" prefWidth="273.0" style="-fx-background-radius: 10 10 10 10;">
+         <font>
+            <Font name="Calibri" size="15.0" />
+         </font>
+      </TextField>
+      <Label layoutX="574.0" layoutY="179.0" prefHeight="22.0" prefWidth="186.0" text="Type new e-mail *">
+         <font>
+            <Font name="Calibri Light" size="19.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtNewEmail1" layoutX="573.0" layoutY="203.0" onKeyReleased="#txtNewEmail1OnKeyReleased" prefHeight="42.0" prefWidth="273.0" promptText="Someone@example.com" style="-fx-background-radius: 10 10 10 10;">
+         <font>
+            <Font name="Calibri" size="15.0" />
+         </font>
+      </TextField>
+      <JFXButton buttonType="RAISED" layoutX="577.0" layoutY="426.0" onAction="#btnOnActionSaveEmail" prefHeight="42.0" prefWidth="265.0" style="-fx-background-color: #9FE2BF; -fx-background-radius: 15 15 15 15;" text="Change E-mail">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <Glow />
+         </effect>
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </JFXButton>
+      <Label layoutX="574.0" layoutY="291.0" prefHeight="22.0" prefWidth="194.0" text="Re-Type new e-mail *">
+         <font>
+            <Font name="Calibri Light" size="19.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtNewEmail2" layoutX="573.0" layoutY="315.0" onKeyReleased="#txtNewEmail2OnKeyReleased" prefHeight="42.0" prefWidth="273.0" promptText="Someone@example.com" style="-fx-background-radius: 10 10 10 10;">
+         <font>
+            <Font name="Calibri" size="15.0" />
+         </font>
+      </TextField>
+      <Label layoutX="54.0" layoutY="106.0" text="Username :-">
+         <font>
+            <Font name="Calibri Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblUsername" layoutX="159.0" layoutY="107.0" prefHeight="23.0" prefWidth="266.0">
+         <font>
+            <Font name="Calibri Italic" size="20.0" />
+         </font>
+      </Label>
+    </children>
+</AnchorPane>

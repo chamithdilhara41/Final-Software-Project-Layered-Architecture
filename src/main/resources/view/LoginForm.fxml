@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.controller.LoginFormController">
+   <children>
+      <AnchorPane prefHeight="500.0" prefWidth="315.0" style="-fx-background-color: #2ECC71;">
+         <children>
+            <Circle layoutX="158.0" layoutY="139.0" radius="100.0" stroke="#9c9c9c" strokeType="INSIDE">
+               <fill>
+                  <LinearGradient endX="1.0" endY="1.0" startY="0.4128788456772313">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color red="0.0470588244497776" green="0.5490196347236633" blue="0.0313725508749485" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="1.0" green="1.0" blue="1.0" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Circle>
+            <Circle fill="WHITE" layoutX="69.0" layoutY="84.0" radius="18.0" strokeType="INSIDE">
+               <stroke>
+                  <LinearGradient endX="1.0" endY="1.0" startY="0.4128788456772313">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="1.0" green="1.0" blue="1.0" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </stroke>
+            </Circle>
+            <Label layoutX="117.0" layoutY="85.0" text="AWS">
+               <font>
+                  <Font name="Verdana Bold" size="27.0" />
+               </font>
+            </Label>
+            <Label layoutX="56.0" layoutY="125.0" text="tea collecting">
+               <font>
+                  <Font name="Verdana Bold" size="27.0" />
+               </font>
+            </Label>
+            <Label layoutX="106.0" layoutY="166.0" text="System">
+               <font>
+                  <Font name="Verdana Bold" size="27.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="500.0" fitWidth="315.0" layoutX="6.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/tea-plant-plants-leaves-wallpaper-preview.jpg" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <Label fx:id="lblLogin" layoutX="350.0" layoutY="29.0" text="Login here....">
+         <font>
+            <Font name="Candara Bold" size="32.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtUsernameLogin" layoutX="364.0" layoutY="129.0" onKeyReleased="#txtUsernameOnKeyReleased" prefHeight="48.0" prefWidth="290.0" promptText="type username here" style="-fx-background-radius: 10 10 10 10;">
+         <font>
+            <Font name="Calibri" size="15.0" />
+         </font>
+      </TextField>
+      <Label layoutX="365.0" layoutY="104.0" text="Username *">
+         <font>
+            <Font name="Calibri Light" size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="365.0" layoutY="203.0" text="Password *">
+         <font>
+            <Font name="Calibri Light" size="19.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="txtPasswordLogin" layoutX="364.0" layoutY="229.0" onAction="#txtOnActionLogin" onKeyReleased="#txtPasswordOnKeyReleased" prefHeight="48.0" prefWidth="290.0" promptText="type password here" style="-fx-background-radius: 10 10 10 10;">
+         <font>
+            <Font name="Calibri" size="15.0" />
+         </font>
+      </PasswordField>
+      <Label layoutX="421.0" layoutY="431.0" text="Do you haven't an account ?">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Line endX="154.5999755859375" layoutX="512.0" layoutY="409.0" startX="-160.60000610351562">
+         <stroke>
+            <LinearGradient endX="1.0" endY="1.0" startY="0.4128788456772313">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.0476413257420063" green="0.5473684072494507" blue="0.030409356579184532" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Line>
+      <Hyperlink layoutX="366.0" layoutY="278.0" onAction="#hyperOnActionForgetPassword" text="Forget password......" />
+      <JFXButton buttonType="RAISED" layoutX="375.0" layoutY="328.0" onAction="#btnLoginOnAction" prefHeight="48.0" prefWidth="266.0" ripplerFill="#0c8c08" style="-fx-background-color: #9FE2BF; -fx-background-radius: 20 20 20 20;" text="LOGIN">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <Bloom />
+         </effect>
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/icons8-login-50.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <Hyperlink layoutX="461.0" layoutY="451.0" onAction="#hyperOnActionRegister" text="Register here..." />
+   </children>
+</AnchorPane>

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane onKeyReleased="#txtPaymentIdOnKeyReleased" prefHeight="656.0" prefWidth="945.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.controller.PaymentFormController">
+    <children>
+        <Label layoutX="29.0" layoutY="21.0" text="Payments Details">
+            <font>
+                <Font name="Candara Italic" size="24.0" />
+            </font>
+        </Label>
+        <TableView id="tblSupplier" fx:id="tblPayment" layoutX="27.0" layoutY="72.0" onMouseClicked="#OnMouseClicked" prefHeight="250.0" prefWidth="678.0">
+            <columns>
+                <TableColumn fx:id="colPaymentID" prefWidth="88.79998397827148" text="PaymentID" />
+                <TableColumn fx:id="colDescription" prefWidth="190.4000244140625" text="Description" />
+                <TableColumn fx:id="colAmount" prefWidth="162.39996337890625" text="Amount (Rs.)" />
+                <TableColumn fx:id="colDate" prefWidth="124.79998779296875" text="Date" />
+                <TableColumn fx:id="colSupplierID" prefWidth="110.39999999999998" text="SupplierID" />
+            </columns>
+        </TableView>
+        <Label layoutX="29.0" layoutY="350.0" prefHeight="20.0" prefWidth="111.0" text="Payment ID :-">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <TextField fx:id="txtPaymentID" layoutX="137.0" layoutY="346.0" onAction="#txtOnActionSearch" onKeyReleased="#txtPaymentIdOnKeyReleased" prefHeight="30.0" prefWidth="147.0" style="-fx-background-radius: 15 15 15 15;">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </TextField>
+        <Label layoutX="29.0" layoutY="413.0" prefHeight="20.0" prefWidth="90.0" text="Description :-">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <TextField fx:id="txtDescription" layoutX="117.0" layoutY="408.0" prefHeight="30.0" prefWidth="250.0" style="-fx-background-radius: 15 15 15 15;">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </TextField>
+        <Label layoutX="30.0" layoutY="472.0" prefHeight="20.0" prefWidth="98.0" text="Amount (Rs.) :-">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <TextField fx:id="txtAmount" layoutX="129.0" layoutY="467.0" onKeyReleased="#txtAmountOnKeyReleased" prefHeight="30.0" prefWidth="147.0" style="-fx-background-radius: 15 15 15 15;">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </TextField>
+        <Label layoutX="30.0" layoutY="530.0" prefHeight="20.0" prefWidth="50.0" text="Date :-">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <TextField fx:id="txtDate" layoutX="79.0" layoutY="525.0" onKeyReleased="#txtDateOnKeyReleased" prefHeight="30.0" prefWidth="138.0" style="-fx-background-radius: 15 15 15 15;">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </TextField>
+        <JFXButton buttonType="RAISED" layoutX="379.0" layoutY="603.0" onAction="#btnOnActionClear" prefHeight="41.0" prefWidth="111.0" ripplerFill="BLACK" style="-fx-background-color: #7f8c8d;" text="Clear">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+            <graphic>
+                <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/icons8-broom-26.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </JFXButton>
+        <JFXButton buttonType="RAISED" layoutX="516.0" layoutY="603.0" onAction="#btnOnActionDelete" prefHeight="41.0" prefWidth="111.0" style="-fx-background-color: #e74c3c;" text="Delete">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+            <graphic>
+                <ImageView fitHeight="25.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/icons8-delete-100.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </JFXButton>
+        <JFXButton buttonType="RAISED" layoutX="651.0" layoutY="603.0" onAction="#btnOnActionUpdate" prefHeight="41.0" prefWidth="111.0" style="-fx-background-color: #e67e22;" text="Update">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+            <graphic>
+                <ImageView fitHeight="22.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/icons8-update-64.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </JFXButton>
+        <JFXButton buttonType="RAISED" layoutX="787.0" layoutY="603.0" onAction="#btnOnActionSave" prefHeight="41.0" prefWidth="111.0" style="-fx-background-color: #0b8a21;" text="Save">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+            <effect>
+                <Glow />
+            </effect>
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+            <graphic>
+                <ImageView fitHeight="27.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/icons8-save-64.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </JFXButton>
+        <Label fx:id="lblPaymentForm" layoutX="30.0" layoutY="594.0" text="Payment Form">
+            <font>
+                <Font size="36.0" />
+            </font>
+        </Label>
+        <Label layoutX="441.0" layoutY="351.0" prefHeight="20.0" prefWidth="83.0" text="Supplier ID :-">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <Label layoutX="441.0" layoutY="432.0" prefHeight="20.0" prefWidth="111.0" text="Supplier Name  :-">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <Label layoutX="441.0" layoutY="388.0" prefHeight="20.0" prefWidth="374.0" text="(You can Search Supplier Id after type using Enter Button)">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <Label fx:id="lblSupplierName" layoutX="539.0" layoutY="432.0" prefHeight="20.0" prefWidth="350.0">
+            <font>
+                <Font name="System Bold Italic" size="14.0" />
+            </font>
+        </Label>
+      <TextField fx:id="txtSupplierID" layoutX="528.0" layoutY="346.0" onAction="#txtOnActionSearchSupplier" onKeyReleased="#txtSupplierIdOnKeyReleased" prefHeight="30.0" prefWidth="138.0" style="-fx-background-radius: 15 15 15 15;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+    </children>
+</AnchorPane>
