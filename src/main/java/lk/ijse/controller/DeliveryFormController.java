@@ -12,6 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
+import lk.ijse.dao.custom.BuyerDAO;
 import lk.ijse.dao.custom.impl.BuyerDAOImpl;
 import lk.ijse.dao.custom.impl.DeliveryRepo;
 import lk.ijse.dao.custom.impl.StockRepo;
@@ -61,6 +62,9 @@ public class DeliveryFormController {
 
     @FXML
     private TextField txtDeliveryID;
+
+    //dependency injection
+    BuyerDAO buyerDAO = new BuyerDAOImpl();
 
     public void initialize() throws SQLException {
         animateLabelTyping();
@@ -231,7 +235,7 @@ public class DeliveryFormController {
         String sId = cmbStockID.getValue();
 
         try {
-            Buyer buyer = BuyerDAOImpl.searchByStockIdForTransaction(sId);
+            Buyer buyer = buyerDAO.searchByStockIdForTransaction(sId);
             if(buyer != null){
                 lblBuyerName.setText(buyer.getBuyerName());
             }else {

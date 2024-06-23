@@ -1,5 +1,6 @@
 package lk.ijse.dao.custom.impl;
 
+import lk.ijse.dao.custom.BuyerDAO;
 import lk.ijse.db.DbConnection;
 import lk.ijse.dto.Buyer;
 import java.sql.Connection;
@@ -9,8 +10,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BuyerDAOImpl {
-    public static boolean save(Buyer buyer) throws SQLException {
+public class BuyerDAOImpl implements BuyerDAO {
+
+    public boolean save(Buyer buyer) throws SQLException {
         String sql = "INSERT INTO buyer VALUES(?, ?, ?, ?, ?);";
 
         PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
@@ -24,7 +26,7 @@ public class BuyerDAOImpl {
         return pstm.executeUpdate() > 0;
     }
 
-    public static List<Buyer> getAll() throws SQLException {
+    public List<Buyer> getAll() throws SQLException {
         Connection con = DbConnection.getInstance().getConnection();
         String sql = "SELECT * FROM buyer";
 
@@ -43,7 +45,7 @@ public class BuyerDAOImpl {
         return data;
     }
 
-    public static Buyer searchById(String buyerID) throws SQLException {
+    public Buyer searchById(String buyerID) throws SQLException {
         String sql = "SELECT * FROM buyer WHERE buyerId = ?";
 
         Connection connection = DbConnection.getInstance().getConnection();
@@ -62,7 +64,7 @@ public class BuyerDAOImpl {
         return null;
     }
 
-    public static boolean update(Buyer buyer) throws SQLException {
+    public boolean update(Buyer buyer) throws SQLException {
         String sql = "UPDATE buyer SET name = ?, address = ?, contactOffice = ?, contactManager = ? WHERE buyerId = ?";
 
         Connection connection = DbConnection.getInstance().getConnection();
@@ -76,7 +78,7 @@ public class BuyerDAOImpl {
         return pstm.executeUpdate() > 0;
     }
 
-    public static boolean delete(String buyerID) throws SQLException {
+    public boolean delete(String buyerID) throws SQLException {
         String sql = "DELETE FROM buyer WHERE buyerId = ?;";
 
         Connection connection = DbConnection.getInstance().getConnection();
@@ -86,7 +88,7 @@ public class BuyerDAOImpl {
         return pstm.executeUpdate() > 0;
     }
 
-    public static List<String> getIds() throws SQLException {
+    public List<String> getIds() throws SQLException {
         String sql = "SELECT buyerId FROM buyer";
 
         PreparedStatement pstm = DbConnection.getInstance().getConnection()
@@ -102,7 +104,7 @@ public class BuyerDAOImpl {
         return idList;
     }
 
-    public static Buyer searchByBuyerIdForOrder(String no) throws SQLException {
+    public Buyer searchByBuyerIdForOrder(String no) throws SQLException {
         String sql = "SELECT * FROM buyer WHERE buyerId = ?;";
 
         PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
@@ -120,7 +122,7 @@ public class BuyerDAOImpl {
         return null;
     }
 
-    public static Buyer searchByStockIdForTransaction(String oId) throws SQLException {
+    public Buyer searchByStockIdForTransaction(String oId) throws SQLException {
 
         //String sql = "SELECT * FROM buyer JOIN orders ON buyer.buyerId = orders.buyerId WHERE orderId = ?;";
         String sql = "SELECT b.* FROM buyer b JOIN ordersstockinfo osi ON b.buyerId = osi.buyerId WHERE osi.stockId = ?;";
@@ -140,4 +142,5 @@ public class BuyerDAOImpl {
 
         return null;
     }
+
 }

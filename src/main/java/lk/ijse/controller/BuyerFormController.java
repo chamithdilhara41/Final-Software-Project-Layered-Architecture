@@ -11,6 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
+import lk.ijse.dao.custom.BuyerDAO;
 import lk.ijse.dto.Buyer;
 import lk.ijse.dto.dtm.BuyerTm;
 import lk.ijse.dao.custom.impl.BuyerDAOImpl;
@@ -55,6 +56,8 @@ public class BuyerFormController {
 
     @FXML
     private TextField txtBuyerName;
+
+    BuyerDAO buyerDAO = new BuyerDAOImpl();
 
 
     public void initialize() throws SQLException {
@@ -107,7 +110,7 @@ public class BuyerFormController {
 
     private void getAllBuyers() throws SQLException {
         ObservableList<BuyerTm> obList = FXCollections.observableArrayList();
-        List<Buyer> buyerList = BuyerDAOImpl.getAll();
+        List<Buyer> buyerList = buyerDAO.getAll();
 
         for ( Buyer buyer: buyerList){
             obList.add(new BuyerTm(
@@ -156,7 +159,7 @@ public class BuyerFormController {
         }
 
         try {
-            boolean isDeleted = BuyerDAOImpl.delete(buyerID);
+            boolean isDeleted = buyerDAO.delete(buyerID);
             if (isDeleted){
                 new Alert(Alert.AlertType.INFORMATION,"Buyer deleted").show();
                 getAllBuyers();
@@ -188,7 +191,7 @@ public class BuyerFormController {
         try {
             boolean isSaved = false;
             if (isValid()) {
-                isSaved = BuyerDAOImpl.save(buyer);
+                isSaved = buyerDAO.save(buyer);
             }else {
                 new Alert(Alert.AlertType.ERROR, "Please check Text Fields... ").show();
             }
@@ -229,7 +232,7 @@ public class BuyerFormController {
         try {
             boolean isUpdated = false;
             if (isValid()) {
-                isUpdated = BuyerDAOImpl.update(buyer);
+                isUpdated = buyerDAO.update(buyer);
             }else {
                 new Alert(Alert.AlertType.ERROR, "Please check Text Fields... ").show();
             }
@@ -248,7 +251,7 @@ public class BuyerFormController {
     void txtOnActionSearch(ActionEvent event) throws SQLException {
         String buyerID = txtBuyerID.getText();
 
-        Buyer buyer = BuyerDAOImpl.searchById(buyerID);
+        Buyer buyer = buyerDAO.searchById(buyerID);
         if (buyer != null) {
             txtBuyerID.setText(buyer.getBuyerId());
             txtBuyerName.setText(buyer.getBuyerName());

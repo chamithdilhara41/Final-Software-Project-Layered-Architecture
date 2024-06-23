@@ -15,6 +15,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import lk.ijse.dao.custom.BuyerDAO;
 import lk.ijse.util.AnimationUtil;
 import lk.ijse.db.DbConnection;
 import lk.ijse.dto.*;
@@ -83,6 +84,9 @@ public class PlaceOrderFormController {
     private TableView<OrderCartTm> tblOrderPlace;
 
     private ObservableList<OrderCartTm> obList = FXCollections.observableArrayList();
+
+    //dependency injection
+    BuyerDAO buyerDAO = new BuyerDAOImpl();
 
     public void initialize() {
         animateLabelTyping();
@@ -239,7 +243,7 @@ public class PlaceOrderFormController {
     void cmbBuyerIdOnAction(ActionEvent event) {
         String No = cmbBuyerId.getValue();
         try {
-            Buyer buyer = BuyerDAOImpl.searchByBuyerIdForOrder(No);
+            Buyer buyer = buyerDAO.searchByBuyerIdForOrder(No);
 
             if (buyer != null) {
                 lblBuyerName.setText(buyer.getBuyerName());
@@ -277,7 +281,7 @@ public class PlaceOrderFormController {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         try {
-            List<String> NoList = BuyerDAOImpl.getIds();
+            List<String> NoList = buyerDAO.getIds();
 
             for(String No : NoList) {
                 obList.add(No);
