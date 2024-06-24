@@ -5,7 +5,7 @@ import lk.ijse.dto.OrderDetail;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface OrderDetailDAO extends CrudDAO {
+public interface OrderDetailDAO extends CrudDAO<OrderDetail> {
 
     public boolean save(List<OrderDetail> odList) throws SQLException ;
 

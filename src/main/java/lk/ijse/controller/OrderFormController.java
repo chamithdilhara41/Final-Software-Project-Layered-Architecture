@@ -72,17 +72,15 @@ public class OrderFormController {
     //dependency injection
     OrderDAO orderDAO = new OrderDAOImpl();
 
-    public void initialize() throws SQLException {
+    public void initialize() throws SQLException, ClassNotFoundException {
         getAllOrders();
         setCellValueFactoryOrders();
         animateLabelTyping();
         getAllOrderStocks();
         setCellValueFactoryOrderStock();
-        //getBuyerIds();
-        //txtDate.setText(String.valueOf(LocalDate.now()));
     }
 
-    private void getAllOrderStocks() throws SQLException {
+    private void getAllOrderStocks() throws SQLException, ClassNotFoundException {
         ObservableList<OrderStockTm> obList = FXCollections.observableArrayList();
         List<OrderStockTm> OrderStockList = orderDAO.getAllOrderStocks();
         for ( OrderStockTm OrderStock: OrderStockList){
@@ -106,7 +104,7 @@ public class OrderFormController {
         colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
     }
 
-    private void getAllOrders() throws SQLException {
+    private void getAllOrders() throws SQLException, ClassNotFoundException {
         ObservableList<OrderTm> obList = FXCollections.observableArrayList();
         List<Order> ordersList = orderDAO.getAll();
 

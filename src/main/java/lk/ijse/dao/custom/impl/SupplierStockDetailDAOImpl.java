@@ -24,6 +24,24 @@ public class SupplierStockDetailDAOImpl implements SupplierStockDetailDAO {
         return pstm.executeUpdate() > 0;
     }
 
+
+
+
+    @Override
+    public boolean update(SupplierStockDetail dto) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public List<SupplierStockDetail> getAll() throws SQLException, ClassNotFoundException {
+        return List.of();
+    }
+
+    @Override
+    public boolean delete(String id) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
     public List<SupplierStockDetailTm> searchSuppliersWithStockId(String stockID) throws SQLException {
         String sql = "SELECT s.supplierId, s.name, si.Weight FROM supplier s JOIN supplierstockinfo si ON s.supplierId = si.supplierId WHERE si.stockId = ?;";
         List<SupplierStockDetailTm> data = new ArrayList<>();

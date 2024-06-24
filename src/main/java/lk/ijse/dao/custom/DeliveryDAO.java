@@ -6,16 +6,17 @@ import lk.ijse.dto.Delivery;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface DeliveryDAO extends CrudDAO {
+public interface DeliveryDAO extends CrudDAO<Delivery> {
 
-    public boolean save(Delivery delivery) throws SQLException;
+    //public boolean save(Delivery delivery) throws SQLException;
 
-    public boolean update(Delivery delivery) throws SQLException;
+    //public boolean update(Delivery delivery) throws SQLException;
 
-    public boolean delete(String deliveryID) throws SQLException;
+    //public boolean delete(String deliveryID) throws SQLException;
+
+    //public List<Delivery> getAll() throws SQLException;
 
     public Delivery searchByDeliveryId(String deliveryID) throws SQLException;
 
-    public List<Delivery> getAll() throws SQLException;
 
 }

@@ -7,7 +7,7 @@ import lk.ijse.dto.tdm.SupplierStockDetailTm;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface SupplierStockDetailDAO extends CrudDAO {
+public interface SupplierStockDetailDAO extends CrudDAO<SupplierStockDetail> {
 
     public boolean save(SupplierStockDetail supplierStockDetail) throws SQLException ;
 

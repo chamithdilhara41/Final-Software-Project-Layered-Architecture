@@ -85,7 +85,7 @@ public class TransactionFormController {
     OrderDAO orderDAO = new OrderDAOImpl();
 
 
-    public void initialize() throws SQLException {
+    public void initialize() throws SQLException, ClassNotFoundException {
         animateLabelTyping();
         getAllTransactions();
         setCellValueFactory();
@@ -124,7 +124,7 @@ Regex.setTextColor(lk.ijse.util.TextField.ACCOUNTNo,txtAccountNo);
         return true;
     }
 
-    private void getAllTransactions() throws SQLException {
+    private void getAllTransactions() throws SQLException, ClassNotFoundException {
         ObservableList<TransactionTm> obList = FXCollections.observableArrayList();
         List<Transaction> transactinList = transactionDAO.getAll();
 
@@ -191,7 +191,7 @@ Regex.setTextColor(lk.ijse.util.TextField.ACCOUNTNo,txtAccountNo);
     }
 
     @FXML
-    void btnOnActionDelete(ActionEvent event) {
+    void btnOnActionDelete(ActionEvent event) throws ClassNotFoundException {
         String transactionID = txtTransactionID.getText();
 
         if (transactionID.isEmpty()) {
@@ -213,7 +213,7 @@ Regex.setTextColor(lk.ijse.util.TextField.ACCOUNTNo,txtAccountNo);
     }
 
     @FXML
-    void btnOnActionSave(ActionEvent event) {
+    void btnOnActionSave(ActionEvent event) throws ClassNotFoundException {
 
         String transactionID = txtTransactionID.getText();
         String orderID = cmbOrderID.getValue();
@@ -253,7 +253,7 @@ Regex.setTextColor(lk.ijse.util.TextField.ACCOUNTNo,txtAccountNo);
     }
 
     @FXML
-    void btnOnActionUpdate(ActionEvent event) {
+    void btnOnActionUpdate(ActionEvent event) throws ClassNotFoundException {
         String transactionID = txtTransactionID.getText();
         String orderID = cmbOrderID.getValue();
         String accountNo = txtAccountNo.getText();
@@ -292,7 +292,7 @@ Regex.setTextColor(lk.ijse.util.TextField.ACCOUNTNo,txtAccountNo);
     }
 
     @FXML
-    void cmbOrderIdDOnAction(ActionEvent event) {
+    void cmbOrderIdDOnAction(ActionEvent event) throws ClassNotFoundException {
         String oId = cmbOrderID.getValue();
 
         try {

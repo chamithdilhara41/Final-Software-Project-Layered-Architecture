@@ -1,4 +1,16 @@
 package lk.ijse.dao;
 
-public interface CrudDAO {
+import java.sql.SQLException;
+import java.util.List;
+
+public interface CrudDAO<T> {
+
+    boolean save(T dto) throws SQLException, ClassNotFoundException ;
+
+    boolean update(T dto) throws SQLException, ClassNotFoundException ;
+
+    List<T> getAll() throws SQLException, ClassNotFoundException;
+
+    boolean delete(String id) throws SQLException, ClassNotFoundException ;
+
 }

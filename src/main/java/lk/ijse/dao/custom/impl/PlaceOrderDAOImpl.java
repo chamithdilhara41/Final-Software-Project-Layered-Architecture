@@ -14,7 +14,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-public class PlaceOrderDAOImpl implements OrderDAO, OrderDetailDAO, PlaceOrderDAO {
+
+public class PlaceOrderDAOImpl implements PlaceOrderDAO {
 
     OrderDAO orderDAO = new OrderDAOImpl();
     OrderDetailDAO orderDetailDAO = new OrderDetailDAOImpl();
@@ -37,7 +38,7 @@ public class PlaceOrderDAOImpl implements OrderDAO, OrderDetailDAO, PlaceOrderDA
             }
             connection.rollback();
             return false;
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             connection.rollback();
             return false;
         } finally {
@@ -46,54 +47,25 @@ public class PlaceOrderDAOImpl implements OrderDAO, OrderDetailDAO, PlaceOrderDA
 
     }
 
+
+
     @Override
-    public boolean save(Order order) throws SQLException {
+    public boolean save(PlaceOrder dto) throws SQLException, ClassNotFoundException {
         return false;
     }
 
     @Override
-    public boolean update(Order order) throws SQLException {
+    public boolean update(PlaceOrder dto) throws SQLException, ClassNotFoundException {
         return false;
     }
 
     @Override
-    public boolean delete(String orderID) throws SQLException {
-        return false;
-    }
-
-    @Override
-    public List<Order> getAll() throws SQLException {
+    public List<PlaceOrder> getAll() throws SQLException, ClassNotFoundException {
         return List.of();
     }
 
     @Override
-    public List<String> getIds() throws SQLException {
-        return List.of();
-    }
-
-    @Override
-    public String getCurrentId() throws SQLException {
-        return "";
-    }
-
-    @Override
-    public List<OrderStockTm> getAllOrderStocks() throws SQLException {
-        return List.of();
-    }
-
-    @Override
-    public List<OrderBuyerTm> getAllOrderBuyerNames() throws SQLException {
-        return List.of();
-    }
-
-    @Override
-    public boolean save(List<OrderDetail> odList) throws SQLException {
+    public boolean delete(String id) throws SQLException, ClassNotFoundException {
         return false;
     }
-
-    @Override
-    public boolean saveOrderDetailsAndStocks(OrderDetail od) throws SQLException {
-        return false;
-    }
-
 }

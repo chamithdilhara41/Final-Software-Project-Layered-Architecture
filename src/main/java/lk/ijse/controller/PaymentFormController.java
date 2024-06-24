@@ -68,7 +68,7 @@ public class PaymentFormController {
     PaymentDAO paymentDAO = new PaymentDAOImpl();
     SupplierDAO supplierDAO = new SupplierDAOImpl();
 
-    public void initialize() throws SQLException {
+    public void initialize() throws SQLException, ClassNotFoundException {
         animateLabelTyping();
         txtDate.setText(LocalDate.now().toString());
         getAllPayments();
@@ -111,7 +111,7 @@ public class PaymentFormController {
         colSupplierID.setCellValueFactory(new PropertyValueFactory<>("supplierId"));
     }
 
-    private void getAllPayments() throws SQLException {
+    private void getAllPayments() throws SQLException, ClassNotFoundException {
         ObservableList<PaymentTm> obList = FXCollections.observableArrayList();
         List<Payment> paymentList = paymentDAO.getAll();
 
@@ -168,7 +168,7 @@ public class PaymentFormController {
     }
 
     @FXML
-    void btnOnActionDelete(ActionEvent event) {
+    void btnOnActionDelete(ActionEvent event) throws ClassNotFoundException {
         String paymentID = txtPaymentID.getText();
 
         if (paymentID.isEmpty()){
@@ -192,7 +192,7 @@ public class PaymentFormController {
     }
 
     @FXML
-    void btnOnActionSave(ActionEvent event) {
+    void btnOnActionSave(ActionEvent event) throws ClassNotFoundException {
         String paymentID = txtPaymentID.getText();
         String description = txtDescription.getText();
         String amount = String.valueOf(txtAmount.getText());
@@ -225,7 +225,7 @@ public class PaymentFormController {
     }
 
     @FXML
-    void btnOnActionUpdate(ActionEvent event) {
+    void btnOnActionUpdate(ActionEvent event) throws ClassNotFoundException {
         String paymentID = txtPaymentID.getText();
         String description = txtDescription.getText();
         Double amount = Double.valueOf(txtAmount.getText());

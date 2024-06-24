@@ -94,4 +94,9 @@ public class StockDAOImpl implements StockDAO {
 
     }
 
+
+    @Override
+    public boolean update(Stock dto) throws SQLException, ClassNotFoundException {
+        return false;
+    }
 }

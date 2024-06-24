@@ -60,7 +60,7 @@ public class SupplierFormController {
     //dependency injection
     SupplierDAO supplierDAO = new SupplierDAOImpl();
 
-    public void initialize() throws SQLException {
+    public void initialize() throws SQLException, ClassNotFoundException {
         animateLabelTyping();
         getAllSuppliers();
         setCellValueFactory();
@@ -124,13 +124,13 @@ public class SupplierFormController {
             }else {
                 new Alert(Alert.AlertType.ERROR,"Can't find Supplier").show();
             }
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 
     @FXML
-    void btnOnActionSave(ActionEvent event) {
+    void btnOnActionSave(ActionEvent event) throws ClassNotFoundException {
         String supplierID = txtSupplierID.getText();
         String supplierName = txtSupplierName.getText();
         String supplierAddress = txtSupplierAddress.getText();
@@ -163,7 +163,7 @@ public class SupplierFormController {
     }
 
     @FXML
-    void btnOnActionUpdate(ActionEvent event) {
+    void btnOnActionUpdate(ActionEvent event) throws ClassNotFoundException {
 
         String supplierID = txtSupplierID.getText();
         String supplierName = txtSupplierName.getText();
@@ -221,7 +221,7 @@ public class SupplierFormController {
             txtSupplierGender.setText("");
         }
     }
-    void getAllSuppliers() throws SQLException {
+    void getAllSuppliers() throws SQLException, ClassNotFoundException {
 
         ObservableList<SupplierTm> obList = FXCollections.observableArrayList();
         List<Supplier> supplierList = supplierDAO.getAll();

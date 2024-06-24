@@ -61,7 +61,7 @@ public class BuyerFormController {
     BuyerDAO buyerDAO = new BuyerDAOImpl();
 
 
-    public void initialize() throws SQLException {
+    public void initialize() throws SQLException, ClassNotFoundException {
         animateLabelTyping();
         getAllBuyers();
         setCellValueFactory();
@@ -109,7 +109,7 @@ public class BuyerFormController {
         colBuyerContactManager.setCellValueFactory(new PropertyValueFactory<>("BuyerContactManager"));
     }
 
-    private void getAllBuyers() throws SQLException {
+    private void getAllBuyers() throws SQLException, ClassNotFoundException {
         ObservableList<BuyerTm> obList = FXCollections.observableArrayList();
         List<Buyer> buyerList = buyerDAO.getAll();
 
@@ -151,7 +151,7 @@ public class BuyerFormController {
     }
 
     @FXML
-    void btnOnActionDelete(ActionEvent event) {
+    void btnOnActionDelete(ActionEvent event) throws ClassNotFoundException {
         String buyerID = txtBuyerID.getText();
 
         if (buyerID.isEmpty()){
@@ -174,7 +174,7 @@ public class BuyerFormController {
     }
 
     @FXML
-    void btnOnActionSave(ActionEvent event) {
+    void btnOnActionSave(ActionEvent event) throws ClassNotFoundException {
 
         String buyerID = txtBuyerID.getText();
         String buyerName = txtBuyerName.getText();
@@ -216,7 +216,7 @@ public class BuyerFormController {
     }
 
     @FXML
-    void btnOnActionUpdate(ActionEvent event) {
+    void btnOnActionUpdate(ActionEvent event) throws ClassNotFoundException {
         String buyerID = txtBuyerID.getText();
         String buyerName = txtBuyerName.getText();
         String buyerAddress = txtBuyerAddress.getText();
@@ -249,7 +249,7 @@ public class BuyerFormController {
     }
 
     @FXML
-    void txtOnActionSearch(ActionEvent event) throws SQLException {
+    void txtOnActionSearch(ActionEvent event) throws SQLException, ClassNotFoundException {
         String buyerID = txtBuyerID.getText();
 
         Buyer buyer = buyerDAO.searchById(buyerID);

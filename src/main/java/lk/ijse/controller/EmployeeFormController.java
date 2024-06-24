@@ -73,7 +73,7 @@ public class EmployeeFormController {
     EmployeeDAO employeeDAO = new EmployeeDAOImpl();
     VehicleDAO vehicleDAO = new VehicleDAOImpl();
 
-    public void initialize() throws SQLException {
+    public void initialize() throws SQLException, ClassNotFoundException {
         animateLabelTyping();
         getVehicleNos();
         getAllEmployees();
@@ -154,7 +154,7 @@ public class EmployeeFormController {
     }
 
     @FXML
-    void btnOnActionDelete(ActionEvent event) {
+    void btnOnActionDelete(ActionEvent event) throws ClassNotFoundException {
         String EmployeeID = txtEmployeeID.getText();
 
         if (EmployeeID.isEmpty()) {
@@ -178,7 +178,7 @@ public class EmployeeFormController {
     }
 
     @FXML
-    void btnOnActionSave(ActionEvent event) {
+    void btnOnActionSave(ActionEvent event) throws ClassNotFoundException {
         String employeeID = txtEmployeeID.getText();
         String employeeName = txtEmployeeName.getText();
         String employeeAddress = txtEmployeeAddress.getText();
@@ -217,7 +217,7 @@ public class EmployeeFormController {
     }
 
     @FXML
-    void btnOnActionUpdate(ActionEvent event) {
+    void btnOnActionUpdate(ActionEvent event) throws ClassNotFoundException {
         String employeeID = txtEmployeeID.getText();
         String employeeName = txtEmployeeName.getText();
         String employeeAddress = txtEmployeeAddress.getText();
@@ -254,7 +254,7 @@ public class EmployeeFormController {
     }
 
     @FXML
-    void txtOnActionSearch(ActionEvent event) throws SQLException {
+    void txtOnActionSearch(ActionEvent event) throws SQLException, ClassNotFoundException {
         String employeeID = txtEmployeeID.getText();
 
         Employee employee = employeeDAO.searchById(employeeID);
@@ -275,7 +275,7 @@ public class EmployeeFormController {
         }
     }
 
-    public void cmbVehicleNoOnAction(ActionEvent actionEvent) {
+    public void cmbVehicleNoOnAction(ActionEvent actionEvent) throws ClassNotFoundException {
         String No = cmbVehicleNo.getValue();
         try {
             Vehicle vehicle = vehicleDAO.searchByVehicleNoForEmp(No);
@@ -293,7 +293,7 @@ public class EmployeeFormController {
         }
     }
 
-    private void getVehicleNos() {
+    private void getVehicleNos() throws ClassNotFoundException {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         try {
@@ -310,7 +310,7 @@ public class EmployeeFormController {
         }
     }
 
-    private void getAllEmployees() throws SQLException {
+    private void getAllEmployees() throws SQLException, ClassNotFoundException {
         ObservableList<EmployeeTm> obList = FXCollections.observableArrayList();
         List<Employee> employeesList = employeeDAO.getAll();
 

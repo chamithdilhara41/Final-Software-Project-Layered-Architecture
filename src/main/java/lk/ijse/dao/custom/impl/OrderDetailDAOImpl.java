@@ -42,4 +42,25 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
 
     }
 
+
+
+    @Override
+    public boolean save(OrderDetail dto) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean update(OrderDetail dto) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public List<OrderDetail> getAll() throws SQLException, ClassNotFoundException {
+        return List.of();
+    }
+
+    @Override
+    public boolean delete(String id) throws SQLException, ClassNotFoundException {
+        return false;
+    }
 }

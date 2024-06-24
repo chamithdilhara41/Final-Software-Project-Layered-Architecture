@@ -42,7 +42,7 @@ public class VehicleFormController {
     //dependency injection
     VehicleDAO vehicleDAO = new VehicleDAOImpl();
 
-    public void initialize() throws SQLException {
+    public void initialize() throws SQLException, ClassNotFoundException {
         animateLabelTyping();
         getAllVehicles();
         setCellValueFactory();
@@ -84,7 +84,7 @@ public class VehicleFormController {
     }
 
     @FXML
-    void btnOnActionDelete(ActionEvent event) {
+    void btnOnActionDelete(ActionEvent event) throws ClassNotFoundException {
         String vehicleNo = txtVehicleNo.getText();
 
         if (vehicleNo.isEmpty()){
@@ -109,7 +109,7 @@ public class VehicleFormController {
     }
 
     @FXML
-    void btnOnActionSave(ActionEvent event) {
+    void btnOnActionSave(ActionEvent event) throws ClassNotFoundException {
         String vehicleNo = txtVehicleNo.getText();
         String vehicleType = txtVehicleType.getText();
 
@@ -143,7 +143,7 @@ public class VehicleFormController {
         colVehicleType.setCellValueFactory(new PropertyValueFactory<>("vehicleType"));
     }
 
-    private void getAllVehicles() throws SQLException {
+    private void getAllVehicles() throws SQLException, ClassNotFoundException {
         ObservableList<VehicleTm> obList = FXCollections.observableArrayList();
         List<Vehicle> vehiclesList = vehicleDAO.getAll();
 
@@ -157,7 +157,7 @@ public class VehicleFormController {
     }
 
     @FXML
-    void btnOnActionUpdate(ActionEvent event) {
+    void btnOnActionUpdate(ActionEvent event) throws ClassNotFoundException {
         String vehicleNo = txtVehicleNo.getText();
         String vehicleType = txtVehicleType.getText();
 
@@ -186,7 +186,7 @@ public class VehicleFormController {
     }
 
     @FXML
-    void txtOnActionSearch(ActionEvent event) throws SQLException {
+    void txtOnActionSearch(ActionEvent event) throws SQLException, ClassNotFoundException {
         String vehicleNo = txtVehicleNo.getText();
 
         Vehicle vehicle = vehicleDAO.searchByVehicleNo(vehicleNo);

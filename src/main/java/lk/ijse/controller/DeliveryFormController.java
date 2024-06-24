@@ -72,7 +72,7 @@ public class DeliveryFormController {
     VehicleDAO vehicleDAO = new VehicleDAOImpl();
     StockDAO stockDAO = new StockDAOImpl();
 
-    public void initialize() throws SQLException {
+    public void initialize() throws SQLException, ClassNotFoundException {
         animateLabelTyping();
         txtDate.setText(String.valueOf(LocalDate.now()));
         getVehicleNos();
@@ -104,7 +104,7 @@ public class DeliveryFormController {
         colVehicleNo.setCellValueFactory(new PropertyValueFactory<>("vehicleNo"));
     }
 
-    private void getAllDeliveries() throws SQLException {
+    private void getAllDeliveries() throws SQLException, ClassNotFoundException {
         ObservableList<Object> obList = FXCollections.observableArrayList();
         List<Delivery> deliveryList = deliveryDAO.getAll();
 
@@ -148,7 +148,7 @@ public class DeliveryFormController {
         cmbVehicleNo.getSelectionModel().clearSelection();
     }
     @FXML
-    void btnOnActionDelete(ActionEvent event) {
+    void btnOnActionDelete(ActionEvent event) throws ClassNotFoundException {
         String deliveryID = txtDeliveryID.getText();
 
         if (deliveryID.isEmpty()){
@@ -172,7 +172,7 @@ public class DeliveryFormController {
     }
 
     @FXML
-    void btnOnActionSave(ActionEvent event) {
+    void btnOnActionSave(ActionEvent event) throws ClassNotFoundException {
         String deliveryID = txtDeliveryID.getText();
         String date = txtDate.getText();
         String orderID = cmbStockID.getValue();
@@ -204,7 +204,7 @@ public class DeliveryFormController {
     }
 
     @FXML
-    void btnOnActionUpdate(ActionEvent event) {
+    void btnOnActionUpdate(ActionEvent event) throws ClassNotFoundException {
         String deliveryID = txtDeliveryID.getText();
         String date = txtDate.getText();
         String orderID = cmbStockID.getValue();
@@ -237,7 +237,7 @@ public class DeliveryFormController {
     }
 
     @FXML
-    void cmbStockIdOnAction(ActionEvent event) {
+    void cmbStockIdOnAction(ActionEvent event) throws ClassNotFoundException {
         String sId = cmbStockID.getValue();
 
         try {
@@ -253,7 +253,7 @@ public class DeliveryFormController {
     }
 
     @FXML
-    void cmbVehicleNoOnAction(ActionEvent event) {
+    void cmbVehicleNoOnAction(ActionEvent event) throws ClassNotFoundException {
         String No = cmbVehicleNo.getValue();
         try {
             Vehicle vehicle = vehicleDAO.searchByVehicleNoForEmp(No);
@@ -273,7 +273,7 @@ public class DeliveryFormController {
     }
 
     @FXML
-    void txtOnActionSearch(ActionEvent event) throws SQLException {
+    void txtOnActionSearch(ActionEvent event) throws SQLException, ClassNotFoundException {
         String deliveryID = txtDeliveryID.getText();
 
         Delivery delivery = deliveryDAO.searchByDeliveryId(deliveryID);
@@ -290,7 +290,7 @@ public class DeliveryFormController {
             cmbVehicleNo.getSelectionModel().clearSelection();
         }
     }
-    private void getVehicleNos() {
+    private void getVehicleNos() throws ClassNotFoundException {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         try {

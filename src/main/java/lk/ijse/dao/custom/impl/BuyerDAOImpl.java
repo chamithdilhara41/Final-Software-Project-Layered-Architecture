@@ -1,10 +1,9 @@
 package lk.ijse.dao.custom.impl;
 
+import lk.ijse.util.SQLUtil;
 import lk.ijse.dao.custom.BuyerDAO;
-import lk.ijse.db.DbConnection;
 import lk.ijse.dto.Buyer;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -12,27 +11,22 @@ import java.util.List;
 
 public class BuyerDAOImpl implements BuyerDAO {
 
-    public boolean save(Buyer buyer) throws SQLException {
-        String sql = "INSERT INTO buyer VALUES(?, ?, ?, ?, ?);";
+    public boolean save(Buyer buyer) throws SQLException, ClassNotFoundException {
 
-        PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
-
-        pstm.setObject(1, buyer.getBuyerId());
-        pstm.setObject(2, buyer.getBuyerName());
-        pstm.setObject(3, buyer.getBuyerAddress());
-        pstm.setObject(4,buyer.getBuyerContactOffice());
-        pstm.setObject(5, buyer.getBuyerContactManager());
-
-        return pstm.executeUpdate() > 0;
+        return SQLUtil.execute("INSERT INTO buyer VALUES(?, ?, ?, ?, ?);",
+                buyer.getBuyerId(),
+                buyer.getBuyerName(),
+                buyer.getBuyerAddress(),
+                buyer.getBuyerContactOffice(),
+                buyer.getBuyerContactManager()
+        );
     }
 
-    public List<Buyer> getAll() throws SQLException {
-        Connection con = DbConnection.getInstance().getConnection();
-        String sql = "SELECT * FROM buyer";
+    public List<Buyer> getAll() throws SQLException, ClassNotFoundException {
 
         List<Buyer> data = new ArrayList<>();
 
-        ResultSet resultSet = con.createStatement().executeQuery(sql);
+        ResultSet resultSet = SQLUtil.execute("SELECT * FROM buyer");
         while (resultSet.next()) {
             data.add(new Buyer(
                     resultSet.getString(1),
@@ -45,13 +39,9 @@ public class BuyerDAOImpl implements BuyerDAO {
         return data;
     }
 
-    public Buyer searchById(String buyerID) throws SQLException {
-        String sql = "SELECT * FROM buyer WHERE buyerId = ?";
+    public Buyer searchById(String buyerID) throws SQLException, ClassNotFoundException {
 
-        Connection connection = DbConnection.getInstance().getConnection();
-        PreparedStatement pstm = connection.prepareStatement(sql);
-        pstm.setObject(1, buyerID);
-        ResultSet resultSet = pstm.executeQuery();
+        ResultSet resultSet = SQLUtil.execute("SELECT * FROM buyer WHERE buyerId = ?",buyerID);
         if (resultSet.next()) {
             String buyerId = resultSet.getString(1);
             String buyerName = resultSet.getString(2);
@@ -64,39 +54,27 @@ public class BuyerDAOImpl implements BuyerDAO {
         return null;
     }
 
-    public boolean update(Buyer buyer) throws SQLException {
-        String sql = "UPDATE buyer SET name = ?, address = ?, contactOffice = ?, contactManager = ? WHERE buyerId = ?";
+    public boolean update(Buyer buyer) throws SQLException, ClassNotFoundException {
 
-        Connection connection = DbConnection.getInstance().getConnection();
-        PreparedStatement pstm = connection.prepareStatement(sql);
-        pstm.setObject(1, buyer.getBuyerName());
-        pstm.setObject(2, buyer.getBuyerAddress());
-        pstm.setObject(3, buyer.getBuyerContactOffice());
-        pstm.setObject(4, buyer.getBuyerContactManager());
-        pstm.setObject(5, buyer.getBuyerId());
-
-        return pstm.executeUpdate() > 0;
+        return SQLUtil.execute("UPDATE buyer SET name = ?, address = ?, contactOffice = ?, contactManager = ? WHERE buyerId = ?",
+                buyer.getBuyerName(),
+                buyer.getBuyerAddress(),
+                buyer.getBuyerContactOffice(),
+                buyer.getBuyerContactManager(),
+                buyer.getBuyerId()
+        );
     }
 
-    public boolean delete(String buyerID) throws SQLException {
-        String sql = "DELETE FROM buyer WHERE buyerId = ?;";
+    public boolean delete(String buyerID) throws SQLException, ClassNotFoundException {
 
-        Connection connection = DbConnection.getInstance().getConnection();
-        PreparedStatement pstm = connection.prepareStatement(sql);
-        pstm.setObject(1, buyerID);
-
-        return pstm.executeUpdate() > 0;
+        return SQLUtil.execute("DELETE FROM buyer WHERE buyerId = ?;",buyerID);
     }
 
-    public List<String> getIds() throws SQLException {
-        String sql = "SELECT buyerId FROM buyer";
-
-        PreparedStatement pstm = DbConnection.getInstance().getConnection()
-                .prepareStatement(sql);
+    public List<String> getIds() throws SQLException, ClassNotFoundException {
 
         List<String> idList = new ArrayList<>();
 
-        ResultSet resultSet = pstm.executeQuery();
+        ResultSet resultSet = SQLUtil.execute("SELECT buyerId FROM buyer");
         while (resultSet.next()) {
             String id = resultSet.getString(1);
             idList.add(id);
@@ -104,12 +82,9 @@ public class BuyerDAOImpl implements BuyerDAO {
         return idList;
     }
 
-    public Buyer searchByBuyerIdForOrder(String no) throws SQLException {
-        String sql = "SELECT * FROM buyer WHERE buyerId = ?;";
+    public Buyer searchByBuyerIdForOrder(String no) throws SQLException, ClassNotFoundException {
 
-        PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
-        pstm.setObject(1, no);
-        ResultSet resultSet = pstm.executeQuery();
+        ResultSet resultSet = SQLUtil.execute("SELECT * FROM buyer WHERE buyerId = ?;",no);
         if (resultSet.next()) {
             String buyerID = resultSet.getString(1);
             String buyerName = resultSet.getString(2);
@@ -122,14 +97,9 @@ public class BuyerDAOImpl implements BuyerDAO {
         return null;
     }
 
-    public Buyer searchByStockIdForTransaction(String oId) throws SQLException {
+    public Buyer searchByStockIdForTransaction(String oId) throws SQLException, ClassNotFoundException {
 
-        //String sql = "SELECT * FROM buyer JOIN orders ON buyer.buyerId = orders.buyerId WHERE orderId = ?;";
-        String sql = "SELECT b.* FROM buyer b JOIN ordersstockinfo osi ON b.buyerId = osi.buyerId WHERE osi.stockId = ?;";
-
-        PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
-        pstm.setObject(1, oId);
-        ResultSet resultSet = pstm.executeQuery();
+        ResultSet resultSet = SQLUtil.execute("SELECT b.* FROM buyer b JOIN ordersstockinfo osi ON b.buyerId = osi.buyerId WHERE osi.stockId = ?;",oId);
         if (resultSet.next()) {
             String buyerID = resultSet.getString(1);
             String buyerName = resultSet.getString(2);

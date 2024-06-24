@@ -81,7 +81,7 @@ public class StockFormController {
     SupplierStockDetailDAO supplierStockDetailDAO = new SupplierStockDetailDAOImpl();
     StockDAO stockDAO = new StockDAOImpl();
 
-    public void initialize() throws SQLException {
+    public void initialize() throws SQLException, ClassNotFoundException {
         animateLabelTyping();
         getAllStocks();
         setCellValueFactoryForStocks();
@@ -122,7 +122,7 @@ public class StockFormController {
         colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
     }
 
-    private void getAllStocks() throws SQLException {
+    private void getAllStocks() throws SQLException, ClassNotFoundException {
         ObservableList<StockTm> obList = FXCollections.observableArrayList();
         List<Stock> stocksList = stockDAO.getAll();
 
@@ -173,7 +173,7 @@ public class StockFormController {
     }
 
     @FXML
-    void btnOnActionDelete(ActionEvent event) {
+    void btnOnActionDelete(ActionEvent event) throws ClassNotFoundException {
         String stockID = txtStockID.getText();
 
         try {
@@ -223,7 +223,7 @@ public class StockFormController {
     }
 
     @FXML
-    void btnOnActionAddWeight(ActionEvent event) throws SQLException {
+    void btnOnActionAddWeight(ActionEvent event) throws SQLException, ClassNotFoundException {
         String stockID = txtStockID.getText();
         String supplierID = cmbSupplierID.getValue();
         String weight = String.valueOf(txtWeight.getText());
@@ -265,7 +265,7 @@ public class StockFormController {
                     }
 
                 }
-            } catch (SQLException e) {
+            } catch (SQLException | ClassNotFoundException e) {
 
             boolean isUpdateWeight = stockDAO.updateWeight(stockID,supplierID, Double.valueOf(weight));
             if (isUpdateWeight) {
@@ -283,7 +283,7 @@ public class StockFormController {
     }
 
     @FXML
-    void btnOnActionSave(ActionEvent event) {
+    void btnOnActionSave(ActionEvent event) throws ClassNotFoundException {
         String stockID = txtStockID.getText();
         //String supplierID = cmbSupplierID.getValue();
         Double weight = Double.valueOf(txtWeight.getText());

@@ -92,7 +92,7 @@ public class PlaceOrderFormController {
     PlaceOrderDAO placeOrderDAO = new PlaceOrderDAOImpl();
 
 
-    public void initialize() {
+    public void initialize() throws ClassNotFoundException {
         animateLabelTyping();
         getCurrentOrderId();
         getBuyerIds();
@@ -157,7 +157,7 @@ public class PlaceOrderFormController {
     }
 
     @FXML
-    void btnOnActionPlaceOrder(ActionEvent event) throws IOException, JRException, SQLException {
+    void btnOnActionPlaceOrder(ActionEvent event) throws IOException, JRException, SQLException, ClassNotFoundException {
 
         if (tblOrderPlace.getItems().isEmpty()) {
             new Alert(Alert.AlertType.ERROR, "Add to cart firstly...", ButtonType.OK).show();
@@ -244,7 +244,7 @@ public class PlaceOrderFormController {
     }
 
     @FXML
-    void cmbBuyerIdOnAction(ActionEvent event) {
+    void cmbBuyerIdOnAction(ActionEvent event) throws ClassNotFoundException {
         String No = cmbBuyerId.getValue();
         try {
             Buyer buyer = buyerDAO.searchByBuyerIdForOrder(No);
@@ -281,7 +281,7 @@ public class PlaceOrderFormController {
         }
     }
 
-    private void getBuyerIds() {
+    private void getBuyerIds() throws ClassNotFoundException {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         try {
@@ -315,7 +315,7 @@ public class PlaceOrderFormController {
         }
     }
 
-    private void getCurrentOrderId() {
+    private void getCurrentOrderId() throws ClassNotFoundException {
         try {
             String currentId = orderDAO.getCurrentId();
 
