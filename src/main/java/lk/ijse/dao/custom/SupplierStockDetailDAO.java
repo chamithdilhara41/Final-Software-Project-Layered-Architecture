@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface SupplierStockDetailDAO extends CrudDAO<SupplierStockDetail> {
 
-    public boolean save(SupplierStockDetail supplierStockDetail) throws SQLException ;
+    public boolean save(SupplierStockDetail supplierStockDetail) throws SQLException, ClassNotFoundException;
 
     public List<SupplierStockDetailTm> searchSuppliersWithStockId(String stockID) throws SQLException ;
 

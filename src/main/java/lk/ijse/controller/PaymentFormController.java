@@ -127,7 +127,7 @@ public class PaymentFormController {
     }
 
     @FXML
-    void OnMouseClicked(MouseEvent event) {
+    void OnMouseClicked(MouseEvent event) throws ClassNotFoundException {
         int index = tblPayment.getSelectionModel().getSelectedIndex();
 
         if (index <= -1){
@@ -262,7 +262,7 @@ public class PaymentFormController {
     }
 
     @FXML
-    void txtOnActionSearch(ActionEvent event) {
+    void txtOnActionSearch(ActionEvent event) throws ClassNotFoundException {
         String paymentID = txtPaymentID.getText();
 
         try {
@@ -288,7 +288,7 @@ public class PaymentFormController {
     }
 
     @FXML
-    void txtOnActionSearchSupplier(ActionEvent event) throws SQLException {
+    void txtOnActionSearchSupplier(ActionEvent event) throws SQLException, ClassNotFoundException {
         String supplierID = txtSupplierID.getText();
 
         Supplier supplier = supplierDAO.searchBySupplierIdForPayment(supplierID);

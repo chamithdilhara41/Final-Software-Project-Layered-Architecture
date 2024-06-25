@@ -3,6 +3,7 @@ package lk.ijse.dao.custom.impl;
 import lk.ijse.dao.custom.StockDAO;
 import lk.ijse.db.DbConnection;
 import lk.ijse.dto.Stock;
+import lk.ijse.util.SQLUtil;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -13,24 +14,16 @@ import java.util.List;
 
 public class StockDAOImpl implements StockDAO {
 
-    public boolean save(Stock stock) throws SQLException {
-        String sql = "insert into stock values(?,?,?,'active')";
+    public boolean save(Stock stock) throws SQLException, ClassNotFoundException {
 
-        PreparedStatement pstm = DbConnection.getInstance().getConnection()
-                .prepareStatement(sql);
-        pstm.setObject(1,stock.getStockId());
-        pstm.setObject(2,stock.getWeight());
-        pstm.setObject(3,stock.getDate());
-
-        return pstm.executeUpdate() > 0;
+        return SQLUtil.execute("insert into stock values(?,?,?,'active')",stock.getStockId(),stock.getWeight(),stock.getDate());
     }
 
-    public List<Stock> getAll() throws SQLException {
-        String sql = "select * from stock";
+    public List<Stock> getAll() throws SQLException, ClassNotFoundException {
 
-        List<Stock> data = new ArrayList<Stock>();
-        PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
-        ResultSet resultSet = pstm.executeQuery();
+        List<Stock> data = new ArrayList<>();
+
+        ResultSet resultSet = SQLUtil.execute("select * from stock");
         while (resultSet.next()) {
             data.add(new Stock(
                     resultSet.getString(1),
@@ -41,26 +34,16 @@ public class StockDAOImpl implements StockDAO {
         return data;
     }
 
-    public boolean updateWeight(String stockID, String supplierID, Double weight) throws SQLException {
-        String sql = "update stock set TotalWeight = TotalWeight + ? where stockID = ?";
+    public boolean updateWeight(String stockID, String supplierID, Double weight) throws SQLException, ClassNotFoundException {
 
-        PreparedStatement pstm = DbConnection.getInstance().getConnection()
-                .prepareStatement(sql);
-        pstm.setObject(1,weight);
-        pstm.setObject(2,stockID);
-
-        return pstm.executeUpdate() > 0;
+        return SQLUtil.execute("update stock set TotalWeight = TotalWeight + ? where stockID = ?",weight,stockID);
     }
 
-    public List<String> getIds() throws SQLException {
-        String sql = "SELECT stockId FROM stock WHERE status ='active'";
-
-        PreparedStatement pstm = DbConnection.getInstance().getConnection()
-                .prepareStatement(sql);
+    public List<String> getIds() throws SQLException, ClassNotFoundException {
 
         List<String> idList = new ArrayList<>();
 
-        ResultSet resultSet = pstm.executeQuery();
+        ResultSet resultSet = SQLUtil.execute("SELECT stockId FROM stock WHERE status ='active'");
         while (resultSet.next()) {
             String id = resultSet.getString(1);
             idList.add(id);
@@ -68,12 +51,9 @@ public class StockDAOImpl implements StockDAO {
         return idList;
     }
 
-    public Stock searchByStockIdForOrder(String no) throws SQLException {
-        String sql = "select * from stock where stockID = ?";
+    public Stock searchByStockIdForOrder(String no) throws SQLException, ClassNotFoundException {
 
-        PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
-        pstm.setObject(1,no);
-        ResultSet resultSet = pstm.executeQuery();
+        ResultSet resultSet = SQLUtil.execute("select * from stock where stockID = ?",no);
         if (resultSet.next()) {
             String stockId = resultSet.getString(1);
             Double weight = resultSet.getDouble(2);
@@ -84,15 +64,13 @@ public class StockDAOImpl implements StockDAO {
         return null;
     }
 
-    public boolean delete(String stockID) throws SQLException {
+    public boolean delete(String stockID) throws SQLException, ClassNotFoundException {
 
-        String sql = "delete from stock where stockID = ?";
-
-        PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
-        pstm.setObject(1,stockID);
-        return pstm.executeUpdate() > 0;
+        return SQLUtil.execute("delete from stock where stockID = ?",stockID);
 
     }
+
+
 
 
     @Override

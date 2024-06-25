@@ -305,7 +305,7 @@ public class StockFormController {
     }
 
     @FXML
-    void cmbSupplierIdOnAction(ActionEvent event) {
+    void cmbSupplierIdOnAction(ActionEvent event) throws ClassNotFoundException {
         String supplierID = cmbSupplierID.getValue();
 
         try {
@@ -323,7 +323,7 @@ public class StockFormController {
 
     }
 
-    private void getSupplierIds() {
+    private void getSupplierIds() throws ClassNotFoundException {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         try {

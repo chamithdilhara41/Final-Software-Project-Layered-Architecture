@@ -4,6 +4,7 @@ import javafx.scene.control.Alert;
 import lk.ijse.dao.custom.VehicleDAO;
 import lk.ijse.db.DbConnection;
 import lk.ijse.dto.Vehicle;
+import lk.ijse.util.SQLUtil;
 import org.jetbrains.annotations.Nullable;
 
 import java.sql.Connection;
@@ -15,24 +16,19 @@ import java.util.List;
 
 public class VehicleDAOImpl implements VehicleDAO {
 
-    public boolean save(Vehicle vehicle) throws SQLException {
-        String sql = "INSERT INTO vehicle VALUES(?, ?);";
+    public boolean save(Vehicle vehicle) throws SQLException, ClassNotFoundException {
 
-        PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
-
-        pstm.setObject(1, vehicle.getVehicleNo());
-        pstm.setObject(2, vehicle.getVehicleType());
-
-        return pstm.executeUpdate() > 0;
+        return SQLUtil.execute("INSERT INTO vehicle VALUES(?, ?);",
+                vehicle.getVehicleNo(),
+                vehicle.getVehicleType()
+        );
     }
 
-    public List<Vehicle> getAll() throws SQLException {
-        Connection con = DbConnection.getInstance().getConnection();
-        String sql = "SELECT * FROM vehicle";
+    public List<Vehicle> getAll() throws SQLException, ClassNotFoundException {
 
         List<Vehicle> data = new ArrayList<>();
 
-        ResultSet resultSet = con.createStatement().executeQuery(sql);
+        ResultSet resultSet = SQLUtil.execute("SELECT * FROM vehicle");
         while (resultSet.next()) {
             data.add(new Vehicle(
                     resultSet.getString(1),
@@ -42,24 +38,17 @@ public class VehicleDAOImpl implements VehicleDAO {
         return data;
     }
 
-    public boolean update(Vehicle vehicle) throws SQLException {
-        String sql = "UPDATE vehicle SET type = ? WHERE vehicleNo = ?;";
+    public boolean update(Vehicle vehicle) throws SQLException, ClassNotFoundException {
 
-        Connection connection = DbConnection.getInstance().getConnection();
-        PreparedStatement pstm = connection.prepareStatement(sql);
-        pstm.setObject(2, vehicle.getVehicleNo());
-        pstm.setObject(1, vehicle.getVehicleType());
-
-        return pstm.executeUpdate() > 0;
+        return SQLUtil.execute("UPDATE vehicle SET type = ? WHERE vehicleNo = ?;",
+                vehicle.getVehicleType(),
+                vehicle.getVehicleNo()
+                );
     }
 
-    public Vehicle searchByVehicleNo(String vehicleNO) throws SQLException {
+    public Vehicle searchByVehicleNo(String vehicleNO) throws SQLException, ClassNotFoundException {
 
-        String sql = "SELECT * FROM vehicle WHERE vehicleNo = ?;";
-
-        PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
-        pstm.setObject(1, vehicleNO);
-        ResultSet resultSet = pstm.executeQuery();
+        ResultSet resultSet = SQLUtil.execute("SELECT * FROM vehicle WHERE vehicleNo = ?;",vehicleNO);
         if (resultSet.next()) {
             new Alert(Alert.AlertType.CONFIRMATION, "Vehicle Found").showAndWait();
             String vehicleNo = resultSet.getString(1);
@@ -70,13 +59,9 @@ public class VehicleDAOImpl implements VehicleDAO {
         return null;
     }
 
-    public Vehicle searchByVehicleNoForEmp(String vehicleNO) throws SQLException {
+    public Vehicle searchByVehicleNoForEmp(String vehicleNO) throws SQLException, ClassNotFoundException {
 
-        String sql = "SELECT * FROM vehicle WHERE vehicleNo = ?;";
-
-        PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
-        pstm.setObject(1, vehicleNO);
-        ResultSet resultSet = pstm.executeQuery();
+        ResultSet resultSet = SQLUtil.execute("SELECT * FROM vehicle WHERE vehicleNo = ?;",vehicleNO);
         if (resultSet.next()) {
             String vehicleNo = resultSet.getString(1);
             String vehicleType = resultSet.getString(2);
@@ -86,25 +71,16 @@ public class VehicleDAOImpl implements VehicleDAO {
         return null;
     }
 
-    public boolean delete(String vehicleNo) throws SQLException {
-        String sql = "DELETE FROM vehicle WHERE vehicleNo = ?;";
+    public boolean delete(String vehicleNo) throws SQLException, ClassNotFoundException {
 
-        PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
-        pstm.setObject(1, vehicleNo);
-
-        return pstm.executeUpdate() > 0;
+        return SQLUtil.execute("DELETE FROM vehicle WHERE vehicleNo = ?;",vehicleNo);
     }
 
-    public List<String> getNos() throws SQLException {
-
-        String sql = "SELECT vehicleNo FROM vehicle";
-
-        PreparedStatement pstm = DbConnection.getInstance().getConnection()
-                .prepareStatement(sql);
+    public List<String> getNos() throws SQLException, ClassNotFoundException {
 
         List<String> idList = new ArrayList<>();
 
-        ResultSet resultSet = pstm.executeQuery();
+        ResultSet resultSet = SQLUtil.execute("SELECT vehicleNo FROM vehicle");
         while (resultSet.next()) {
             String id = resultSet.getString(1);
             idList.add(id);

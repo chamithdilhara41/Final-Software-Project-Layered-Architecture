@@ -16,6 +16,6 @@ public interface TransactionDAO extends CrudDAO<Transaction> {
 
     //public List<Transaction> getAll() throws SQLException ;
 
-    public Transaction searchByTransactionId(String transactionID) throws SQLException ;
+    public Transaction searchByTransactionId(String transactionID) throws SQLException, ClassNotFoundException;
 
 }

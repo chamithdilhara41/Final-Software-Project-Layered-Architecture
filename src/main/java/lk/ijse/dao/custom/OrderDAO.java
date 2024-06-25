@@ -18,12 +18,12 @@ public interface OrderDAO extends CrudDAO<Order> {
 
     //public List<Order> getAll() throws SQLException ;
 
-    public List<String> getIds() throws SQLException ;
+    public List<String> getIds() throws SQLException, ClassNotFoundException;
 
-    public String getCurrentId() throws SQLException ;
+    public String getCurrentId() throws SQLException, ClassNotFoundException;
 
-    public List<OrderStockTm> getAllOrderStocks() throws SQLException ;
+    public List<OrderStockTm> getAllOrderStocks() throws SQLException, ClassNotFoundException;
 
-    public List<OrderBuyerTm> getAllOrderBuyerNames() throws SQLException ;
+    public List<OrderBuyerTm> getAllOrderBuyerNames() throws SQLException, ClassNotFoundException;
 
 }

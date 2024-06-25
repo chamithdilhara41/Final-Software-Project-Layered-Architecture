@@ -16,9 +16,9 @@ public interface SupplierDAO extends CrudDAO<Supplier> {
 
     //public boolean delete(String supplierID) throws SQLException ;
 
-    public Supplier searchById(String supplierID) throws SQLException ;
+    public Supplier searchById(String supplierID) throws SQLException, ClassNotFoundException;
 
-    public Supplier searchBySupplierIdForPayment(String supplierID) throws SQLException ;
+    public Supplier searchBySupplierIdForPayment(String supplierID) throws SQLException, ClassNotFoundException;
 
-    public List<String> getIds() throws SQLException ;
+    public List<String> getIds() throws SQLException, ClassNotFoundException;
 }

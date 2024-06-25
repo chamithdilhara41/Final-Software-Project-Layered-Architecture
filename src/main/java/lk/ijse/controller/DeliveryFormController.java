@@ -307,7 +307,7 @@ public class DeliveryFormController {
         }
     }
 
-    private void getStockIds() {
+    private void getStockIds() throws ClassNotFoundException {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         try {

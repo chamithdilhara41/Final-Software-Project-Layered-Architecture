@@ -16,6 +16,6 @@ public interface EmployeeDAO extends CrudDAO<Employee> {
 
     //public boolean delete(String employeeID) throws SQLException ;
 
-    public Employee searchById(String employeeID) throws SQLException ;
+    public Employee searchById(String employeeID) throws SQLException, ClassNotFoundException;
 
 }

@@ -16,7 +16,7 @@ public interface DeliveryDAO extends CrudDAO<Delivery> {
 
     //public List<Delivery> getAll() throws SQLException;
 
-    public Delivery searchByDeliveryId(String deliveryID) throws SQLException;
+    public Delivery searchByDeliveryId(String deliveryID) throws SQLException, ClassNotFoundException;
 
 
 }

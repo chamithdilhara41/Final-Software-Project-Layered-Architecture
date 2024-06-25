@@ -16,9 +16,9 @@ public interface VehicleDAO extends CrudDAO<Vehicle> {
 
     //public boolean delete(String vehicleNo) throws SQLException ;
 
-    public Vehicle searchByVehicleNo(String vehicleNO) throws SQLException ;
+    public Vehicle searchByVehicleNo(String vehicleNO) throws SQLException, ClassNotFoundException;
 
-    public Vehicle searchByVehicleNoForEmp(String vehicleNO) throws SQLException ;
+    public Vehicle searchByVehicleNoForEmp(String vehicleNO) throws SQLException, ClassNotFoundException;
 
-    public List<String> getNos() throws SQLException ;
+    public List<String> getNos() throws SQLException, ClassNotFoundException;
 }

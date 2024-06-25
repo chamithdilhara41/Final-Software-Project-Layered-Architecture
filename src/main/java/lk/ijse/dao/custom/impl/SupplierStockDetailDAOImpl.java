@@ -4,6 +4,7 @@ import lk.ijse.dao.custom.SupplierStockDetailDAO;
 import lk.ijse.db.DbConnection;
 import lk.ijse.dto.SupplierStockDetail;
 import lk.ijse.dto.tdm.SupplierStockDetailTm;
+import lk.ijse.util.SQLUtil;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,15 +14,14 @@ import java.util.List;
 
 public class SupplierStockDetailDAOImpl implements SupplierStockDetailDAO {
 
-    public boolean save(SupplierStockDetail supplierStockDetail) throws SQLException {
-        String sql = "insert into supplierstockinfo values(?,?,?)";
+    public boolean save(SupplierStockDetail supplierStockDetail) throws SQLException, ClassNotFoundException {
+       ;
 
-        PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
-        pstm.setObject(1, supplierStockDetail.getStockId());
-        pstm.setObject(2, supplierStockDetail.getSupplierId());
-        pstm.setObject(3,supplierStockDetail.getWeight());
-
-        return pstm.executeUpdate() > 0;
+        return SQLUtil.execute("insert into supplierstockinfo values(?,?,?)",
+                supplierStockDetail.getStockId(),
+                supplierStockDetail.getSupplierId(),
+                supplierStockDetail.getWeight()
+                );
     }
 
 

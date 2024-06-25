@@ -3,6 +3,7 @@ package lk.ijse.dao.custom.impl;
 import lk.ijse.dao.custom.EmployeeDAO;
 import lk.ijse.db.DbConnection;
 import lk.ijse.dto.Employee;
+import lk.ijse.util.SQLUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,28 +14,23 @@ import java.util.List;
 
 public class EmployeeDAOImpl implements EmployeeDAO {
 
-    public boolean save(Employee employee) throws SQLException {
+    public boolean save(Employee employee) throws SQLException, ClassNotFoundException {
 
-        String sql = "INSERT INTO employee values(?,?,?,?,?,?)";
-
-        PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
-        pstm.setObject(1, employee.getEmployeeId());
-        pstm.setObject(2, employee.getEmployeeName());
-        pstm.setObject(3, employee.getEmployeeAddress());
-        pstm.setObject(4, employee.getEmployeeContact());
-        pstm.setObject(5,employee.getEmployeeSalary());
-        pstm.setObject(6,employee.getVehicleNo());
-
-        return pstm.executeUpdate() > 0;
+        return SQLUtil.execute("INSERT INTO employee values(?,?,?,?,?,?)",
+                employee.getEmployeeId(),
+                employee.getEmployeeName(),
+                employee.getEmployeeAddress(),
+                employee.getEmployeeContact(),
+                employee.getEmployeeSalary(),
+                employee.getVehicleNo()
+        );
     }
 
-    public List<Employee> getAll() throws SQLException {
-        Connection con = DbConnection.getInstance().getConnection();
-        String sql = "SELECT * FROM employee";
+    public List<Employee> getAll() throws SQLException, ClassNotFoundException {
 
         List<Employee> data = new ArrayList<>();
 
-        ResultSet resultSet = con.createStatement().executeQuery(sql);
+        ResultSet resultSet = SQLUtil.execute("SELECT * FROM employee");
         while (resultSet.next()) {
             data.add(new Employee(
                     resultSet.getString(1),
@@ -49,36 +45,26 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
     }
 
-    public boolean update(Employee employee) throws SQLException {
-        String sql = "UPDATE employee SET name=?, address=?, contact=?, salary=?, vehicleNo=? WHERE employeeId = ?;";
+    public boolean update(Employee employee) throws SQLException, ClassNotFoundException {
 
-        PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
-        pstm.setObject(1, employee.getEmployeeName());
-        pstm.setObject(2, employee.getEmployeeAddress());
-        pstm.setObject(3, employee.getEmployeeContact());
-        pstm.setObject(4, employee.getEmployeeSalary());
-        pstm.setObject(5, employee.getVehicleNo());
-        pstm.setObject(6, employee.getEmployeeId());
-
-        return pstm.executeUpdate() > 0;
+        return SQLUtil.execute("UPDATE employee SET name=?, address=?, contact=?, salary=?, vehicleNo=? WHERE employeeId = ?;",
+                employee.getEmployeeName(),
+                employee.getEmployeeAddress(),
+                employee.getEmployeeContact(),
+                employee.getEmployeeSalary(),
+                employee.getVehicleNo(),
+                employee.getEmployeeId()
+        );
     }
 
-    public boolean delete(String employeeID) throws SQLException {
-        String sql = "DELETE FROM employee WHERE employeeId = ?";
+    public boolean delete(String employeeID) throws SQLException, ClassNotFoundException {
 
-        PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
-        pstm.setObject(1, employeeID);
-
-        return pstm.executeUpdate() > 0;
+        return SQLUtil.execute("DELETE FROM employee WHERE employeeId = ?",employeeID);
     }
 
-    public Employee searchById(String employeeID) throws SQLException {
-        
-        String sql = "SELECT * FROM employee WHERE employeeId = ?";
+    public Employee searchById(String employeeID) throws SQLException, ClassNotFoundException {
 
-        PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
-        pstm.setObject(1, employeeID);
-        ResultSet resultSet = pstm.executeQuery();
+        ResultSet resultSet = SQLUtil.execute("SELECT * FROM employee WHERE employeeId = ?",employeeID);
         if (resultSet.next()) {
             String employeeId = resultSet.getString(1);
             String employeeName = resultSet.getString(2);

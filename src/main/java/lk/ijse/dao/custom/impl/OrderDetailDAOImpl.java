@@ -3,6 +3,7 @@ package lk.ijse.dao.custom.impl;
 import lk.ijse.dao.custom.OrderDetailDAO;
 import lk.ijse.db.DbConnection;
 import lk.ijse.dto.OrderDetail;
+import lk.ijse.util.SQLUtil;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -10,7 +11,7 @@ import java.util.List;
 
 public class OrderDetailDAOImpl implements OrderDetailDAO {
 
-    public boolean save(List<OrderDetail> odList) throws SQLException {
+    public boolean save(List<OrderDetail> odList) throws SQLException, ClassNotFoundException {
         System.out.println(odList);
         for (OrderDetail od : odList) {
             boolean isSaved = saveOrderDetailsAndStocks(od);
@@ -21,25 +22,16 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
         return true;
     }
 
-    public boolean saveOrderDetailsAndStocks(OrderDetail od) throws SQLException {
-        String sql = "INSERT INTO ordersstockinfo VALUES(?, ?, ?)";
+    public boolean saveOrderDetailsAndStocks(OrderDetail od) throws SQLException, ClassNotFoundException {
 
-        PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
+        SQLUtil.execute("UPDATE stock SET status = 'inactive' WHERE stockId = ?", od.getStockID());
 
-        pstm.setObject(1, od.getStockID());
-        pstm.setObject(2, od.getOrderID());
-        pstm.setObject(3, od.getBuyerID());
-
-
-        String sql1 = "UPDATE stock SET status = 'inactive' WHERE stockId = ?";
-        PreparedStatement pstm1 = DbConnection.getInstance().getConnection().prepareStatement(sql1);
-
-        pstm1.setObject(1, od.getStockID());
-        pstm1.executeUpdate();
-
-
-        return pstm.executeUpdate() > 0 ;    //false ->  |
-
+        return SQLUtil.execute("INSERT INTO ordersstockinfo VALUES(?, ?, ?)",
+                od.getStockID(),
+                od.getOrderID(),
+                od.getBuyerID()
+        );
+        //false ->  |
     }
 
 

@@ -5,6 +5,7 @@ import lk.ijse.db.DbConnection;
 import lk.ijse.dto.Order;
 import lk.ijse.dto.tdm.OrderBuyerTm;
 import lk.ijse.dto.tdm.OrderStockTm;
+import lk.ijse.util.SQLUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,43 +16,27 @@ import java.util.List;
 
 public class OrderDAOImpl implements OrderDAO {
 
-    public boolean save(Order order) throws SQLException {
-        String sql = "INSERT INTO orders VALUES (?,?);";
+    public boolean save(Order order) throws SQLException, ClassNotFoundException {
 
-        PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
-        pstm.setObject(1, order.getOrderId());
-        pstm.setObject(2, order.getDate());
-
-        return pstm.executeUpdate() > 0;
+        return SQLUtil.execute("INSERT INTO orders VALUES (?,?);",order.getOrderId(),order.getDate());
     }
 
-    public boolean update(Order order) throws SQLException {
-        String sql = "UPDATE orders SET date = ? WHERE orderId = ?;";
+    public boolean update(Order order) throws SQLException, ClassNotFoundException {
 
-        PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
-        pstm.setObject(1, order.getDate());
-        pstm.setObject(2, order.getOrderId());
-
-        return pstm.executeUpdate() > 0;
+        return SQLUtil.execute("UPDATE orders SET date = ? WHERE orderId = ?;",order.getDate(),order.getOrderId());
     }
 
-    public boolean delete(String orderID) throws SQLException {
-        String sql = "DELETE FROM orders WHERE orderId = ?;";
+    public boolean delete(String orderID) throws SQLException, ClassNotFoundException {
 
-        PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
-        pstm.setObject(1, orderID);
-
-        return pstm.executeUpdate() > 0;
+        return SQLUtil.execute("DELETE FROM orders WHERE orderId = ?;",orderID);
     }
 
 
-    public List<Order> getAll() throws SQLException {
-        Connection con = DbConnection.getInstance().getConnection();
-        String sql = "SELECT * FROM orders";
+    public List<Order> getAll() throws SQLException, ClassNotFoundException {
 
         List<Order> data = new ArrayList<>();
 
-        ResultSet resultSet = con.createStatement().executeQuery(sql);
+        ResultSet resultSet = SQLUtil.execute("SELECT * FROM orders");
         while (resultSet.next()) {
             data.add(new Order(
                     resultSet.getString(1),
@@ -61,15 +46,11 @@ public class OrderDAOImpl implements OrderDAO {
         return data;
     }
 
-    public List<String> getIds() throws SQLException {
-        String sql = "SELECT orderId FROM orders";
-
-        PreparedStatement pstm = DbConnection.getInstance().getConnection()
-                .prepareStatement(sql);
+    public List<String> getIds() throws SQLException, ClassNotFoundException {
 
         List<String> idList = new ArrayList<>();
 
-        ResultSet resultSet = pstm.executeQuery();
+        ResultSet resultSet = SQLUtil.execute("SELECT orderId FROM orders");
         while (resultSet.next()) {
             String id = resultSet.getString(1);
             idList.add(id);
@@ -77,12 +58,9 @@ public class OrderDAOImpl implements OrderDAO {
         return idList;
     }
 
-    public String getCurrentId() throws SQLException {
-        String sql = "SELECT orderId FROM orders ORDER BY orderId DESC LIMIT 1";
-        PreparedStatement pstm = DbConnection.getInstance().getConnection()
-                .prepareStatement(sql);
+    public String getCurrentId() throws SQLException, ClassNotFoundException {
 
-        ResultSet resultSet = pstm.executeQuery();
+        ResultSet resultSet = SQLUtil.execute("SELECT orderId FROM orders ORDER BY orderId DESC LIMIT 1");
         if(resultSet.next()) {
             String orderId = resultSet.getString(1);
             return orderId;
@@ -90,13 +68,11 @@ public class OrderDAOImpl implements OrderDAO {
         return null;
     }
 
-    public List<OrderStockTm> getAllOrderStocks() throws SQLException {
-        Connection con = DbConnection.getInstance().getConnection();
-        String sql = "SELECT * FROM ordersstockinfo";
+    public List<OrderStockTm> getAllOrderStocks() throws SQLException, ClassNotFoundException {
 
         List<OrderStockTm> data = new ArrayList<>();
 
-        ResultSet resultSet = con.createStatement().executeQuery(sql);
+        ResultSet resultSet = SQLUtil.execute("SELECT * FROM ordersstockinfo");
         while (resultSet.next()) {
             data.add(new OrderStockTm(
                     resultSet.getString(1),
@@ -107,13 +83,11 @@ public class OrderDAOImpl implements OrderDAO {
         return data;
     }
 
-    public List<OrderBuyerTm> getAllOrderBuyerNames() throws SQLException {
-        String sql = "SELECT DISTINCT osi.orderId, b.name AS buyerName FROM ordersstockinfo osi JOIN buyer b ON osi.buyerId = b.buyerId;";
-        Connection con = DbConnection.getInstance().getConnection();
+    public List<OrderBuyerTm> getAllOrderBuyerNames() throws SQLException, ClassNotFoundException {
 
         List<OrderBuyerTm> data = new ArrayList<>();
 
-        ResultSet resultSet = con.createStatement().executeQuery(sql);
+        ResultSet resultSet = SQLUtil.execute("SELECT DISTINCT osi.orderId, b.name AS buyerName FROM ordersstockinfo osi JOIN buyer b ON osi.buyerId = b.buyerId;");
         while (resultSet.next()) {
             data.add(new OrderBuyerTm(
                     resultSet.getString(1),

@@ -14,10 +14,10 @@ public interface StockDAO extends CrudDAO<Stock> {
 
     //public boolean delete(String stockID) throws SQLException ;
 
-    public Stock searchByStockIdForOrder(String no) throws SQLException ;
+    public Stock searchByStockIdForOrder(String no) throws SQLException, ClassNotFoundException;
 
-    public boolean updateWeight(String stockID, String supplierID, Double weight) throws SQLException ;
+    public boolean updateWeight(String stockID, String supplierID, Double weight) throws SQLException, ClassNotFoundException;
 
-    public List<String> getIds() throws SQLException ;
+    public List<String> getIds() throws SQLException, ClassNotFoundException;
 
 }

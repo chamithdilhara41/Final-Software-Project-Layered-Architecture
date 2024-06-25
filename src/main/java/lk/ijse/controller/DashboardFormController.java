@@ -70,7 +70,7 @@ public class DashboardFormController {
     //dependency injection
     OrderDAO orderDAO = new OrderDAOImpl();
 
-    public void initialize() throws SQLException {
+    public void initialize() throws SQLException, ClassNotFoundException {
         LineChar();
         setGreeting();
         animateLabelTyping();
@@ -160,7 +160,7 @@ public class DashboardFormController {
         return 0;
     }
 
-    private void getAllOrderBuyerNames() throws SQLException {
+    private void getAllOrderBuyerNames() throws SQLException, ClassNotFoundException {
         ObservableList<OrderBuyerTm> obList = FXCollections.observableArrayList();
         List<OrderBuyerTm> ordersList = orderDAO.getAllOrderBuyerNames();
 

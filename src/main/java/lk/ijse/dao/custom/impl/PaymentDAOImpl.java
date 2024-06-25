@@ -3,6 +3,7 @@ package lk.ijse.dao.custom.impl;
 import lk.ijse.dao.custom.PaymentDAO;
 import lk.ijse.db.DbConnection;
 import lk.ijse.dto.Payment;
+import lk.ijse.util.SQLUtil;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,48 +13,37 @@ import java.util.List;
 
 public class PaymentDAOImpl implements PaymentDAO {
 
-    public boolean save(Payment payment) throws SQLException {
+    public boolean save(Payment payment) throws SQLException, ClassNotFoundException {
 
-        String sql = "INSERT INTO payment VALUES(?,?,?,?,?);";
-
-        PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
-        pstm.setObject(1, payment.getPaymentId());
-        pstm.setObject(2, payment.getDescription());
-        pstm.setObject(3, payment.getAmount());
-        pstm.setObject(4, payment.getDate());
-        pstm.setObject(5, payment.getSupplierId());
-
-        return pstm.executeUpdate() > 0;
+        return SQLUtil.execute("INSERT INTO payment VALUES(?,?,?,?,?);",
+                payment.getPaymentId(),
+                payment.getDescription(),
+                payment.getAmount(),
+                payment.getDate(),
+                payment.getSupplierId()
+        );
     }
 
-    public boolean update(Payment payment) throws SQLException {
-        String sql ="UPDATE payment SET description=?, amount=?, date=?, supplierId=? WHERE paymentId=?;";
+    public boolean update(Payment payment) throws SQLException, ClassNotFoundException {
 
-        PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
-        pstm.setObject(1, payment.getDescription());
-        pstm.setObject(2, payment.getAmount());
-        pstm.setObject(3, payment.getDate());
-        pstm.setObject(4, payment.getSupplierId());
-        pstm.setObject(5, payment.getPaymentId());
-        return pstm.executeUpdate() > 0;
-
+        return SQLUtil.execute("UPDATE payment SET description=?, amount=?, date=?, supplierId=? WHERE paymentId=?;",
+                payment.getDescription(),
+                payment.getAmount(),
+                payment.getDate(),
+                payment.getSupplierId(),
+                payment.getPaymentId()
+        );
 
     }
 
-    public boolean delete(String paymentID) throws SQLException {
-        String sql = "DELETE FROM payment WHERE paymentId=?;";
-        PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
-        pstm.setObject(1, paymentID);
+    public boolean delete(String paymentID) throws SQLException, ClassNotFoundException {
 
-        return pstm.executeUpdate() > 0;
+        return SQLUtil.execute("DELETE FROM payment WHERE paymentId=?;",paymentID);
     }
 
-    public Payment searchByPaymentId(String paymentID) throws SQLException {
-        String sql = "SELECT * FROM payment WHERE paymentId=?;";
+    public Payment searchByPaymentId(String paymentID) throws SQLException, ClassNotFoundException {
 
-        PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
-        pstm.setObject(1, paymentID);
-        ResultSet resultSet = pstm.executeQuery();
+        ResultSet resultSet = SQLUtil.execute("SELECT * FROM payment WHERE paymentId=?;",paymentID);
         if (resultSet.next()) {
             String paymentId = resultSet.getString("paymentId");
             String description = resultSet.getString("description");
@@ -66,10 +56,11 @@ public class PaymentDAOImpl implements PaymentDAO {
         return null;
     }
 
-    public List<Payment> getAll() throws SQLException {
-        String sql = "SELECT * FROM payment;";
+    public List<Payment> getAll() throws SQLException, ClassNotFoundException {
+
         List<Payment> payments = new ArrayList<>();
-        ResultSet resultSet = DbConnection.getInstance().getConnection().createStatement().executeQuery(sql);
+
+        ResultSet resultSet = SQLUtil.execute("SELECT * FROM payment;");
         while (resultSet.next()) {
             payments.add(new Payment(
                     resultSet.getString(1),

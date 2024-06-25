@@ -306,7 +306,7 @@ Regex.setTextColor(lk.ijse.util.TextField.ACCOUNTNo,txtAccountNo);
     }
 
     @FXML
-    void txtOnActionSearch(ActionEvent event) throws SQLException {
+    void txtOnActionSearch(ActionEvent event) throws SQLException, ClassNotFoundException {
         String transactionID = txtTransactionID.getText();
 
         Transaction transaction = transactionDAO.searchByTransactionId(transactionID);
@@ -330,7 +330,7 @@ Regex.setTextColor(lk.ijse.util.TextField.ACCOUNTNo,txtAccountNo);
         }
     }
 
-    private void getOrderIds() {
+    private void getOrderIds() throws ClassNotFoundException {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         try {

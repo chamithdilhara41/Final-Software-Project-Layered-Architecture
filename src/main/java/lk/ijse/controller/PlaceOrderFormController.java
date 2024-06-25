@@ -263,7 +263,7 @@ public class PlaceOrderFormController {
     }
 
     @FXML
-    void cmbStockIdOnAction(ActionEvent event) {
+    void cmbStockIdOnAction(ActionEvent event) throws ClassNotFoundException {
         String No = cmbStockID.getValue();
         try {
             Stock stock = stockDAO.searchByStockIdForOrder(No);
@@ -298,7 +298,7 @@ public class PlaceOrderFormController {
         }
     }
 
-    private void getStockIds() {
+    private void getStockIds() throws ClassNotFoundException {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         try {

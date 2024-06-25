@@ -203,7 +203,7 @@ public class SupplierFormController {
         txtSupplierGender.setText("");
     }
 
-    public void txtOnActionSearch(ActionEvent actionEvent) throws SQLException {
+    public void txtOnActionSearch(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         String supplierID = txtSupplierID.getText();
 
         Supplier supplier = supplierDAO.searchById(supplierID);
