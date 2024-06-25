@@ -13,10 +13,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 import lk.ijse.bo.custom.BuyerBO;
 import lk.ijse.bo.custom.impl.BuyerBOImpl;
-import lk.ijse.dao.custom.BuyerDAO;
 import lk.ijse.dto.Buyer;
-import lk.ijse.dto.tdm.BuyerTm;
-import lk.ijse.dao.custom.impl.BuyerDAOImpl;
+import lk.ijse.tdm.BuyerTm;
 import lk.ijse.util.Regex;
 
 import java.sql.SQLException;

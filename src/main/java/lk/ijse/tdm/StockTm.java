@@ -1,4 +1,4 @@
-package lk.ijse.dto.tdm;
+package lk.ijse.tdm;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

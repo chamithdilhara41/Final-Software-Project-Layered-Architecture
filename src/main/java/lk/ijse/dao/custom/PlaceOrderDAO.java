@@ -1,14 +1,9 @@
 package lk.ijse.dao.custom;
 
 import lk.ijse.dao.CrudDAO;
-import lk.ijse.dto.Order;
-import lk.ijse.dto.OrderDetail;
 import lk.ijse.dto.PlaceOrder;
-import lk.ijse.dto.tdm.OrderBuyerTm;
-import lk.ijse.dto.tdm.OrderStockTm;
 
 import java.sql.SQLException;
-import java.util.List;
 
 public interface PlaceOrderDAO extends CrudDAO<PlaceOrder> {
 

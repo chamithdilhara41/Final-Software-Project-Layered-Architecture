@@ -14,7 +14,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 import lk.ijse.dao.custom.SupplierDAO;
 import lk.ijse.dto.Supplier;
-import lk.ijse.dto.tdm.SupplierTm;
+import lk.ijse.tdm.SupplierTm;
 import lk.ijse.dao.custom.impl.SupplierDAOImpl;
 import lk.ijse.util.Regex;
 

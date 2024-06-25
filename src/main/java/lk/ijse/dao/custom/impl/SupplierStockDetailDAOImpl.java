@@ -3,7 +3,7 @@ package lk.ijse.dao.custom.impl;
 import lk.ijse.dao.custom.SupplierStockDetailDAO;
 import lk.ijse.db.DbConnection;
 import lk.ijse.dto.SupplierStockDetail;
-import lk.ijse.dto.tdm.SupplierStockDetailTm;
+import lk.ijse.tdm.SupplierStockDetailTm;
 import lk.ijse.util.SQLUtil;
 
 import java.sql.PreparedStatement;

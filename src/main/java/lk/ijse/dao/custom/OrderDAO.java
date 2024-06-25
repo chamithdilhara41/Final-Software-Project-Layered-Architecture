@@ -2,8 +2,8 @@ package lk.ijse.dao.custom;
 
 import lk.ijse.dao.CrudDAO;
 import lk.ijse.dto.Order;
-import lk.ijse.dto.tdm.OrderBuyerTm;
-import lk.ijse.dto.tdm.OrderStockTm;
+import lk.ijse.tdm.OrderBuyerTm;
+import lk.ijse.tdm.OrderStockTm;
 
 import java.sql.SQLException;
 import java.util.List;

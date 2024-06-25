@@ -17,8 +17,8 @@ import javafx.util.Duration;
 import lk.ijse.dao.custom.OrderDAO;
 import lk.ijse.util.AnimationUtil;
 import lk.ijse.dto.Order;
-import lk.ijse.dto.tdm.OrderStockTm;
-import lk.ijse.dto.tdm.OrderTm;
+import lk.ijse.tdm.OrderStockTm;
+import lk.ijse.tdm.OrderTm;
 import lk.ijse.dao.custom.impl.OrderDAOImpl;
 
 import java.io.IOException;

@@ -15,7 +15,7 @@ import lk.ijse.dao.custom.PaymentDAO;
 import lk.ijse.dao.custom.SupplierDAO;
 import lk.ijse.dto.Payment;
 import lk.ijse.dto.Supplier;
-import lk.ijse.dto.tdm.PaymentTm;
+import lk.ijse.tdm.PaymentTm;
 import lk.ijse.dao.custom.impl.PaymentDAOImpl;
 import lk.ijse.dao.custom.impl.SupplierDAOImpl;
 import lk.ijse.util.Regex;

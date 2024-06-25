@@ -24,7 +24,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 import javafx.scene.chart.LineChart;
-import lk.ijse.dto.tdm.OrderBuyerTm;
+import lk.ijse.tdm.OrderBuyerTm;
 import lk.ijse.dao.custom.impl.OrderDAOImpl;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.design.JasperDesign;

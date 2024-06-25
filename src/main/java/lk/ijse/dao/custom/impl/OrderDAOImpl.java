@@ -1,14 +1,11 @@
 package lk.ijse.dao.custom.impl;
 
 import lk.ijse.dao.custom.OrderDAO;
-import lk.ijse.db.DbConnection;
 import lk.ijse.dto.Order;
-import lk.ijse.dto.tdm.OrderBuyerTm;
-import lk.ijse.dto.tdm.OrderStockTm;
+import lk.ijse.tdm.OrderBuyerTm;
+import lk.ijse.tdm.OrderStockTm;
 import lk.ijse.util.SQLUtil;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;

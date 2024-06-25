@@ -16,7 +16,7 @@ import lk.ijse.dao.custom.EmployeeDAO;
 import lk.ijse.dao.custom.VehicleDAO;
 import lk.ijse.dto.Employee;
 import lk.ijse.dto.Vehicle;
-import lk.ijse.dto.tdm.EmployeeTm;
+import lk.ijse.tdm.EmployeeTm;
 import lk.ijse.dao.custom.impl.EmployeeDAOImpl;
 import lk.ijse.dao.custom.impl.VehicleDAOImpl;
 import lk.ijse.util.Regex;

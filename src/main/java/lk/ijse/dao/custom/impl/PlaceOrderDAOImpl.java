@@ -4,11 +4,7 @@ import lk.ijse.dao.custom.OrderDAO;
 import lk.ijse.dao.custom.OrderDetailDAO;
 import lk.ijse.dao.custom.PlaceOrderDAO;
 import lk.ijse.db.DbConnection;
-import lk.ijse.dto.Order;
-import lk.ijse.dto.OrderDetail;
 import lk.ijse.dto.PlaceOrder;
-import lk.ijse.dto.tdm.OrderBuyerTm;
-import lk.ijse.dto.tdm.OrderStockTm;
 
 import java.sql.Connection;
 import java.sql.SQLException;
