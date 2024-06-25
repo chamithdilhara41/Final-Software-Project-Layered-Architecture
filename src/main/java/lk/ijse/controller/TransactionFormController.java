@@ -12,6 +12,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
+import lk.ijse.bo.custom.BuyerBO;
+import lk.ijse.bo.custom.impl.BuyerBOImpl;
 import lk.ijse.dao.custom.BuyerDAO;
 import lk.ijse.dao.custom.OrderDAO;
 import lk.ijse.dao.custom.TransactionDAO;
@@ -80,7 +82,7 @@ public class TransactionFormController {
     private TextField txtTransactionID;
 
     //dependency injection
-    BuyerDAO buyerDAO = new BuyerDAOImpl();
+    BuyerBO buyerBO = new BuyerBOImpl();
     TransactionDAO transactionDAO = new TransactionDAOImpl();
     OrderDAO orderDAO = new OrderDAOImpl();
 
@@ -296,7 +298,7 @@ Regex.setTextColor(lk.ijse.util.TextField.ACCOUNTNo,txtAccountNo);
         String oId = cmbOrderID.getValue();
 
         try {
-            Buyer buyer = buyerDAO.searchByStockIdForTransaction(oId);
+            Buyer buyer = buyerBO.searchByStockIdForTransactionBuyer(oId);
             if(buyer != null){
                 lblBuyerName.setText(buyer.getBuyerName());
             }

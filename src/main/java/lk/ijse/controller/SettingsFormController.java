@@ -12,6 +12,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
 import lk.ijse.db.DbConnection;
 import lk.ijse.util.Regex;
+import lk.ijse.util.SQLUtil;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -58,7 +59,7 @@ public class SettingsFormController {
             if (!isValidEmail()) {
                 boolean isChangeEmail = false;
                 if (email1.equals(email2)) {
-                    isChangeEmail = SettingsFormController.changeEmail(username,email2);
+                    isChangeEmail = changeEmail(username,email2);
                 }else {
                     new Alert(Alert.AlertType.INFORMATION, "Email does not matched.", ButtonType.OK).show();
                 }
@@ -76,14 +77,9 @@ public class SettingsFormController {
 
     }
 
-    private static boolean changeEmail(String username, String email2) throws SQLException {
+    private boolean changeEmail(String username, String email2) throws SQLException, ClassNotFoundException {
 
-        String sql = "update users set email=? where username=?";
-        PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
-        pstm.setString(1, email2);
-        pstm.setString(2, username);
-
-        return pstm.executeUpdate() > 0;
+        return SQLUtil.execute("update users set email=? where username=?",username,email2);
 
     }
 
@@ -102,7 +98,7 @@ public class SettingsFormController {
             if (!isValidPassword()) {
                 boolean isChangePassword = false;
                 if (newPassword1.equals(newPassword2)) {
-                    isChangePassword = SettingsFormController.changePassword(username,newPassword2);
+                    isChangePassword = changePassword(username,newPassword2);
                 }else {
                     new Alert(Alert.AlertType.ERROR, "Passwords does not match", ButtonType.OK).show();
                 }
@@ -121,14 +117,9 @@ public class SettingsFormController {
         }
     }
 
-    private static boolean changePassword(String username, String newPassword2) throws SQLException {
-        String sql ="UPDATE `users` SET `password`=? WHERE `username`=?";
+    private boolean changePassword(String username, String newPassword2) throws SQLException, ClassNotFoundException {
 
-        PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
-        pstm.setString(1, newPassword2);
-        pstm.setString(2, username);
-
-        return pstm.executeUpdate() > 0;
+        return SQLUtil.execute("UPDATE `users` SET `password`=? WHERE `username`=?",username,newPassword2);
     }
 
 

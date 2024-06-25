@@ -15,6 +15,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import lk.ijse.bo.custom.BuyerBO;
+import lk.ijse.bo.custom.impl.BuyerBOImpl;
 import lk.ijse.dao.custom.BuyerDAO;
 import lk.ijse.dao.custom.OrderDAO;
 import lk.ijse.dao.custom.PlaceOrderDAO;
@@ -86,7 +88,7 @@ public class PlaceOrderFormController {
     private ObservableList<OrderCartTm> obList = FXCollections.observableArrayList();
 
     //dependency injection
-    BuyerDAO buyerDAO = new BuyerDAOImpl();
+    BuyerBO buyerBO = new BuyerBOImpl();
     StockDAO stockDAO = new StockDAOImpl();
     OrderDAO orderDAO = new OrderDAOImpl();
     PlaceOrderDAO placeOrderDAO = new PlaceOrderDAOImpl();
@@ -247,7 +249,7 @@ public class PlaceOrderFormController {
     void cmbBuyerIdOnAction(ActionEvent event) throws ClassNotFoundException {
         String No = cmbBuyerId.getValue();
         try {
-            Buyer buyer = buyerDAO.searchByBuyerIdForOrder(No);
+            Buyer buyer = buyerBO.searchByBuyerIdForOrderBuyer(No);
 
             if (buyer != null) {
                 lblBuyerName.setText(buyer.getBuyerName());
@@ -285,7 +287,7 @@ public class PlaceOrderFormController {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         try {
-            List<String> NoList = buyerDAO.getIds();
+            List<String> NoList = buyerBO.getIdsBuyer();
 
             for(String No : NoList) {
                 obList.add(No);

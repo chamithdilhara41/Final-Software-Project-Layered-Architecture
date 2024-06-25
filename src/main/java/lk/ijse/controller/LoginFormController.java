@@ -21,6 +21,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 import lk.ijse.util.Regex;
+import lk.ijse.util.SQLUtil;
 
 
 public class LoginFormController {
@@ -58,7 +59,7 @@ public class LoginFormController {
     }
 
     @FXML
-    void btnLoginOnAction() throws SQLException, IOException {
+    void btnLoginOnAction() throws SQLException, IOException, ClassNotFoundException {
 
         String usernameLogin = txtUsernameLogin.getText();
         String passwordLogin = txtPasswordLogin.getText();
@@ -73,13 +74,7 @@ public class LoginFormController {
 
             //UserRepo.getLoginDetails(usernameLogin);
 
-            String sql = "SELECT username,password,name FROM users WHERE username = ?";
-
-            Connection connection = DbConnection.getInstance().getConnection();
-            PreparedStatement pstm = connection.prepareStatement(sql);
-            pstm.setObject(1, usernameLogin);
-
-            ResultSet resultSet = pstm.executeQuery();
+            ResultSet resultSet = SQLUtil.execute("SELECT username,password,name FROM users WHERE username = ?",usernameLogin);
 
             if (resultSet.next()) {
                 String dbPw = resultSet.getString("password");
@@ -141,7 +136,7 @@ public class LoginFormController {
         stage.show();
     }
 
-    public void txtOnActionLogin(ActionEvent actionEvent) throws SQLException, IOException {
+    public void txtOnActionLogin(ActionEvent actionEvent) throws SQLException, IOException, ClassNotFoundException {
         btnLoginOnAction();
     }
 

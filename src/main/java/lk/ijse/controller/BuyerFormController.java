@@ -11,6 +11,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
+import lk.ijse.bo.custom.BuyerBO;
+import lk.ijse.bo.custom.impl.BuyerBOImpl;
 import lk.ijse.dao.custom.BuyerDAO;
 import lk.ijse.dto.Buyer;
 import lk.ijse.dto.tdm.BuyerTm;
@@ -58,7 +60,7 @@ public class BuyerFormController {
     private TextField txtBuyerName;
 
     //dependency injection
-    BuyerDAO buyerDAO = new BuyerDAOImpl();
+    BuyerBO buyerBO = new BuyerBOImpl();
 
 
     public void initialize() throws SQLException, ClassNotFoundException {
@@ -111,7 +113,7 @@ public class BuyerFormController {
 
     private void getAllBuyers() throws SQLException, ClassNotFoundException {
         ObservableList<BuyerTm> obList = FXCollections.observableArrayList();
-        List<Buyer> buyerList = buyerDAO.getAll();
+        List<Buyer> buyerList = buyerBO.getAllBuyer();
 
         for ( Buyer buyer: buyerList){
             obList.add(new BuyerTm(
@@ -160,7 +162,7 @@ public class BuyerFormController {
         }
 
         try {
-            boolean isDeleted = buyerDAO.delete(buyerID);
+            boolean isDeleted = buyerBO.deleteBuyer(buyerID);
             if (isDeleted){
                 new Alert(Alert.AlertType.INFORMATION,"Buyer deleted").show();
                 getAllBuyers();
@@ -192,7 +194,7 @@ public class BuyerFormController {
         try {
             boolean isSaved = false;
             if (isValid()) {
-                isSaved = buyerDAO.save(buyer);
+                isSaved = buyerBO.saveBuyer(buyer);
             }else {
                 new Alert(Alert.AlertType.ERROR, "Please check Text Fields... ").show();
             }
@@ -233,7 +235,7 @@ public class BuyerFormController {
         try {
             boolean isUpdated = false;
             if (isValid()) {
-                isUpdated = buyerDAO.update(buyer);
+                isUpdated = buyerBO.updateBuyer(buyer);
             }else {
                 new Alert(Alert.AlertType.ERROR, "Please check Text Fields... ").show();
             }
@@ -252,7 +254,7 @@ public class BuyerFormController {
     void txtOnActionSearch(ActionEvent event) throws SQLException, ClassNotFoundException {
         String buyerID = txtBuyerID.getText();
 
-        Buyer buyer = buyerDAO.searchById(buyerID);
+        Buyer buyer = buyerBO.searchByIdBuyer(buyerID);
         if (buyer != null) {
             txtBuyerID.setText(buyer.getBuyerId());
             txtBuyerName.setText(buyer.getBuyerName());

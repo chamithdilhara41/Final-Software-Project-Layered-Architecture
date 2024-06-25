@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import lk.ijse.db.DbConnection;
 import lk.ijse.util.Regex;
+import lk.ijse.util.SQLUtil;
 
 import java.io.IOException;
 import java.sql.PreparedStatement;
@@ -34,6 +35,7 @@ public class ForgetNewPasswordFormController {
     public void initialize() throws SQLException {
         animateLabelTyping();
     }
+
     private void animateLabelTyping()  {
         String loginText = lblForgetPassword.getText(); // Text to be typed
         int animationDuration = 250; // Duration of animation in milliseconds
@@ -94,14 +96,9 @@ public class ForgetNewPasswordFormController {
         }
     }
 
-    private boolean changePassword(String username, String newPassword2) throws SQLException {
-        String sql ="UPDATE `users` SET `password`=? WHERE `username`=?";
+    private boolean changePassword(String username, String newPassword2) throws SQLException, ClassNotFoundException {
 
-        PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
-        pstm.setString(1, newPassword2);
-        pstm.setString(2, username);
-
-        return pstm.executeUpdate() > 0;
+        return SQLUtil.execute("UPDATE `users` SET `password`=? WHERE `username`=?",newPassword2,username);
     }
 
     public boolean isValidPassword(){

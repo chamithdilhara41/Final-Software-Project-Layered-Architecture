@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import lk.ijse.db.DbConnection;
 import lk.ijse.util.JavaMailUtil;
+import lk.ijse.util.SQLUtil;
 
 import java.io.IOException;
 import java.sql.PreparedStatement;
@@ -46,17 +47,17 @@ public class ForgetGetUsernameEmailController {
     public static String Username;
     public ObservableList<String> obList;
 
-    public void initialize() throws SQLException {
+    public void initialize() throws SQLException, ClassNotFoundException {
         animateLabelTyping();
         getUsernames();
     }
 
     @FXML
-    void btnForEmailOnAction(ActionEvent event) throws SQLException, IOException {
+    void btnForEmailOnAction(ActionEvent event) throws SQLException, IOException, ClassNotFoundException {
         String username = txtUsername.getText();
 
         try {
-            String isCheckedEmail = ForgetGetUsernameEmailController.checkEmail(username);
+            String isCheckedEmail = checkEmail(username);
             if (isCheckedEmail != null) {
                 txtEmail.setText(isCheckedEmail);
                 btnSendOtpOnAction(event);
@@ -69,11 +70,10 @@ public class ForgetGetUsernameEmailController {
         }
     }
 
-    private static String checkEmail(String username) throws SQLException {
-        String sql = "SELECT * FROM users WHERE username = ?"; // Specify the column name for comparison
-        PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
-        pstm.setString(1, username);
-        ResultSet resultSet = pstm.executeQuery();
+    private String checkEmail(String username) throws SQLException, ClassNotFoundException {
+        // Specify the column name for comparison
+
+        ResultSet resultSet = SQLUtil.execute("SELECT * FROM users WHERE username = ?",username);
         if (resultSet.next()) {
             return resultSet.getString("email");
         }
@@ -100,11 +100,11 @@ public class ForgetGetUsernameEmailController {
         }
     }
 
-    private void getUsernames() {
+    private void getUsernames() throws ClassNotFoundException {
         obList = FXCollections.observableArrayList();
 
         try {
-            List<String> NoList = ForgetGetUsernameEmailController.getUsers();
+            List<String> NoList = getUsers();
 
             for(String No : NoList) {
                 obList.add(No);
@@ -115,15 +115,11 @@ public class ForgetGetUsernameEmailController {
         }
     }
 
-    private static List<String> getUsers() throws SQLException {
-        String sql = "SELECT username FROM users";
-
-        PreparedStatement pstm = DbConnection.getInstance().getConnection()
-                .prepareStatement(sql);
+    private List<String> getUsers() throws SQLException, ClassNotFoundException {
 
         List<String> idList = new ArrayList<>();
 
-        ResultSet resultSet = pstm.executeQuery();
+        ResultSet resultSet = SQLUtil.execute("SELECT username FROM users");
         while (resultSet.next()) {
             String id = resultSet.getString(1);
             idList.add(id);

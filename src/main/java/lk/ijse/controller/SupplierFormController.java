@@ -221,6 +221,7 @@ public class SupplierFormController {
             txtSupplierGender.setText("");
         }
     }
+
     void getAllSuppliers() throws SQLException, ClassNotFoundException {
 
         ObservableList<SupplierTm> obList = FXCollections.observableArrayList();

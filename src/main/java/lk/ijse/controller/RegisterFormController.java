@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import lk.ijse.db.DbConnection;
 import lk.ijse.util.Regex;
+import lk.ijse.util.SQLUtil;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -69,7 +70,7 @@ public class RegisterFormController {
     }
 
     @FXML
-    void btnRegisterOnAction(ActionEvent event) {
+    void btnRegisterOnAction(ActionEvent event) throws ClassNotFoundException {
 
         String usernameRegister = txtUsernameRegister.getText();
         String emailRegister = txtEmailRegister.getText();
@@ -103,18 +104,9 @@ public class RegisterFormController {
         }
     }
 
-    private boolean saveUser(String usernameRegister, String name, String passwordRegister, String emailRegister) throws SQLException {
-        String sql = "INSERT INTO users VALUES(?, ?, ?, ?)";
+    private boolean saveUser(String usernameRegister, String name, String passwordRegister, String emailRegister) throws SQLException, ClassNotFoundException {
 
-        Connection connection = DbConnection.getInstance().getConnection();
-
-        PreparedStatement pstm = connection.prepareStatement(sql);
-        pstm.setObject(1, usernameRegister);
-        pstm.setObject(2, name);
-        pstm.setObject(3, passwordRegister);
-        pstm.setObject(4, emailRegister);
-
-        return pstm.executeUpdate() > 0;
+        return SQLUtil.execute("INSERT INTO users VALUES(?, ?, ?, ?)",usernameRegister,name,passwordRegister,emailRegister);
     }
 
 

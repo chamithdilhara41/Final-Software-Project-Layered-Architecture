@@ -12,6 +12,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
+import lk.ijse.bo.custom.BuyerBO;
+import lk.ijse.bo.custom.impl.BuyerBOImpl;
 import lk.ijse.dao.custom.BuyerDAO;
 import lk.ijse.dao.custom.DeliveryDAO;
 import lk.ijse.dao.custom.StockDAO;
@@ -67,7 +69,7 @@ public class DeliveryFormController {
     private TextField txtDeliveryID;
 
     //dependency injection
-    BuyerDAO buyerDAO = new BuyerDAOImpl();
+    BuyerBO buyerBO = new BuyerBOImpl();
     DeliveryDAO deliveryDAO = new DeliveryDAOImpl();
     VehicleDAO vehicleDAO = new VehicleDAOImpl();
     StockDAO stockDAO = new StockDAOImpl();
@@ -241,7 +243,7 @@ public class DeliveryFormController {
         String sId = cmbStockID.getValue();
 
         try {
-            Buyer buyer = buyerDAO.searchByStockIdForTransaction(sId);
+            Buyer buyer = buyerBO.searchByStockIdForTransactionBuyer(sId);
             if(buyer != null){
                 lblBuyerName.setText(buyer.getBuyerName());
             }else {
@@ -290,6 +292,7 @@ public class DeliveryFormController {
             cmbVehicleNo.getSelectionModel().clearSelection();
         }
     }
+
     private void getVehicleNos() throws ClassNotFoundException {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
