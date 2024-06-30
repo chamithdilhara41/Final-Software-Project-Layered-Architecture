@@ -1,6 +1,7 @@
 package lk.ijse.bo.custom.impl;
 
 import lk.ijse.bo.custom.PlaceOrderBO;
+import lk.ijse.dao.DAOFactory;
 import lk.ijse.dao.custom.OrderDAO;
 import lk.ijse.dao.custom.OrderDetailDAO;
 import lk.ijse.dao.custom.impl.OrderDAOImpl;
@@ -14,8 +15,8 @@ import java.sql.SQLException;
 public class PlaceOrderBOImpl implements PlaceOrderBO {
 
 
-    OrderDAO orderDAO = new OrderDAOImpl();
-    OrderDetailDAO orderDetailDAO = new OrderDetailDAOImpl();
+    OrderDAO orderDAO = (OrderDAO) DAOFactory.getDAOFactory().getDAO(DAOFactory.DAOTypes.ORDER);
+    OrderDetailDAO orderDetailDAO = (OrderDetailDAO) DAOFactory.getDAOFactory().getDAO(DAOFactory.DAOTypes.ORDER_DTL);
 
     public boolean placeOrder(PlaceOrder po) throws SQLException {
 

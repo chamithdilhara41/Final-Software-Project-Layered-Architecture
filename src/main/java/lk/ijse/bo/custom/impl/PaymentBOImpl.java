@@ -1,6 +1,7 @@
 package lk.ijse.bo.custom.impl;
 
 import lk.ijse.bo.custom.PaymentBO;
+import lk.ijse.dao.DAOFactory;
 import lk.ijse.dao.custom.PaymentDAO;
 import lk.ijse.dao.custom.impl.PaymentDAOImpl;
 import lk.ijse.entity.Payment;
@@ -10,7 +11,7 @@ import java.util.List;
 
 public class PaymentBOImpl implements PaymentBO {
 
-    PaymentDAO paymentDAO = new PaymentDAOImpl();
+    PaymentDAO paymentDAO = (PaymentDAO) DAOFactory.getDAOFactory().getDAO(DAOFactory.DAOTypes.PAYMENT);
 
     @Override
     public boolean savePayment(Payment payment) throws SQLException, ClassNotFoundException {

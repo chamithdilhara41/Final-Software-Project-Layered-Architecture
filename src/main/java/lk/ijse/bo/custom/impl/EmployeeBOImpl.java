@@ -1,6 +1,7 @@
 package lk.ijse.bo.custom.impl;
 
 import lk.ijse.bo.custom.EmployeeBO;
+import lk.ijse.dao.DAOFactory;
 import lk.ijse.dao.custom.EmployeeDAO;
 import lk.ijse.dao.custom.impl.EmployeeDAOImpl;
 import lk.ijse.entity.Employee;
@@ -10,7 +11,7 @@ import java.util.List;
 
 public class EmployeeBOImpl implements EmployeeBO {
 
-    EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+    EmployeeDAO employeeDAO = (EmployeeDAO) DAOFactory.getDAOFactory().getDAO(DAOFactory.DAOTypes.EMPLOYEE);
 
     @Override
     public boolean saveEmployee(Employee employee) throws SQLException, ClassNotFoundException {

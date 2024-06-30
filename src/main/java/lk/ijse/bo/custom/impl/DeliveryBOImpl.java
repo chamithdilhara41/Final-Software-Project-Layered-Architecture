@@ -1,6 +1,7 @@
 package lk.ijse.bo.custom.impl;
 
 import lk.ijse.bo.custom.DeliveryBO;
+import lk.ijse.dao.DAOFactory;
 import lk.ijse.dao.custom.DeliveryDAO;
 import lk.ijse.dao.custom.impl.DeliveryDAOImpl;
 import lk.ijse.entity.Delivery;
@@ -10,7 +11,7 @@ import java.util.List;
 
 public class DeliveryBOImpl implements DeliveryBO {
 
-    DeliveryDAO deliveryDAO = new DeliveryDAOImpl();
+    DeliveryDAO deliveryDAO = (DeliveryDAO) DAOFactory.getDAOFactory().getDAO(DAOFactory.DAOTypes.DELIVERY);
 
     @Override
     public boolean saveDelivery(Delivery delivery) throws SQLException, ClassNotFoundException {

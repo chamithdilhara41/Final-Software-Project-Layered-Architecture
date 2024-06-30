@@ -1,6 +1,7 @@
 package lk.ijse.bo.custom.impl;
 
 import lk.ijse.bo.custom.SupplierBO;
+import lk.ijse.dao.DAOFactory;
 import lk.ijse.dao.custom.SupplierDAO;
 import lk.ijse.dao.custom.impl.SupplierDAOImpl;
 import lk.ijse.entity.Supplier;
@@ -10,7 +11,7 @@ import java.util.List;
 
 public class SupplierBOImpl implements SupplierBO {
 
-    SupplierDAO supplierDAO = new SupplierDAOImpl();
+    SupplierDAO supplierDAO = (SupplierDAO) DAOFactory.getDAOFactory().getDAO(DAOFactory.DAOTypes.SUPPLIER);
 
     @Override
     public boolean saveSupplier(Supplier supplier) throws SQLException, ClassNotFoundException {

@@ -1,6 +1,7 @@
 package lk.ijse.bo.custom.impl;
 
 import lk.ijse.bo.custom.VehicleBO;
+import lk.ijse.dao.DAOFactory;
 import lk.ijse.dao.custom.VehicleDAO;
 import lk.ijse.dao.custom.impl.VehicleDAOImpl;
 import lk.ijse.entity.Vehicle;
@@ -10,7 +11,7 @@ import java.util.List;
 
 public class VehicleBOImpl implements VehicleBO {
 
-    VehicleDAO vehicleDAO = new VehicleDAOImpl();
+    VehicleDAO vehicleDAO = (VehicleDAO) DAOFactory.getDAOFactory().getDAO(DAOFactory.DAOTypes.VEHICLE);
 
     @Override
     public boolean saveVehicle(Vehicle vehicle) throws SQLException, ClassNotFoundException {

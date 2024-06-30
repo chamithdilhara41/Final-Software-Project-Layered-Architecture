@@ -1,6 +1,7 @@
 package lk.ijse.bo.custom.impl;
 
 import lk.ijse.bo.custom.SupplierStockDetailBO;
+import lk.ijse.dao.DAOFactory;
 import lk.ijse.dao.custom.SupplierStockDetailDAO;
 import lk.ijse.dao.custom.impl.SupplierStockDetailDAOImpl;
 import lk.ijse.entity.SupplierStockDetail;
@@ -11,7 +12,7 @@ import java.util.List;
 
 public class SupplierStockDetailBOImpl implements SupplierStockDetailBO {
 
-    SupplierStockDetailDAO supplierStockDetailDAO = new SupplierStockDetailDAOImpl();
+    SupplierStockDetailDAO supplierStockDetailDAO = (SupplierStockDetailDAO) DAOFactory.getDAOFactory().getDAO(DAOFactory.DAOTypes.SUPPLIER_STOCK_DTL);
 
     @Override
     public boolean saveSupplierStockDetail(SupplierStockDetail supplierStockDetail) throws SQLException, ClassNotFoundException {

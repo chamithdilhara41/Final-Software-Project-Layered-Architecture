@@ -1,6 +1,7 @@
 package lk.ijse.bo.custom.impl;
 
 import lk.ijse.bo.custom.TransactionBO;
+import lk.ijse.dao.DAOFactory;
 import lk.ijse.dao.custom.TransactionDAO;
 import lk.ijse.dao.custom.impl.TransactionDAOImpl;
 import lk.ijse.entity.Transaction;
@@ -10,7 +11,7 @@ import java.util.List;
 
 public class TransactionBOImpl implements TransactionBO {
 
-    TransactionDAO transactionDAO = new TransactionDAOImpl();
+    TransactionDAO transactionDAO = (TransactionDAO) DAOFactory.getDAOFactory().getDAO(DAOFactory.DAOTypes.TRANSACTION);
 
     @Override
     public boolean saveTransaction(Transaction transaction) throws SQLException, ClassNotFoundException {

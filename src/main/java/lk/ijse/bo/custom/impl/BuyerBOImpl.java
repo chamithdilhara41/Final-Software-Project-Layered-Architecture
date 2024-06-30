@@ -1,6 +1,7 @@
 package lk.ijse.bo.custom.impl;
 
 import lk.ijse.bo.custom.BuyerBO;
+import lk.ijse.dao.DAOFactory;
 import lk.ijse.dao.custom.BuyerDAO;
 import lk.ijse.dao.custom.impl.BuyerDAOImpl;
 import lk.ijse.entity.Buyer;
@@ -10,7 +11,7 @@ import java.util.List;
 
 public class BuyerBOImpl implements BuyerBO {
 
-    BuyerDAO buyerDAO = new BuyerDAOImpl();
+    BuyerDAO buyerDAO = (BuyerDAO) DAOFactory.getDAOFactory().getDAO(DAOFactory.DAOTypes.BUYER);
 
     @Override
     public boolean saveBuyer(Buyer buyer) throws SQLException, ClassNotFoundException {

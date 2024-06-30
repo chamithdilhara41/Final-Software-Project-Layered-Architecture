@@ -1,6 +1,7 @@
 package lk.ijse.bo.custom.impl;
 
 import lk.ijse.bo.custom.OrderBO;
+import lk.ijse.dao.DAOFactory;
 import lk.ijse.dao.custom.OrderDAO;
 import lk.ijse.dao.custom.impl.OrderDAOImpl;
 import lk.ijse.entity.Order;
@@ -12,7 +13,7 @@ import java.util.List;
 
 public class OrderBOImpl implements OrderBO {
 
-    OrderDAO orderDAO = new OrderDAOImpl();
+    OrderDAO orderDAO = (OrderDAO) DAOFactory.getDAOFactory().getDAO(DAOFactory.DAOTypes.ORDER);
 
     @Override
     public String getCurrentIdOrder() throws SQLException, ClassNotFoundException {
