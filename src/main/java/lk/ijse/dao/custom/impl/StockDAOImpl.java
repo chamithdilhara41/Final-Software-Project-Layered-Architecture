@@ -1,12 +1,10 @@
 package lk.ijse.dao.custom.impl;
 
 import lk.ijse.dao.custom.StockDAO;
-import lk.ijse.db.DbConnection;
-import lk.ijse.dto.Stock;
+import lk.ijse.entity.Stock;
 import lk.ijse.util.SQLUtil;
 
 import java.sql.Date;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;

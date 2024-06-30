@@ -3,7 +3,7 @@ package lk.ijse.bo.custom.impl;
 import lk.ijse.bo.custom.BuyerBO;
 import lk.ijse.dao.custom.BuyerDAO;
 import lk.ijse.dao.custom.impl.BuyerDAOImpl;
-import lk.ijse.dto.Buyer;
+import lk.ijse.entity.Buyer;
 
 import java.sql.SQLException;
 import java.util.List;

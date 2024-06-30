@@ -1,15 +1,16 @@
-package lk.ijse.dto;
+package lk.ijse.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 
-public class OrderDetail {
-    private String stockID;
-    private String orderID;
-    private String buyerID;
+public class PlaceOrder {
+    private Order order;
+    private List<OrderDetail> odList;
 }

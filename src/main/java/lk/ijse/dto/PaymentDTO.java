@@ -8,9 +8,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 
-public class SupplierStockDetail {
-
-    private String stockId;
+public class PaymentDTO {
+    private String paymentId;
+    private String description;
+    private Double amount;
+    private String date;
     private String supplierId;
-    private Double weight;
+
 }

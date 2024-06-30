@@ -2,7 +2,7 @@ package lk.ijse.dao.custom.impl;
 
 import lk.ijse.dao.custom.SupplierStockDetailDAO;
 import lk.ijse.db.DbConnection;
-import lk.ijse.dto.SupplierStockDetail;
+import lk.ijse.entity.SupplierStockDetail;
 import lk.ijse.tdm.SupplierStockDetailTm;
 import lk.ijse.util.SQLUtil;
 
@@ -24,6 +24,22 @@ public class SupplierStockDetailDAOImpl implements SupplierStockDetailDAO {
                 );
     }
 
+    public List<SupplierStockDetailTm> searchSuppliersWithStockId(String stockID) throws SQLException {
+        String sql = "SELECT s.supplierId, s.name, si.Weight FROM supplier s JOIN supplierstockinfo si ON s.supplierId = si.supplierId WHERE si.stockId = ?;";
+        List<SupplierStockDetailTm> data = new ArrayList<>();
+
+        PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
+        pstm.setObject(1, stockID);
+        ResultSet resultSet = pstm.executeQuery();
+        while (resultSet.next()) {
+            data.add(new SupplierStockDetailTm(
+                    resultSet.getString("supplierId"),
+                    resultSet.getString("name"),
+                    resultSet.getDouble("Weight")
+            ));
+        }
+        return data;
+    }
 
 
 
@@ -42,21 +58,6 @@ public class SupplierStockDetailDAOImpl implements SupplierStockDetailDAO {
         return false;
     }
 
-    public List<SupplierStockDetailTm> searchSuppliersWithStockId(String stockID) throws SQLException {
-        String sql = "SELECT s.supplierId, s.name, si.Weight FROM supplier s JOIN supplierstockinfo si ON s.supplierId = si.supplierId WHERE si.stockId = ?;";
-        List<SupplierStockDetailTm> data = new ArrayList<>();
 
-        PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
-        pstm.setObject(1, stockID);
-        ResultSet resultSet = pstm.executeQuery();
-        while (resultSet.next()) {
-            data.add(new SupplierStockDetailTm(
-                    resultSet.getString("supplierId"),
-                    resultSet.getString("name"),
-                    resultSet.getDouble("Weight")
-            ));
-        }
-        return data;
-    }
 
 }

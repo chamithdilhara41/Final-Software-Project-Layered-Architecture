@@ -1,12 +1,9 @@
 package lk.ijse.dao.custom.impl;
 
 import lk.ijse.dao.custom.EmployeeDAO;
-import lk.ijse.db.DbConnection;
-import lk.ijse.dto.Employee;
+import lk.ijse.entity.Employee;
 import lk.ijse.util.SQLUtil;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;

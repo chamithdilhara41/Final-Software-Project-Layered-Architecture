@@ -11,10 +11,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
-import lk.ijse.dao.custom.VehicleDAO;
-import lk.ijse.dto.Vehicle;
+import lk.ijse.bo.custom.VehicleBO;
+import lk.ijse.bo.custom.impl.VehicleBOImpl;
+import lk.ijse.entity.Vehicle;
 import lk.ijse.tdm.VehicleTm;
-import lk.ijse.dao.custom.impl.VehicleDAOImpl;
 import lk.ijse.util.Regex;
 
 import java.sql.SQLException;
@@ -40,7 +40,7 @@ public class VehicleFormController {
     private TextField txtVehicleType;
 
     //dependency injection
-    VehicleDAO vehicleDAO = new VehicleDAOImpl();
+    VehicleBO vehicleBO = new VehicleBOImpl();
 
     public void initialize() throws SQLException, ClassNotFoundException {
         animateLabelTyping();
@@ -93,7 +93,7 @@ public class VehicleFormController {
         }
 
         try {
-            boolean isDeleted = vehicleDAO.delete(vehicleNo);
+            boolean isDeleted = vehicleBO.deleteVehicle(vehicleNo);
             if (isDeleted){
                 new Alert(Alert.AlertType.INFORMATION , "Vehicle Deleted").showAndWait();
                 clearFields();
@@ -123,7 +123,7 @@ public class VehicleFormController {
         try {
             boolean isSaved = false;
             if (isValid()) {
-                isSaved = vehicleDAO.save(vehicle);
+                isSaved = vehicleBO.saveVehicle(vehicle);
             }else {
                 new Alert(Alert.AlertType.ERROR, "Please check Text Fields... ").show();
             }
@@ -145,7 +145,7 @@ public class VehicleFormController {
 
     private void getAllVehicles() throws SQLException, ClassNotFoundException {
         ObservableList<VehicleTm> obList = FXCollections.observableArrayList();
-        List<Vehicle> vehiclesList = vehicleDAO.getAll();
+        List<Vehicle> vehiclesList = vehicleBO.getAllVehicle();
 
         for ( Vehicle vehicle: vehiclesList){
             obList.add(new VehicleTm(
@@ -171,7 +171,7 @@ public class VehicleFormController {
         try {
             boolean isUpdated = false;
             if (isValid()) {
-                isUpdated = vehicleDAO.update(vehicle);
+                isUpdated = vehicleBO.updateVehicle(vehicle);
             }else {
                 new Alert(Alert.AlertType.ERROR, "Please check Text Fields... ").show();
             }
@@ -189,7 +189,7 @@ public class VehicleFormController {
     void txtOnActionSearch(ActionEvent event) throws SQLException, ClassNotFoundException {
         String vehicleNo = txtVehicleNo.getText();
 
-        Vehicle vehicle = vehicleDAO.searchByVehicleNo(vehicleNo);
+        Vehicle vehicle = vehicleBO.searchByVehicleNoVehicle(vehicleNo);
 
         if(vehicle != null) {
             txtVehicleNo.setText(vehicle.getVehicleNo());

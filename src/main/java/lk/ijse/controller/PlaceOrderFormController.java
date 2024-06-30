@@ -23,7 +23,7 @@ import lk.ijse.dao.custom.StockDAO;
 import lk.ijse.dao.custom.impl.*;
 import lk.ijse.util.AnimationUtil;
 import lk.ijse.db.DbConnection;
-import lk.ijse.dto.*;
+import lk.ijse.entity.*;
 import lk.ijse.tdm.OrderCartTm;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.design.JasperDesign;

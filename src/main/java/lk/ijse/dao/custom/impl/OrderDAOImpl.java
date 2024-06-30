@@ -1,7 +1,7 @@
 package lk.ijse.dao.custom.impl;
 
 import lk.ijse.dao.custom.OrderDAO;
-import lk.ijse.dto.Order;
+import lk.ijse.entity.Order;
 import lk.ijse.tdm.OrderBuyerTm;
 import lk.ijse.tdm.OrderStockTm;
 import lk.ijse.util.SQLUtil;

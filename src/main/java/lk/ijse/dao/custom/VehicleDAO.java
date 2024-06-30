@@ -1,7 +1,7 @@
 package lk.ijse.dao.custom;
 
 import lk.ijse.dao.CrudDAO;
-import lk.ijse.dto.Vehicle;
+import lk.ijse.entity.Vehicle;
 
 import java.sql.SQLException;
 import java.util.List;

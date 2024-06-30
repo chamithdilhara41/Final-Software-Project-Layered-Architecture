@@ -2,13 +2,9 @@ package lk.ijse.dao.custom.impl;
 
 import javafx.scene.control.Alert;
 import lk.ijse.dao.custom.VehicleDAO;
-import lk.ijse.db.DbConnection;
-import lk.ijse.dto.Vehicle;
+import lk.ijse.entity.Vehicle;
 import lk.ijse.util.SQLUtil;
-import org.jetbrains.annotations.Nullable;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;

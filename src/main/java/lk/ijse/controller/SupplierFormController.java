@@ -12,10 +12,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
-import lk.ijse.dao.custom.SupplierDAO;
-import lk.ijse.dto.Supplier;
+import lk.ijse.bo.custom.SupplierBO;
+import lk.ijse.bo.custom.impl.SupplierBOImpl;
+import lk.ijse.entity.Supplier;
 import lk.ijse.tdm.SupplierTm;
-import lk.ijse.dao.custom.impl.SupplierDAOImpl;
 import lk.ijse.util.Regex;
 
 import java.sql.SQLException;
@@ -58,7 +58,7 @@ public class SupplierFormController {
     private TextField txtSupplierName;
 
     //dependency injection
-    SupplierDAO supplierDAO = new SupplierDAOImpl();
+    SupplierBO supplierBO = new SupplierBOImpl();
 
     public void initialize() throws SQLException, ClassNotFoundException {
         animateLabelTyping();
@@ -100,7 +100,6 @@ public class SupplierFormController {
         return true;
     }
 
-
     @FXML
     void btnOnActionClear(ActionEvent event) {
         clearFields();
@@ -116,7 +115,7 @@ public class SupplierFormController {
         }
 
         try {
-            boolean isDeleted = supplierDAO.delete(supplierID);
+            boolean isDeleted = supplierBO.deleteSupplier(supplierID);
             if(isDeleted) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Supplier deleted!").show();
                 getAllSuppliers();
@@ -147,7 +146,7 @@ public class SupplierFormController {
         try {
             boolean isSaved = false;
             if (isValid()) {
-                isSaved = supplierDAO.save(supplier);
+                isSaved = supplierBO.saveSupplier(supplier);
             }else {
                 new Alert(Alert.AlertType.ERROR, "Please check Text Fields... ").show();
             }
@@ -181,7 +180,7 @@ public class SupplierFormController {
         try {
             boolean isUpdated = false;
             if (isValid()) {
-                isUpdated = supplierDAO.update(supplier);
+                isUpdated = supplierBO.updateSupplier(supplier);
             }else {
                 new Alert(Alert.AlertType.ERROR, "Please check Text Fields... ").show();
             }
@@ -206,7 +205,7 @@ public class SupplierFormController {
     public void txtOnActionSearch(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         String supplierID = txtSupplierID.getText();
 
-        Supplier supplier = supplierDAO.searchById(supplierID);
+        Supplier supplier = supplierBO.searchByIdSupplier(supplierID);
         if (supplier != null) {
             txtSupplierID.setText(supplier.getSupplierId());
             txtSupplierName.setText(supplier.getSupplierName());
@@ -225,7 +224,7 @@ public class SupplierFormController {
     void getAllSuppliers() throws SQLException, ClassNotFoundException {
 
         ObservableList<SupplierTm> obList = FXCollections.observableArrayList();
-        List<Supplier> supplierList = supplierDAO.getAll();
+        List<Supplier> supplierList = supplierBO.getAllSupplier();
 
         for ( Supplier supplier: supplierList){
             obList.add(new SupplierTm(

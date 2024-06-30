@@ -1,11 +1,9 @@
 package lk.ijse.dao.custom.impl;
 
 import lk.ijse.dao.custom.PaymentDAO;
-import lk.ijse.db.DbConnection;
-import lk.ijse.dto.Payment;
+import lk.ijse.entity.Payment;
 import lk.ijse.util.SQLUtil;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;

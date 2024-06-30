@@ -2,12 +2,9 @@ package lk.ijse.dao.custom.impl;
 
 import javafx.scene.control.Alert;
 import lk.ijse.dao.custom.SupplierDAO;
-import lk.ijse.db.DbConnection;
-import lk.ijse.dto.Supplier;
+import lk.ijse.entity.Supplier;
 import lk.ijse.util.SQLUtil;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;

@@ -13,7 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 import lk.ijse.bo.custom.BuyerBO;
 import lk.ijse.bo.custom.impl.BuyerBOImpl;
-import lk.ijse.dto.Buyer;
+import lk.ijse.entity.Buyer;
 import lk.ijse.tdm.BuyerTm;
 import lk.ijse.util.Regex;
 

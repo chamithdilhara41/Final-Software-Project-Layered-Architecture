@@ -12,16 +12,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
+import lk.ijse.bo.custom.SupplierBO;
+import lk.ijse.bo.custom.impl.SupplierBOImpl;
 import lk.ijse.dao.custom.StockDAO;
-import lk.ijse.dao.custom.SupplierDAO;
 import lk.ijse.dao.custom.SupplierStockDetailDAO;
-import lk.ijse.dto.Stock;
-import lk.ijse.dto.Supplier;
-import lk.ijse.dto.SupplierStockDetail;
+import lk.ijse.entity.Stock;
+import lk.ijse.entity.Supplier;
+import lk.ijse.entity.SupplierStockDetail;
 import lk.ijse.tdm.StockTm;
 import lk.ijse.tdm.SupplierStockDetailTm;
 import lk.ijse.dao.custom.impl.StockDAOImpl;
-import lk.ijse.dao.custom.impl.SupplierDAOImpl;
 import lk.ijse.dao.custom.impl.SupplierStockDetailDAOImpl;
 import lk.ijse.util.Regex;
 
@@ -77,7 +77,7 @@ public class StockFormController {
     private TextField txtWeight;
 
     //dependency injection
-    SupplierDAO supplierDAO = new SupplierDAOImpl();
+    SupplierBO supplierBO = new SupplierBOImpl();
     SupplierStockDetailDAO supplierStockDetailDAO = new SupplierStockDetailDAOImpl();
     StockDAO stockDAO = new StockDAOImpl();
 
@@ -309,7 +309,7 @@ public class StockFormController {
         String supplierID = cmbSupplierID.getValue();
 
         try {
-            Supplier supplier = supplierDAO.searchBySupplierIdForPayment(supplierID);
+            Supplier supplier = supplierBO.searchBySupplierIdForPaymentSupplier(supplierID);
             if(supplier!=null){
                 lblSupplierName.setText(supplier.getSupplierName());
             }
@@ -327,7 +327,7 @@ public class StockFormController {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         try {
-            List<String> NoList = supplierDAO.getIds();
+            List<String> NoList = supplierBO.getIdsSupplier();
 
             for(String No : NoList) {
                 obList.add(No);

@@ -1,10 +1,9 @@
 package lk.ijse.dao.custom;
 
 import lk.ijse.dao.CrudDAO;
-import lk.ijse.dto.Transaction;
+import lk.ijse.entity.Transaction;
 
 import java.sql.SQLException;
-import java.util.List;
 
 public interface TransactionDAO extends CrudDAO<Transaction> {
 

@@ -12,13 +12,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
-import lk.ijse.dao.custom.EmployeeDAO;
-import lk.ijse.dao.custom.VehicleDAO;
-import lk.ijse.dto.Employee;
-import lk.ijse.dto.Vehicle;
+import lk.ijse.bo.custom.EmployeeBO;
+import lk.ijse.bo.custom.VehicleBO;
+import lk.ijse.bo.custom.impl.EmployeeBOImpl;
+import lk.ijse.bo.custom.impl.VehicleBOImpl;
+import lk.ijse.entity.Employee;
+import lk.ijse.entity.Vehicle;
 import lk.ijse.tdm.EmployeeTm;
-import lk.ijse.dao.custom.impl.EmployeeDAOImpl;
-import lk.ijse.dao.custom.impl.VehicleDAOImpl;
 import lk.ijse.util.Regex;
 
 import java.sql.SQLException;
@@ -70,8 +70,8 @@ public class EmployeeFormController {
     private TextField txtEmployeeSalary;
 
     //dependency injection
-    EmployeeDAO employeeDAO = new EmployeeDAOImpl();
-    VehicleDAO vehicleDAO = new VehicleDAOImpl();
+    EmployeeBO employeeBO = new EmployeeBOImpl();
+    VehicleBO vehicleBO = new VehicleBOImpl();
 
     public void initialize() throws SQLException, ClassNotFoundException {
         animateLabelTyping();
@@ -147,7 +147,6 @@ public class EmployeeFormController {
         cmbVehicleNo.getSelectionModel().clearSelection();
     }
 
-
     @FXML
     void btnOnActionClear(ActionEvent event) {
         clearFields();
@@ -163,7 +162,7 @@ public class EmployeeFormController {
         }
 
         try {
-            boolean isDeleted = employeeDAO.delete(EmployeeID);
+            boolean isDeleted = employeeBO.deleteEmployee(EmployeeID);
             if(isDeleted) {
                 new Alert(Alert.AlertType.INFORMATION, "Employee deleted!").show();
                 clearFields();
@@ -200,7 +199,7 @@ public class EmployeeFormController {
         try {
             boolean isSaved = false;
             if (isValid()) {
-                isSaved = employeeDAO.save(employee);
+                isSaved = employeeBO.saveEmployee(employee);
             }else {
                 new Alert(Alert.AlertType.ERROR, "Please check Text Fields... ").show();
             }
@@ -238,7 +237,7 @@ public class EmployeeFormController {
         try {
             boolean isUpdated = false;
             if (isValid()) {
-                isUpdated = employeeDAO.update(employee);
+                isUpdated = employeeBO.updateEmployee(employee);
             }else {
                 new Alert(Alert.AlertType.ERROR, "Please check Text Fields... ",ButtonType.OK).show();
             }
@@ -257,7 +256,7 @@ public class EmployeeFormController {
     void txtOnActionSearch(ActionEvent event) throws SQLException, ClassNotFoundException {
         String employeeID = txtEmployeeID.getText();
 
-        Employee employee = employeeDAO.searchById(employeeID);
+        Employee employee = employeeBO.searchByIdEmployee(employeeID);
         if (employee != null) {
             txtEmployeeID.setText(employee.getEmployeeId());
             txtEmployeeName.setText(employee.getEmployeeName());
@@ -278,7 +277,7 @@ public class EmployeeFormController {
     public void cmbVehicleNoOnAction(ActionEvent actionEvent) throws ClassNotFoundException {
         String No = cmbVehicleNo.getValue();
         try {
-            Vehicle vehicle = vehicleDAO.searchByVehicleNoForEmp(No);
+            Vehicle vehicle = vehicleBO.searchByVehicleNoForEmpVehicle(No);
 
             if (vehicle != null) {
                 lblVehicleType.setText(vehicle.getVehicleType());
@@ -297,7 +296,7 @@ public class EmployeeFormController {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         try {
-            List<String> NoList = vehicleDAO.getNos();
+            List<String> NoList = vehicleBO.getNosVehicle();
 
             for(String No : NoList) {
                 obList.add(No);
@@ -312,7 +311,7 @@ public class EmployeeFormController {
 
     private void getAllEmployees() throws SQLException, ClassNotFoundException {
         ObservableList<EmployeeTm> obList = FXCollections.observableArrayList();
-        List<Employee> employeesList = employeeDAO.getAll();
+        List<Employee> employeesList = employeeBO.getAllEmployee();
 
         for ( Employee employee: employeesList){
             obList.add(new EmployeeTm(

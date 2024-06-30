@@ -1,7 +1,7 @@
 package lk.ijse.dao.custom;
 
 import lk.ijse.dao.CrudDAO;
-import lk.ijse.dto.Order;
+import lk.ijse.entity.Order;
 import lk.ijse.tdm.OrderBuyerTm;
 import lk.ijse.tdm.OrderStockTm;
 

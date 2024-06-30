@@ -4,7 +4,7 @@ import lk.ijse.dao.custom.OrderDAO;
 import lk.ijse.dao.custom.OrderDetailDAO;
 import lk.ijse.dao.custom.PlaceOrderDAO;
 import lk.ijse.db.DbConnection;
-import lk.ijse.dto.PlaceOrder;
+import lk.ijse.entity.PlaceOrder;
 
 import java.sql.Connection;
 import java.sql.SQLException;

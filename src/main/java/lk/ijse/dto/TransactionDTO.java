@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 
-public class Transaction {
+public class TransactionDTO {
     private String transactionId;
     private String orderId;
     private String accountNo;

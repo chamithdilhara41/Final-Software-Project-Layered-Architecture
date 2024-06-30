@@ -13,16 +13,16 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 import lk.ijse.bo.custom.BuyerBO;
+import lk.ijse.bo.custom.DeliveryBO;
+import lk.ijse.bo.custom.VehicleBO;
 import lk.ijse.bo.custom.impl.BuyerBOImpl;
-import lk.ijse.dao.custom.DeliveryDAO;
+import lk.ijse.bo.custom.impl.DeliveryBOImpl;
+import lk.ijse.bo.custom.impl.VehicleBOImpl;
 import lk.ijse.dao.custom.StockDAO;
-import lk.ijse.dao.custom.VehicleDAO;
-import lk.ijse.dao.custom.impl.DeliveryDAOImpl;
 import lk.ijse.dao.custom.impl.StockDAOImpl;
-import lk.ijse.dao.custom.impl.VehicleDAOImpl;
-import lk.ijse.dto.Buyer;
-import lk.ijse.dto.Delivery;
-import lk.ijse.dto.Vehicle;
+import lk.ijse.entity.Buyer;
+import lk.ijse.entity.Delivery;
+import lk.ijse.entity.Vehicle;
 import lk.ijse.tdm.DeliveryTm;
 import lk.ijse.util.Regex;
 
@@ -68,8 +68,8 @@ public class DeliveryFormController {
 
     //dependency injection
     BuyerBO buyerBO = new BuyerBOImpl();
-    DeliveryDAO deliveryDAO = new DeliveryDAOImpl();
-    VehicleDAO vehicleDAO = new VehicleDAOImpl();
+    DeliveryBO deliveryBO = new DeliveryBOImpl();
+    VehicleBO vehicleBO = new VehicleBOImpl();
     StockDAO stockDAO = new StockDAOImpl();
 
     public void initialize() throws SQLException, ClassNotFoundException {
@@ -106,7 +106,7 @@ public class DeliveryFormController {
 
     private void getAllDeliveries() throws SQLException, ClassNotFoundException {
         ObservableList<Object> obList = FXCollections.observableArrayList();
-        List<Delivery> deliveryList = deliveryDAO.getAll();
+        List<Delivery> deliveryList = deliveryBO.getAllDelivery();
 
         for (Delivery delivery : deliveryList) {
             obList.add(new DeliveryTm(
@@ -157,7 +157,7 @@ public class DeliveryFormController {
         }
 
         try {
-            boolean isDeleted = deliveryDAO.delete(deliveryID);
+            boolean isDeleted = deliveryBO.deleteDelivery(deliveryID);
             if (isDeleted) {
                 new Alert(Alert.AlertType.CONFIRMATION,"Delivery deleted!").show();
                 clearFields();
@@ -188,7 +188,7 @@ public class DeliveryFormController {
         try {
             boolean isSaved = false;
             if (isValid()) {
-                isSaved = deliveryDAO.save(delivery);
+                isSaved = deliveryBO.saveDelivery(delivery);
             }else {
                 new Alert(Alert.AlertType.ERROR, "Please check Text Fields... ").show();
             }
@@ -221,7 +221,7 @@ public class DeliveryFormController {
         try {
             boolean isUpdated = false;
             if (isValid()) {
-                isUpdated = deliveryDAO.update(delivery);
+                isUpdated = deliveryBO.updateDelivery(delivery);
             }else {
                 new Alert(Alert.AlertType.ERROR, "Please check Text Fields... ",ButtonType.OK).show();
             }
@@ -256,7 +256,7 @@ public class DeliveryFormController {
     void cmbVehicleNoOnAction(ActionEvent event) throws ClassNotFoundException {
         String No = cmbVehicleNo.getValue();
         try {
-            Vehicle vehicle = vehicleDAO.searchByVehicleNoForEmp(No);
+            Vehicle vehicle = vehicleBO.searchByVehicleNoForEmpVehicle(No);
 
             if (vehicle != null) {
                 lblVehicleType.setText(vehicle.getVehicleType());
@@ -276,7 +276,7 @@ public class DeliveryFormController {
     void txtOnActionSearch(ActionEvent event) throws SQLException, ClassNotFoundException {
         String deliveryID = txtDeliveryID.getText();
 
-        Delivery delivery = deliveryDAO.searchByDeliveryId(deliveryID);
+        Delivery delivery = deliveryBO.searchByDeliveryIdDelivery(deliveryID);
         if(delivery != null){
             new Alert(Alert.AlertType.INFORMATION, "Delivery Searched").show();
             txtDeliveryID.setText(delivery.getDeliveryId());
@@ -295,7 +295,7 @@ public class DeliveryFormController {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         try {
-            List<String> NoList = vehicleDAO.getNos();
+            List<String> NoList = vehicleBO.getNosVehicle();
 
             for(String No : NoList) {
                 obList.add(No);

@@ -13,14 +13,14 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 import lk.ijse.bo.custom.BuyerBO;
+import lk.ijse.bo.custom.TransactionBO;
 import lk.ijse.bo.custom.impl.BuyerBOImpl;
+import lk.ijse.bo.custom.impl.TransactionBOImpl;
 import lk.ijse.dao.custom.OrderDAO;
-import lk.ijse.dao.custom.TransactionDAO;
-import lk.ijse.dto.Buyer;
-import lk.ijse.dto.Transaction;
+import lk.ijse.entity.Buyer;
+import lk.ijse.entity.Transaction;
 import lk.ijse.tdm.TransactionTm;
 import lk.ijse.dao.custom.impl.OrderDAOImpl;
-import lk.ijse.dao.custom.impl.TransactionDAOImpl;
 import lk.ijse.util.Regex;
 
 import java.sql.SQLException;
@@ -81,7 +81,7 @@ public class TransactionFormController {
 
     //dependency injection
     BuyerBO buyerBO = new BuyerBOImpl();
-    TransactionDAO transactionDAO = new TransactionDAOImpl();
+    TransactionBO transactionBO = new TransactionBOImpl();
     OrderDAO orderDAO = new OrderDAOImpl();
 
 
@@ -126,7 +126,7 @@ Regex.setTextColor(lk.ijse.util.TextField.ACCOUNTNo,txtAccountNo);
 
     private void getAllTransactions() throws SQLException, ClassNotFoundException {
         ObservableList<TransactionTm> obList = FXCollections.observableArrayList();
-        List<Transaction> transactinList = transactionDAO.getAll();
+        List<Transaction> transactinList = transactionBO.getAllTransaction();
 
         for (Transaction t : transactinList) {
             obList.add(new TransactionTm(
@@ -200,7 +200,7 @@ Regex.setTextColor(lk.ijse.util.TextField.ACCOUNTNo,txtAccountNo);
         }
 
         try {
-            boolean isDeleted = transactionDAO.delete(transactionID);
+            boolean isDeleted = transactionBO.deleteTransaction(transactionID);
             if(isDeleted){
                 new Alert(Alert.AlertType.INFORMATION, "Transaction deleted").show();
                 clearFields();
@@ -237,7 +237,7 @@ Regex.setTextColor(lk.ijse.util.TextField.ACCOUNTNo,txtAccountNo);
         try {
             boolean isSaved = false;
             if (isValid()) {
-                isSaved = transactionDAO.save(transaction);
+                isSaved = transactionBO.saveTransaction(transaction);
             }else {
                 new Alert(Alert.AlertType.ERROR, "Please check Text Fields... ").show();
             }
@@ -276,7 +276,7 @@ Regex.setTextColor(lk.ijse.util.TextField.ACCOUNTNo,txtAccountNo);
         try {
             boolean isUpdated = false;
             if (isValid()) {
-                isUpdated = transactionDAO.update(transaction);
+                isUpdated = transactionBO.updateTransaction(transaction);
             }else {
                 new Alert(Alert.AlertType.ERROR, "Please check Text Fields... ").show();
             }
@@ -309,7 +309,7 @@ Regex.setTextColor(lk.ijse.util.TextField.ACCOUNTNo,txtAccountNo);
     void txtOnActionSearch(ActionEvent event) throws SQLException, ClassNotFoundException {
         String transactionID = txtTransactionID.getText();
 
-        Transaction transaction = transactionDAO.searchByTransactionId(transactionID);
+        Transaction transaction = transactionBO.searchByTransactionIdTransaction(transactionID);
         if(transaction != null){
             new Alert(Alert.AlertType.INFORMATION, "Transaction Found").show();
             txtTransactionID.setText(transaction.getTransactionId());

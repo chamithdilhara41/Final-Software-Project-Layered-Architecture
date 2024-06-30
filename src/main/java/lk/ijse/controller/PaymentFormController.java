@@ -11,13 +11,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
-import lk.ijse.dao.custom.PaymentDAO;
-import lk.ijse.dao.custom.SupplierDAO;
-import lk.ijse.dto.Payment;
-import lk.ijse.dto.Supplier;
+import lk.ijse.bo.custom.PaymentBO;
+import lk.ijse.bo.custom.SupplierBO;
+import lk.ijse.bo.custom.impl.PaymentBOImpl;
+import lk.ijse.bo.custom.impl.SupplierBOImpl;
+import lk.ijse.entity.Payment;
+import lk.ijse.entity.Supplier;
 import lk.ijse.tdm.PaymentTm;
-import lk.ijse.dao.custom.impl.PaymentDAOImpl;
-import lk.ijse.dao.custom.impl.SupplierDAOImpl;
 import lk.ijse.util.Regex;
 
 import java.sql.SQLException;
@@ -65,8 +65,8 @@ public class PaymentFormController {
     private TextField txtSupplierID;
 
     //dependency injection
-    PaymentDAO paymentDAO = new PaymentDAOImpl();
-    SupplierDAO supplierDAO = new SupplierDAOImpl();
+    PaymentBO paymentBO = new PaymentBOImpl();
+    SupplierBO supplierBO = new SupplierBOImpl();
 
     public void initialize() throws SQLException, ClassNotFoundException {
         animateLabelTyping();
@@ -113,7 +113,7 @@ public class PaymentFormController {
 
     private void getAllPayments() throws SQLException, ClassNotFoundException {
         ObservableList<PaymentTm> obList = FXCollections.observableArrayList();
-        List<Payment> paymentList = paymentDAO.getAll();
+        List<Payment> paymentList = paymentBO.getAllPayment();
 
         for (Payment payment : paymentList) {
             obList.add(new PaymentTm(
@@ -177,7 +177,7 @@ public class PaymentFormController {
         }
 
         try {
-            boolean isDeleted = paymentDAO.delete(paymentID);
+            boolean isDeleted = paymentBO.deletePayment(paymentID);
             if(isDeleted){
                 new Alert(Alert.AlertType.CONFIRMATION, "Payment Deleted").show();
                 clearFields();
@@ -209,7 +209,7 @@ public class PaymentFormController {
         try {
             boolean isSaved = false;
             if (isValid()) {
-                isSaved = paymentDAO.save(payment);
+                isSaved = paymentBO.savePayment(payment);
             }else {
                 new Alert(Alert.AlertType.ERROR, "Please check Text Fields... ").show();
             }
@@ -246,7 +246,7 @@ public class PaymentFormController {
         try {
             boolean isUpdated = false;
             if (isValid()) {
-                isUpdated = paymentDAO.update(payment);
+                isUpdated = paymentBO.updatePayment(payment);
             }else {
                 new Alert(Alert.AlertType.ERROR, "Please check Text Fields... ").show();
             }
@@ -266,7 +266,7 @@ public class PaymentFormController {
         String paymentID = txtPaymentID.getText();
 
         try {
-            Payment payment = paymentDAO.searchByPaymentId(paymentID);
+            Payment payment = paymentBO.searchByPaymentIdPayment(paymentID);
             if (payment != null) {
                 new Alert(Alert.AlertType.INFORMATION, "Payment Found").show();
                 txtPaymentID.setText(payment.getPaymentId());
@@ -291,7 +291,7 @@ public class PaymentFormController {
     void txtOnActionSearchSupplier(ActionEvent event) throws SQLException, ClassNotFoundException {
         String supplierID = txtSupplierID.getText();
 
-        Supplier supplier = supplierDAO.searchBySupplierIdForPayment(supplierID);
+        Supplier supplier = supplierBO.searchBySupplierIdForPaymentSupplier(supplierID);
         if(supplier != null){
             lblSupplierName.setText(supplier.getSupplierName());
 
