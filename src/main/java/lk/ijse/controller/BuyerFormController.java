@@ -11,6 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
+import lk.ijse.bo.BOFactory;
 import lk.ijse.bo.custom.BuyerBO;
 import lk.ijse.bo.custom.impl.BuyerBOImpl;
 import lk.ijse.entity.Buyer;
@@ -58,7 +59,7 @@ public class BuyerFormController {
     private TextField txtBuyerName;
 
     //dependency injection
-    BuyerBO buyerBO = new BuyerBOImpl();
+    BuyerBO buyerBO = (BuyerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.BUYER);
 
 
     public void initialize() throws SQLException, ClassNotFoundException {

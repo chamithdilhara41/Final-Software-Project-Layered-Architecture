@@ -11,6 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
+import lk.ijse.bo.BOFactory;
 import lk.ijse.bo.custom.VehicleBO;
 import lk.ijse.bo.custom.impl.VehicleBOImpl;
 import lk.ijse.entity.Vehicle;
@@ -40,7 +41,7 @@ public class VehicleFormController {
     private TextField txtVehicleType;
 
     //dependency injection
-    VehicleBO vehicleBO = new VehicleBOImpl();
+    VehicleBO vehicleBO = (VehicleBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.VEHICLE);
 
     public void initialize() throws SQLException, ClassNotFoundException {
         animateLabelTyping();

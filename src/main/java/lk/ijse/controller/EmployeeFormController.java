@@ -12,6 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
+import lk.ijse.bo.BOFactory;
 import lk.ijse.bo.custom.EmployeeBO;
 import lk.ijse.bo.custom.VehicleBO;
 import lk.ijse.bo.custom.impl.EmployeeBOImpl;
@@ -70,8 +71,8 @@ public class EmployeeFormController {
     private TextField txtEmployeeSalary;
 
     //dependency injection
-    EmployeeBO employeeBO = new EmployeeBOImpl();
-    VehicleBO vehicleBO = new VehicleBOImpl();
+    EmployeeBO employeeBO = (EmployeeBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.EMPLOYEE);
+    VehicleBO vehicleBO = (VehicleBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.VEHICLE);
 
     public void initialize() throws SQLException, ClassNotFoundException {
         animateLabelTyping();

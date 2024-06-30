@@ -12,8 +12,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
+import lk.ijse.bo.BOFactory;
+import lk.ijse.bo.custom.StockBO;
 import lk.ijse.bo.custom.SupplierBO;
+import lk.ijse.bo.custom.SupplierStockDetailBO;
+import lk.ijse.bo.custom.impl.StockBOImpl;
 import lk.ijse.bo.custom.impl.SupplierBOImpl;
+import lk.ijse.bo.custom.impl.SupplierStockDetailBOImpl;
 import lk.ijse.dao.custom.StockDAO;
 import lk.ijse.dao.custom.SupplierStockDetailDAO;
 import lk.ijse.entity.Stock;
@@ -77,9 +82,9 @@ public class StockFormController {
     private TextField txtWeight;
 
     //dependency injection
-    SupplierBO supplierBO = new SupplierBOImpl();
-    SupplierStockDetailDAO supplierStockDetailDAO = new SupplierStockDetailDAOImpl();
-    StockDAO stockDAO = new StockDAOImpl();
+    SupplierBO supplierBO = (SupplierBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.SUPPLIER);
+    SupplierStockDetailBO supplierStockDetailBO = (SupplierStockDetailBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.SUPPLIER_STOCK_DTL);
+    StockBO stockBO = (StockBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.STOCK);
 
     public void initialize() throws SQLException, ClassNotFoundException {
         animateLabelTyping();
@@ -124,7 +129,7 @@ public class StockFormController {
 
     private void getAllStocks() throws SQLException, ClassNotFoundException {
         ObservableList<StockTm> obList = FXCollections.observableArrayList();
-        List<Stock> stocksList = stockDAO.getAll();
+        List<Stock> stocksList = stockBO.getAllStock();
 
         for (Stock t : stocksList) {
             obList.add(new StockTm(
@@ -137,7 +142,7 @@ public class StockFormController {
     }
 
     @FXML
-    void OnMouseClicked(MouseEvent event) throws SQLException {
+    void OnMouseClicked(MouseEvent event) throws SQLException, ClassNotFoundException {
         int index = tblStock.getSelectionModel().getSelectedIndex();
 
         if (index <= -1){
@@ -149,7 +154,7 @@ public class StockFormController {
         String stockID = colStockID.getCellData(index).toString();
         ObservableList<SupplierStockDetailTm> obList = FXCollections.observableArrayList();
 
-        List<SupplierStockDetailTm> supplierStockDetail = supplierStockDetailDAO.searchSuppliersWithStockId(stockID);
+        List<SupplierStockDetailTm> supplierStockDetail = supplierStockDetailBO.searchSuppliersWithStockIdSupplierStockDetail(stockID);
 
             for (SupplierStockDetailTm No : supplierStockDetail) {
                 obList.add(new SupplierStockDetailTm(
@@ -177,7 +182,7 @@ public class StockFormController {
         String stockID = txtStockID.getText();
 
         try {
-            boolean isDeleted = stockDAO.delete(stockID);
+            boolean isDeleted = stockBO.deleteStock(stockID);
             if (isDeleted) {
                 getAllStocks();
                 setCellValueFactoryForStocks();
@@ -195,12 +200,12 @@ public class StockFormController {
     }
 
     @FXML
-    void txtOnActionSearchSuppliers(ActionEvent event) throws SQLException {
+    void txtOnActionSearchSuppliers(ActionEvent event) throws SQLException, ClassNotFoundException {
         if (isValidSupplier()) {
             String stockID = txtSuppliersStockID.getText();
             ObservableList<SupplierStockDetailTm> obList = FXCollections.observableArrayList();
 
-            List<SupplierStockDetailTm> supplierStockDetail = supplierStockDetailDAO.searchSuppliersWithStockId(stockID);
+            List<SupplierStockDetailTm> supplierStockDetail = supplierStockDetailBO.searchSuppliersWithStockIdSupplierStockDetail(stockID);
 
             if (supplierStockDetail.isEmpty()) {
                 new Alert(Alert.AlertType.ERROR, "Suppliers not found").show();
@@ -245,14 +250,14 @@ public class StockFormController {
         try {
             boolean issaved1 = false;
             if (isValid()) {
-                issaved1 = stockDAO.save(stock);
+                issaved1 = stockBO.saveStock(stock);
             }else {
                 new Alert(Alert.AlertType.ERROR, "Please check Text Fields... ").show();
             }
             boolean isSaved = false;
                 if (issaved1 ) {
                     if (isValid()) {
-                        isSaved = supplierStockDetailDAO.save(supplierStockDetail);
+                        isSaved = supplierStockDetailBO.saveSupplierStockDetail(supplierStockDetail);
                     }else {
                         new Alert(Alert.AlertType.ERROR, "Please check Text Fields... ").show();
                     }
@@ -267,10 +272,10 @@ public class StockFormController {
                 }
             } catch (SQLException | ClassNotFoundException e) {
 
-            boolean isUpdateWeight = stockDAO.updateWeight(stockID,supplierID, Double.valueOf(weight));
+            boolean isUpdateWeight = stockBO.updateWeightStock(stockID,supplierID, Double.valueOf(weight));
             if (isUpdateWeight) {
 
-                boolean fuck = supplierStockDetailDAO.save(supplierStockDetail);
+                boolean fuck = supplierStockDetailBO.saveSupplierStockDetail(supplierStockDetail);
                 if (fuck) {
                     new Alert(Alert.AlertType.INFORMATION, " weight updated!").show();
                     getAllStocks();
@@ -291,7 +296,7 @@ public class StockFormController {
 
         Stock stock = new Stock(stockID, weight, date);
         try {
-            boolean isSaved = stockDAO.save(stock);
+            boolean isSaved = stockBO.saveStock(stock);
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }

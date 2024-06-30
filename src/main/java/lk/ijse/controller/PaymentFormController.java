@@ -11,6 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
+import lk.ijse.bo.BOFactory;
 import lk.ijse.bo.custom.PaymentBO;
 import lk.ijse.bo.custom.SupplierBO;
 import lk.ijse.bo.custom.impl.PaymentBOImpl;
@@ -65,8 +66,8 @@ public class PaymentFormController {
     private TextField txtSupplierID;
 
     //dependency injection
-    PaymentBO paymentBO = new PaymentBOImpl();
-    SupplierBO supplierBO = new SupplierBOImpl();
+    PaymentBO paymentBO = (PaymentBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.PAYMENT);
+    SupplierBO supplierBO = (SupplierBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.SUPPLIER);
 
     public void initialize() throws SQLException, ClassNotFoundException {
         animateLabelTyping();

@@ -12,6 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
+import lk.ijse.bo.BOFactory;
 import lk.ijse.bo.custom.BuyerBO;
 import lk.ijse.bo.custom.DeliveryBO;
 import lk.ijse.bo.custom.VehicleBO;
@@ -67,10 +68,10 @@ public class DeliveryFormController {
     private TextField txtDeliveryID;
 
     //dependency injection
-    BuyerBO buyerBO = new BuyerBOImpl();
-    DeliveryBO deliveryBO = new DeliveryBOImpl();
-    VehicleBO vehicleBO = new VehicleBOImpl();
-    StockDAO stockDAO = new StockDAOImpl();
+    BuyerBO buyerBO = (BuyerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.BUYER);
+    DeliveryBO deliveryBO = (DeliveryBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.DELIVERY);
+    VehicleBO vehicleBO = (VehicleBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.VEHICLE);
+    StockDAO stockDAO = (StockDAO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.STOCK);
 
     public void initialize() throws SQLException, ClassNotFoundException {
         animateLabelTyping();

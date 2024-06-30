@@ -12,6 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
+import lk.ijse.bo.BOFactory;
 import lk.ijse.bo.custom.SupplierBO;
 import lk.ijse.bo.custom.impl.SupplierBOImpl;
 import lk.ijse.entity.Supplier;
@@ -58,7 +59,7 @@ public class SupplierFormController {
     private TextField txtSupplierName;
 
     //dependency injection
-    SupplierBO supplierBO = new SupplierBOImpl();
+    SupplierBO supplierBO = (SupplierBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.SUPPLIER);
 
     public void initialize() throws SQLException, ClassNotFoundException {
         animateLabelTyping();

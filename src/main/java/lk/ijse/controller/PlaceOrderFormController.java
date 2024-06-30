@@ -15,10 +15,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import lk.ijse.bo.BOFactory;
 import lk.ijse.bo.custom.BuyerBO;
+import lk.ijse.bo.custom.OrderBO;
+import lk.ijse.bo.custom.PlaceOrderBO;
+import lk.ijse.bo.custom.StockBO;
 import lk.ijse.bo.custom.impl.BuyerBOImpl;
+import lk.ijse.bo.custom.impl.OrderBOImpl;
+import lk.ijse.bo.custom.impl.PlaceOrderBOImpl;
+import lk.ijse.bo.custom.impl.StockBOImpl;
 import lk.ijse.dao.custom.OrderDAO;
-import lk.ijse.dao.custom.PlaceOrderDAO;
 import lk.ijse.dao.custom.StockDAO;
 import lk.ijse.dao.custom.impl.*;
 import lk.ijse.util.AnimationUtil;
@@ -87,10 +93,10 @@ public class PlaceOrderFormController {
     private ObservableList<OrderCartTm> obList = FXCollections.observableArrayList();
 
     //dependency injection
-    BuyerBO buyerBO = new BuyerBOImpl();
-    StockDAO stockDAO = new StockDAOImpl();
-    OrderDAO orderDAO = new OrderDAOImpl();
-    PlaceOrderDAO placeOrderDAO = new PlaceOrderDAOImpl();
+    BuyerBO buyerBO = (BuyerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.BUYER);
+    StockBO stockBO = (StockBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.STOCK);
+    OrderBO orderBO = (OrderBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ORDER);
+    PlaceOrderBO placeOrderBO = (PlaceOrderBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.PLACE_ORDER);
 
 
     public void initialize() throws ClassNotFoundException {
@@ -188,7 +194,7 @@ public class PlaceOrderFormController {
 
         try {
 
-            boolean isPlaced = placeOrderDAO.placeOrder(po);
+            boolean isPlaced = placeOrderBO.placeOrder(po);
             if(isPlaced) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Order Placed!",ButtonType.OK).show();
                 getStockIds();
@@ -267,7 +273,7 @@ public class PlaceOrderFormController {
     void cmbStockIdOnAction(ActionEvent event) throws ClassNotFoundException {
         String No = cmbStockID.getValue();
         try {
-            Stock stock = stockDAO.searchByStockIdForOrder(No);
+            Stock stock = stockBO.searchByStockIdForOrderStock(No);
 
             if (stock != null) {
                 lblStockWeight.setText(String.valueOf(stock.getWeight()));
@@ -303,7 +309,7 @@ public class PlaceOrderFormController {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         try {
-            List<String> NoList = stockDAO.getIds();
+            List<String> NoList = stockBO.getIdsStock();
 
             for(String No : NoList) {
                 obList.add(No);
@@ -318,7 +324,7 @@ public class PlaceOrderFormController {
 
     private void getCurrentOrderId() throws ClassNotFoundException {
         try {
-            String currentId = orderDAO.getCurrentId();
+            String currentId = orderBO.getCurrentIdOrder();
 
             String nextOrderId = generateNextOrderId(currentId);
             lblOrderID.setText(nextOrderId);

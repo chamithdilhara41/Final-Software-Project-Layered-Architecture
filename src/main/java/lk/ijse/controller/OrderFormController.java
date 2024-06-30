@@ -14,6 +14,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import lk.ijse.bo.BOFactory;
+import lk.ijse.bo.custom.OrderBO;
+import lk.ijse.bo.custom.impl.OrderBOImpl;
 import lk.ijse.dao.custom.OrderDAO;
 import lk.ijse.util.AnimationUtil;
 import lk.ijse.entity.Order;
@@ -70,7 +73,7 @@ public class OrderFormController {
     private TextField txtOrderID;
 
     //dependency injection
-    OrderDAO orderDAO = new OrderDAOImpl();
+    OrderBO orderBO = (OrderBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ORDER);
 
     public void initialize() throws SQLException, ClassNotFoundException {
         getAllOrders();
@@ -82,7 +85,7 @@ public class OrderFormController {
 
     private void getAllOrderStocks() throws SQLException, ClassNotFoundException {
         ObservableList<OrderStockTm> obList = FXCollections.observableArrayList();
-        List<OrderStockTm> OrderStockList = orderDAO.getAllOrderStocks();
+        List<OrderStockTm> OrderStockList = orderBO.getAllOrderStocksOrder();
         for ( OrderStockTm OrderStock: OrderStockList){
             obList.add(new OrderStockTm(
                     OrderStock.getStockID(),
@@ -106,7 +109,7 @@ public class OrderFormController {
 
     private void getAllOrders() throws SQLException, ClassNotFoundException {
         ObservableList<OrderTm> obList = FXCollections.observableArrayList();
-        List<Order> ordersList = orderDAO.getAll();
+        List<Order> ordersList = orderBO.getAllOrders();
 
         for ( Order order: ordersList){
             obList.add(new OrderTm(

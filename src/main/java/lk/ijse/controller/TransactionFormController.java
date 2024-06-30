@@ -12,9 +12,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
+import lk.ijse.bo.BOFactory;
 import lk.ijse.bo.custom.BuyerBO;
+import lk.ijse.bo.custom.OrderBO;
 import lk.ijse.bo.custom.TransactionBO;
 import lk.ijse.bo.custom.impl.BuyerBOImpl;
+import lk.ijse.bo.custom.impl.OrderBOImpl;
 import lk.ijse.bo.custom.impl.TransactionBOImpl;
 import lk.ijse.dao.custom.OrderDAO;
 import lk.ijse.entity.Buyer;
@@ -80,9 +83,9 @@ public class TransactionFormController {
     private TextField txtTransactionID;
 
     //dependency injection
-    BuyerBO buyerBO = new BuyerBOImpl();
-    TransactionBO transactionBO = new TransactionBOImpl();
-    OrderDAO orderDAO = new OrderDAOImpl();
+    BuyerBO buyerBO = (BuyerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.BUYER);
+    TransactionBO transactionBO = (TransactionBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.TRANSACTION);
+    OrderBO orderBO = (OrderBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ORDER);
 
 
     public void initialize() throws SQLException, ClassNotFoundException {
@@ -334,7 +337,7 @@ Regex.setTextColor(lk.ijse.util.TextField.ACCOUNTNo,txtAccountNo);
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         try {
-            List<String> NoList = orderDAO.getIds();
+            List<String> NoList = orderBO.getIdsOrder();
 
             for(String No : NoList) {
                 obList.add(No);

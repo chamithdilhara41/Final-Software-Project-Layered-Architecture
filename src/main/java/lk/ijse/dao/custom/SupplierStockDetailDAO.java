@@ -11,6 +11,6 @@ public interface SupplierStockDetailDAO extends CrudDAO<SupplierStockDetail> {
 
     public boolean save(SupplierStockDetail supplierStockDetail) throws SQLException, ClassNotFoundException;
 
-    public List<SupplierStockDetailTm> searchSuppliersWithStockId(String stockID) throws SQLException ;
+    public List<SupplierStockDetailTm> searchSuppliersWithStockId(String stockID) throws SQLException, ClassNotFoundException;
 
 }

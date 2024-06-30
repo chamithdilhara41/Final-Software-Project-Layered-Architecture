@@ -14,6 +14,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
+import lk.ijse.bo.BOFactory;
+import lk.ijse.bo.custom.OrderBO;
+import lk.ijse.bo.custom.impl.OrderBOImpl;
 import lk.ijse.dao.custom.OrderDAO;
 import lk.ijse.db.DbConnection;
 
@@ -68,7 +71,7 @@ public class DashboardFormController {
     private LineChart<?, ?> LineChart;
 
     //dependency injection
-    OrderDAO orderDAO = new OrderDAOImpl();
+    OrderBO orderBO = (OrderBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ORDER);
 
     public void initialize() throws SQLException, ClassNotFoundException {
         LineChar();
@@ -162,7 +165,7 @@ public class DashboardFormController {
 
     private void getAllOrderBuyerNames() throws SQLException, ClassNotFoundException {
         ObservableList<OrderBuyerTm> obList = FXCollections.observableArrayList();
-        List<OrderBuyerTm> ordersList = orderDAO.getAllOrderBuyerNames();
+        List<OrderBuyerTm> ordersList = orderBO.getAllOrderBuyerNamesOrder();
 
         for ( OrderBuyerTm order: ordersList){
             obList.add(new OrderBuyerTm(

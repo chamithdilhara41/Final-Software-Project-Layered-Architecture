@@ -12,12 +12,6 @@ public interface OrderDAO extends CrudDAO<Order> {
 
     public boolean save(Order order) throws SQLException, ClassNotFoundException ;
 
-    //public boolean update(Order order) throws SQLException ;
-
-    //public boolean delete(String orderID) throws SQLException ;
-
-    //public List<Order> getAll() throws SQLException ;
-
     public List<String> getIds() throws SQLException, ClassNotFoundException;
 
     public String getCurrentId() throws SQLException, ClassNotFoundException;
@@ -26,4 +20,9 @@ public interface OrderDAO extends CrudDAO<Order> {
 
     public List<OrderBuyerTm> getAllOrderBuyerNames() throws SQLException, ClassNotFoundException;
 
+    //public boolean update(Order order) throws SQLException ;
+
+    //public boolean delete(String orderID) throws SQLException ;
+
+    //public List<Order> getAll() throws SQLException ;
 }

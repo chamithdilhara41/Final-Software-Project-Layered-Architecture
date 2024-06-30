@@ -24,13 +24,11 @@ public class SupplierStockDetailDAOImpl implements SupplierStockDetailDAO {
                 );
     }
 
-    public List<SupplierStockDetailTm> searchSuppliersWithStockId(String stockID) throws SQLException {
-        String sql = "SELECT s.supplierId, s.name, si.Weight FROM supplier s JOIN supplierstockinfo si ON s.supplierId = si.supplierId WHERE si.stockId = ?;";
+    public List<SupplierStockDetailTm> searchSuppliersWithStockId(String stockID) throws SQLException, ClassNotFoundException {
+
         List<SupplierStockDetailTm> data = new ArrayList<>();
 
-        PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
-        pstm.setObject(1, stockID);
-        ResultSet resultSet = pstm.executeQuery();
+        ResultSet resultSet = SQLUtil.execute("SELECT s.supplierId, s.name, si.Weight FROM supplier s JOIN supplierstockinfo si ON s.supplierId = si.supplierId WHERE si.stockId = ?;",stockID);
         while (resultSet.next()) {
             data.add(new SupplierStockDetailTm(
                     resultSet.getString("supplierId"),
