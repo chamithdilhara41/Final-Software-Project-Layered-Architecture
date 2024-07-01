@@ -3,7 +3,6 @@ package lk.ijse.bo.custom.impl;
 import lk.ijse.bo.custom.SupplierStockDetailBO;
 import lk.ijse.dao.DAOFactory;
 import lk.ijse.dao.custom.SupplierStockDetailDAO;
-import lk.ijse.dao.custom.impl.SupplierStockDetailDAOImpl;
 import lk.ijse.entity.SupplierStockDetail;
 import lk.ijse.tdm.SupplierStockDetailTm;
 
