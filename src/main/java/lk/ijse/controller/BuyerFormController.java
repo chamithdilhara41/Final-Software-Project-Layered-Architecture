@@ -14,6 +14,7 @@ import javafx.util.Duration;
 import lk.ijse.bo.BOFactory;
 import lk.ijse.bo.custom.BuyerBO;
 import lk.ijse.bo.custom.impl.BuyerBOImpl;
+import lk.ijse.dto.BuyerDTO;
 import lk.ijse.entity.Buyer;
 import lk.ijse.tdm.BuyerTm;
 import lk.ijse.util.Regex;
@@ -112,9 +113,9 @@ public class BuyerFormController {
 
     private void getAllBuyers() throws SQLException, ClassNotFoundException {
         ObservableList<BuyerTm> obList = FXCollections.observableArrayList();
-        List<Buyer> buyerList = buyerBO.getAllBuyer();
+        List<BuyerDTO> buyerList = buyerBO.getAllBuyer();
 
-        for ( Buyer buyer: buyerList){
+        for ( BuyerDTO buyer: buyerList){
             obList.add(new BuyerTm(
                     buyer.getBuyerId(),
                     buyer.getBuyerName(),
@@ -188,7 +189,7 @@ public class BuyerFormController {
             return;
         }
 
-        Buyer buyer = new Buyer(buyerID, buyerName, buyerAddress, buyerContactOffice, buyerContactManager);
+        BuyerDTO buyer = new BuyerDTO(buyerID, buyerName, buyerAddress, buyerContactOffice, buyerContactManager);
 
         try {
             boolean isSaved = false;
@@ -229,7 +230,7 @@ public class BuyerFormController {
             return;
         }
 
-        Buyer buyer = new Buyer(buyerID, buyerName, buyerAddress, buyerContactOffice, buyerContactManager);
+        BuyerDTO buyer = new BuyerDTO(buyerID, buyerName, buyerAddress, buyerContactOffice, buyerContactManager);
 
         try {
             boolean isUpdated = false;
@@ -253,7 +254,7 @@ public class BuyerFormController {
     void txtOnActionSearch(ActionEvent event) throws SQLException, ClassNotFoundException {
         String buyerID = txtBuyerID.getText();
 
-        Buyer buyer = buyerBO.searchByIdBuyer(buyerID);
+        BuyerDTO buyer = buyerBO.searchByIdBuyer(buyerID);
         if (buyer != null) {
             txtBuyerID.setText(buyer.getBuyerId());
             txtBuyerName.setText(buyer.getBuyerName());

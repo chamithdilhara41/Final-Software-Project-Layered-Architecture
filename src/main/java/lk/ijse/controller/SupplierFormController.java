@@ -15,6 +15,7 @@ import javafx.util.Duration;
 import lk.ijse.bo.BOFactory;
 import lk.ijse.bo.custom.SupplierBO;
 import lk.ijse.bo.custom.impl.SupplierBOImpl;
+import lk.ijse.dto.SupplierDTO;
 import lk.ijse.entity.Supplier;
 import lk.ijse.tdm.SupplierTm;
 import lk.ijse.util.Regex;
@@ -142,7 +143,7 @@ public class SupplierFormController {
             return;
         }
 
-        Supplier supplier = new Supplier(supplierID, supplierName, supplierAddress, supplierContact, supplierGender);
+        SupplierDTO supplier = new SupplierDTO(supplierID, supplierName, supplierAddress, supplierContact, supplierGender);
 
         try {
             boolean isSaved = false;
@@ -176,7 +177,7 @@ public class SupplierFormController {
             return;
         }
 
-        Supplier supplier = new Supplier(supplierID, supplierName, supplierAddress, supplierContact, supplierGender);
+        SupplierDTO supplier = new SupplierDTO(supplierID, supplierName, supplierAddress, supplierContact, supplierGender);
 
         try {
             boolean isUpdated = false;
@@ -225,9 +226,9 @@ public class SupplierFormController {
     void getAllSuppliers() throws SQLException, ClassNotFoundException {
 
         ObservableList<SupplierTm> obList = FXCollections.observableArrayList();
-        List<Supplier> supplierList = supplierBO.getAllSupplier();
+        List<SupplierDTO> supplierList = supplierBO.getAllSupplier();
 
-        for ( Supplier supplier: supplierList){
+        for ( SupplierDTO supplier: supplierList){
             obList.add(new SupplierTm(
                     supplier.getSupplierId(),
                     supplier.getSupplierName(),

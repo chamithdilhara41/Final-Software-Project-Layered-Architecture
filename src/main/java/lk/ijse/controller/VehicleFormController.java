@@ -14,6 +14,7 @@ import javafx.util.Duration;
 import lk.ijse.bo.BOFactory;
 import lk.ijse.bo.custom.VehicleBO;
 import lk.ijse.bo.custom.impl.VehicleBOImpl;
+import lk.ijse.dto.VehicleDTO;
 import lk.ijse.entity.Vehicle;
 import lk.ijse.tdm.VehicleTm;
 import lk.ijse.util.Regex;
@@ -119,7 +120,7 @@ public class VehicleFormController {
             return;
         }
 
-        Vehicle vehicle = new Vehicle(vehicleNo, vehicleType);
+        VehicleDTO vehicle = new VehicleDTO(vehicleNo, vehicleType);
 
         try {
             boolean isSaved = false;
@@ -146,9 +147,9 @@ public class VehicleFormController {
 
     private void getAllVehicles() throws SQLException, ClassNotFoundException {
         ObservableList<VehicleTm> obList = FXCollections.observableArrayList();
-        List<Vehicle> vehiclesList = vehicleBO.getAllVehicle();
+        List<VehicleDTO> vehiclesList = vehicleBO.getAllVehicle();
 
-        for ( Vehicle vehicle: vehiclesList){
+        for ( VehicleDTO vehicle: vehiclesList){
             obList.add(new VehicleTm(
                     vehicle.getVehicleNo(),
                     vehicle.getVehicleType()
@@ -167,7 +168,7 @@ public class VehicleFormController {
             return;
         }
 
-        Vehicle vehicle = new Vehicle(vehicleNo, vehicleType);
+        VehicleDTO vehicle = new VehicleDTO(vehicleNo, vehicleType);
 
         try {
             boolean isUpdated = false;

@@ -20,6 +20,8 @@ import lk.ijse.bo.custom.impl.BuyerBOImpl;
 import lk.ijse.bo.custom.impl.OrderBOImpl;
 import lk.ijse.bo.custom.impl.TransactionBOImpl;
 import lk.ijse.dao.custom.OrderDAO;
+import lk.ijse.dto.BuyerDTO;
+import lk.ijse.dto.TransactionDTO;
 import lk.ijse.entity.Buyer;
 import lk.ijse.entity.Transaction;
 import lk.ijse.tdm.TransactionTm;
@@ -129,9 +131,9 @@ Regex.setTextColor(lk.ijse.util.TextField.ACCOUNTNo,txtAccountNo);
 
     private void getAllTransactions() throws SQLException, ClassNotFoundException {
         ObservableList<TransactionTm> obList = FXCollections.observableArrayList();
-        List<Transaction> transactinList = transactionBO.getAllTransaction();
+        List<TransactionDTO> transactinList = transactionBO.getAllTransaction();
 
-        for (Transaction t : transactinList) {
+        for (TransactionDTO t : transactinList) {
             obList.add(new TransactionTm(
                     t.getTransactionId(),
                     t.getOrderId(),
@@ -235,7 +237,7 @@ Regex.setTextColor(lk.ijse.util.TextField.ACCOUNTNo,txtAccountNo);
             new Alert(Alert.AlertType.INFORMATION,"Please fill all fields!").show();
         }
 
-        Transaction transaction = new Transaction(transactionID, orderID, accountNo, description, amount, date, paymentMethod);
+        TransactionDTO transaction = new TransactionDTO(transactionID, orderID, accountNo, description, amount, date, paymentMethod);
 
         try {
             boolean isSaved = false;
@@ -274,7 +276,7 @@ Regex.setTextColor(lk.ijse.util.TextField.ACCOUNTNo,txtAccountNo);
             new Alert(Alert.AlertType.INFORMATION,"Please fill all fields!").show();
         }
 
-        Transaction transaction = new Transaction(transactionID, orderID, accountNo, description, amount, date, paymentMethod);
+        TransactionDTO transaction = new TransactionDTO(transactionID, orderID, accountNo, description, amount, date, paymentMethod);
 
         try {
             boolean isUpdated = false;

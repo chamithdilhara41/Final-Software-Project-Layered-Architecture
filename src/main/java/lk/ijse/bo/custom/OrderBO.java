@@ -1,6 +1,7 @@
 package lk.ijse.bo.custom;
 
 import lk.ijse.bo.SuperBO;
+import lk.ijse.dto.OrderDTO;
 import lk.ijse.entity.Order;
 import lk.ijse.tdm.OrderBuyerTm;
 import lk.ijse.tdm.OrderStockTm;
@@ -20,6 +21,6 @@ public interface OrderBO extends SuperBO {
 
     public List<OrderBuyerTm> getAllOrderBuyerNamesOrder() throws SQLException, ClassNotFoundException;
 
-    public List<Order> getAllOrders() throws SQLException,ClassNotFoundException;
+    public List<OrderDTO> getAllOrders() throws SQLException,ClassNotFoundException;
 
 }

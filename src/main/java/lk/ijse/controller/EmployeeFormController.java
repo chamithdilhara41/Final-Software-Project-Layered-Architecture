@@ -17,6 +17,7 @@ import lk.ijse.bo.custom.EmployeeBO;
 import lk.ijse.bo.custom.VehicleBO;
 import lk.ijse.bo.custom.impl.EmployeeBOImpl;
 import lk.ijse.bo.custom.impl.VehicleBOImpl;
+import lk.ijse.dto.EmployeeDTO;
 import lk.ijse.entity.Employee;
 import lk.ijse.entity.Vehicle;
 import lk.ijse.tdm.EmployeeTm;
@@ -195,7 +196,7 @@ public class EmployeeFormController {
             new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).show();
         }
 
-        Employee employee = new Employee(employeeID,employeeName,employeeAddress,employeeContact,Double.valueOf(employeeSalary),vehicleNo);
+        EmployeeDTO employee = new EmployeeDTO(employeeID,employeeName,employeeAddress,employeeContact,Double.valueOf(employeeSalary),vehicleNo);
 
         try {
             boolean isSaved = false;
@@ -233,7 +234,7 @@ public class EmployeeFormController {
         } catch (Exception e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).show();        }
 
-        Employee employee = new Employee(employeeID,employeeName,employeeAddress,employeeContact,employeeSalary,vehicleNo);
+        EmployeeDTO employee = new EmployeeDTO(employeeID,employeeName,employeeAddress,employeeContact,employeeSalary,vehicleNo);
 
         try {
             boolean isUpdated = false;
@@ -312,9 +313,9 @@ public class EmployeeFormController {
 
     private void getAllEmployees() throws SQLException, ClassNotFoundException {
         ObservableList<EmployeeTm> obList = FXCollections.observableArrayList();
-        List<Employee> employeesList = employeeBO.getAllEmployee();
+        List<EmployeeDTO> employeesList = employeeBO.getAllEmployee();
 
-        for ( Employee employee: employeesList){
+        for ( EmployeeDTO employee: employeesList){
             obList.add(new EmployeeTm(
                     employee.getEmployeeId(),
                     employee.getEmployeeName(),

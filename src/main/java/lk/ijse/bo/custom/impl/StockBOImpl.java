@@ -4,9 +4,11 @@ import lk.ijse.bo.custom.StockBO;
 import lk.ijse.dao.DAOFactory;
 import lk.ijse.dao.custom.StockDAO;
 import lk.ijse.dao.custom.impl.StockDAOImpl;
+import lk.ijse.dto.StockDTO;
 import lk.ijse.entity.Stock;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class StockBOImpl implements StockBO {
@@ -14,13 +16,21 @@ public class StockBOImpl implements StockBO {
     StockDAO stockDAO = (StockDAO) DAOFactory.getDAOFactory().getDAO(DAOFactory.DAOTypes.STOCK);
 
     @Override
-    public boolean saveStock(Stock stock) throws SQLException, ClassNotFoundException {
-        return stockDAO.save(stock);
+    public boolean saveStock(StockDTO stock) throws SQLException, ClassNotFoundException {
+        return stockDAO.save(new Stock(stock.getStockId(), stock.getWeight(),stock.getDate()));
     }
 
     @Override
-    public List<Stock> getAllStock() throws SQLException, ClassNotFoundException {
-        return stockDAO.getAll();
+    public List<StockDTO> getAllStock() throws SQLException, ClassNotFoundException {
+        List<Stock> stocks = stockDAO.getAll();
+        List<StockDTO> stockDTOList = new ArrayList<>();
+        for (Stock stock : stocks) {
+            stockDTOList.add(new StockDTO(
+                    stock.getStockId(),
+                    stock.getWeight(),
+                    stock.getDate()));
+        }
+        return stockDTOList;
     }
 
     @Override

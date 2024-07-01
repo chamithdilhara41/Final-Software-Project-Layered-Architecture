@@ -21,6 +21,7 @@ import lk.ijse.bo.custom.impl.SupplierBOImpl;
 import lk.ijse.bo.custom.impl.SupplierStockDetailBOImpl;
 import lk.ijse.dao.custom.StockDAO;
 import lk.ijse.dao.custom.SupplierStockDetailDAO;
+import lk.ijse.dto.StockDTO;
 import lk.ijse.entity.Stock;
 import lk.ijse.entity.Supplier;
 import lk.ijse.entity.SupplierStockDetail;
@@ -129,9 +130,9 @@ public class StockFormController {
 
     private void getAllStocks() throws SQLException, ClassNotFoundException {
         ObservableList<StockTm> obList = FXCollections.observableArrayList();
-        List<Stock> stocksList = stockBO.getAllStock();
+        List<StockDTO> stocksList = stockBO.getAllStock();
 
-        for (Stock t : stocksList) {
+        for (StockDTO t : stocksList) {
             obList.add(new StockTm(
                     t.getStockId(),
                     t.getWeight(),
@@ -243,7 +244,7 @@ public class StockFormController {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
 
-        Stock stock = new Stock(stockID, Double.valueOf(weight), Date.valueOf(date));
+        StockDTO stock = new StockDTO(stockID, Double.valueOf(weight), Date.valueOf(date));
 
         SupplierStockDetail supplierStockDetail = new SupplierStockDetail(stockID, supplierID, Double.valueOf(weight));
 
@@ -294,7 +295,7 @@ public class StockFormController {
         Double weight = Double.valueOf(txtWeight.getText());
         Date date = Date.valueOf(txtDate.getText());
 
-        Stock stock = new Stock(stockID, weight, date);
+        StockDTO stock = new StockDTO(stockID, weight, date);
         try {
             boolean isSaved = stockBO.saveStock(stock);
         } catch (SQLException e) {

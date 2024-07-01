@@ -15,12 +15,15 @@ import javafx.util.Duration;
 import lk.ijse.bo.BOFactory;
 import lk.ijse.bo.custom.BuyerBO;
 import lk.ijse.bo.custom.DeliveryBO;
+import lk.ijse.bo.custom.StockBO;
 import lk.ijse.bo.custom.VehicleBO;
 import lk.ijse.bo.custom.impl.BuyerBOImpl;
 import lk.ijse.bo.custom.impl.DeliveryBOImpl;
 import lk.ijse.bo.custom.impl.VehicleBOImpl;
 import lk.ijse.dao.custom.StockDAO;
 import lk.ijse.dao.custom.impl.StockDAOImpl;
+import lk.ijse.dto.BuyerDTO;
+import lk.ijse.dto.DeliveryDTO;
 import lk.ijse.entity.Buyer;
 import lk.ijse.entity.Delivery;
 import lk.ijse.entity.Vehicle;
@@ -71,7 +74,7 @@ public class DeliveryFormController {
     BuyerBO buyerBO = (BuyerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.BUYER);
     DeliveryBO deliveryBO = (DeliveryBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.DELIVERY);
     VehicleBO vehicleBO = (VehicleBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.VEHICLE);
-    StockDAO stockDAO = (StockDAO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.STOCK);
+    StockBO stockBO = (StockBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.STOCK);
 
     public void initialize() throws SQLException, ClassNotFoundException {
         animateLabelTyping();
@@ -107,9 +110,9 @@ public class DeliveryFormController {
 
     private void getAllDeliveries() throws SQLException, ClassNotFoundException {
         ObservableList<Object> obList = FXCollections.observableArrayList();
-        List<Delivery> deliveryList = deliveryBO.getAllDelivery();
+        List<DeliveryDTO> deliveryList = deliveryBO.getAllDelivery();
 
-        for (Delivery delivery : deliveryList) {
+        for (DeliveryDTO delivery : deliveryList) {
             obList.add(new DeliveryTm(
                     delivery.getDeliveryId(),
                     delivery.getDate(),
@@ -184,7 +187,7 @@ public class DeliveryFormController {
             return;
         }
 
-        Delivery delivery = new Delivery(deliveryID, date, orderID, vehicleNo);
+        DeliveryDTO delivery = new DeliveryDTO(deliveryID, date, orderID, vehicleNo);
 
         try {
             boolean isSaved = false;
@@ -217,7 +220,7 @@ public class DeliveryFormController {
         }
 
 
-        Delivery delivery = new Delivery(deliveryID, date, orderID, vehicleNo);
+        DeliveryDTO delivery = new DeliveryDTO(deliveryID, date, orderID, vehicleNo);
 
         try {
             boolean isUpdated = false;
@@ -313,7 +316,7 @@ public class DeliveryFormController {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         try {
-            List<String> NoList = stockDAO.getIds();
+            List<String> NoList = stockBO.getIdsStock();
 
             for(String No : NoList) {
                 obList.add(No);

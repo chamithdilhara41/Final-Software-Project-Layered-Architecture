@@ -18,6 +18,7 @@ import lk.ijse.bo.BOFactory;
 import lk.ijse.bo.custom.OrderBO;
 import lk.ijse.bo.custom.impl.OrderBOImpl;
 import lk.ijse.dao.custom.OrderDAO;
+import lk.ijse.dto.OrderDTO;
 import lk.ijse.util.AnimationUtil;
 import lk.ijse.entity.Order;
 import lk.ijse.tdm.OrderStockTm;
@@ -109,9 +110,9 @@ public class OrderFormController {
 
     private void getAllOrders() throws SQLException, ClassNotFoundException {
         ObservableList<OrderTm> obList = FXCollections.observableArrayList();
-        List<Order> ordersList = orderBO.getAllOrders();
+        List<OrderDTO> ordersList = orderBO.getAllOrders();
 
-        for ( Order order: ordersList){
+        for ( OrderDTO order: ordersList){
             obList.add(new OrderTm(
                     order.getOrderId(),
                     order.getDate()

@@ -4,9 +4,11 @@ import lk.ijse.bo.custom.TransactionBO;
 import lk.ijse.dao.DAOFactory;
 import lk.ijse.dao.custom.TransactionDAO;
 import lk.ijse.dao.custom.impl.TransactionDAOImpl;
+import lk.ijse.dto.TransactionDTO;
 import lk.ijse.entity.Transaction;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TransactionBOImpl implements TransactionBO {
@@ -14,13 +16,13 @@ public class TransactionBOImpl implements TransactionBO {
     TransactionDAO transactionDAO = (TransactionDAO) DAOFactory.getDAOFactory().getDAO(DAOFactory.DAOTypes.TRANSACTION);
 
     @Override
-    public boolean saveTransaction(Transaction transaction) throws SQLException, ClassNotFoundException {
-        return transactionDAO.save(transaction);
+    public boolean saveTransaction(TransactionDTO transaction) throws SQLException, ClassNotFoundException {
+        return transactionDAO.save(new Transaction(transaction.getTransactionId(), transaction.getOrderId(), transaction.getAccountNo(), transaction.getDescription(), transaction.getAmount(), transaction.getDate(), transaction.getMethod()));
     }
 
     @Override
-    public boolean updateTransaction(Transaction transaction) throws SQLException, ClassNotFoundException {
-        return transactionDAO.update(transaction);
+    public boolean updateTransaction(TransactionDTO transaction) throws SQLException, ClassNotFoundException {
+        return transactionDAO.update(new Transaction(transaction.getTransactionId(), transaction.getOrderId(), transaction.getAccountNo(), transaction.getDescription(), transaction.getAmount(), transaction.getDate(), transaction.getMethod()));
     }
 
     @Override
@@ -29,8 +31,21 @@ public class TransactionBOImpl implements TransactionBO {
     }
 
     @Override
-    public List<Transaction> getAllTransaction() throws SQLException, ClassNotFoundException {
-        return transactionDAO.getAll();
+    public List<TransactionDTO> getAllTransaction() throws SQLException, ClassNotFoundException {
+        List<Transaction> transactions = transactionDAO.getAll();
+        List<TransactionDTO> transactionDTOs = new ArrayList<>();
+        for (Transaction transaction : transactions) {
+            transactionDTOs.add(new TransactionDTO(
+                    transaction.getTransactionId(),
+                    transaction.getOrderId(),
+                    transaction.getAccountNo(),
+                    transaction.getDescription(),
+                    transaction.getAmount(),
+                    transaction.getDate(),
+                    transaction.getMethod()
+            ));
+        }
+        return transactionDTOs;
     }
 
     @Override

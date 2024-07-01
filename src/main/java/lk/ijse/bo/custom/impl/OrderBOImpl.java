@@ -4,11 +4,13 @@ import lk.ijse.bo.custom.OrderBO;
 import lk.ijse.dao.DAOFactory;
 import lk.ijse.dao.custom.OrderDAO;
 import lk.ijse.dao.custom.impl.OrderDAOImpl;
+import lk.ijse.dto.OrderDTO;
 import lk.ijse.entity.Order;
 import lk.ijse.tdm.OrderBuyerTm;
 import lk.ijse.tdm.OrderStockTm;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderBOImpl implements OrderBO {
@@ -41,8 +43,16 @@ public class OrderBOImpl implements OrderBO {
     }
 
     @Override
-    public List<Order> getAllOrders() throws SQLException,ClassNotFoundException {
-        return orderDAO.getAll();
+    public List<OrderDTO> getAllOrders() throws SQLException,ClassNotFoundException {
+        List<Order> orders = orderDAO.getAll();
+        List<OrderDTO> orderDTOs = new ArrayList<>();
+        for (Order order : orders) {
+            orderDTOs.add(new OrderDTO(
+                    order.getOrderId(),
+                    order.getDate()
+            ));
+        }
+        return orderDTOs;
     }
 
 }

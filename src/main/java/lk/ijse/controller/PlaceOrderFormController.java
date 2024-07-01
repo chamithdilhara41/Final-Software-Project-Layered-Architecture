@@ -27,6 +27,7 @@ import lk.ijse.bo.custom.impl.StockBOImpl;
 import lk.ijse.dao.custom.OrderDAO;
 import lk.ijse.dao.custom.StockDAO;
 import lk.ijse.dao.custom.impl.*;
+import lk.ijse.dto.BuyerDTO;
 import lk.ijse.util.AnimationUtil;
 import lk.ijse.db.DbConnection;
 import lk.ijse.entity.*;

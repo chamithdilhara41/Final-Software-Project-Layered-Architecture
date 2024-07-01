@@ -16,6 +16,7 @@ import lk.ijse.bo.custom.PaymentBO;
 import lk.ijse.bo.custom.SupplierBO;
 import lk.ijse.bo.custom.impl.PaymentBOImpl;
 import lk.ijse.bo.custom.impl.SupplierBOImpl;
+import lk.ijse.dto.PaymentDTO;
 import lk.ijse.entity.Payment;
 import lk.ijse.entity.Supplier;
 import lk.ijse.tdm.PaymentTm;
@@ -114,9 +115,9 @@ public class PaymentFormController {
 
     private void getAllPayments() throws SQLException, ClassNotFoundException {
         ObservableList<PaymentTm> obList = FXCollections.observableArrayList();
-        List<Payment> paymentList = paymentBO.getAllPayment();
+        List<PaymentDTO> paymentList = paymentBO.getAllPayment();
 
-        for (Payment payment : paymentList) {
+        for (PaymentDTO payment : paymentList) {
             obList.add(new PaymentTm(
                     payment.getPaymentId(),
                     payment.getDescription(),
@@ -205,7 +206,7 @@ public class PaymentFormController {
             return;
         }
 
-        Payment payment = new Payment(paymentID, description, Double.valueOf(amount), date, supplierID);
+        PaymentDTO payment = new PaymentDTO(paymentID, description, Double.valueOf(amount), date, supplierID);
 
         try {
             boolean isSaved = false;
@@ -242,7 +243,7 @@ public class PaymentFormController {
             new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).show();
         }
 
-        Payment payment = new Payment(paymentID, description, amount, date, supplierID);
+        PaymentDTO payment = new PaymentDTO(paymentID, description, amount, date, supplierID);
 
         try {
             boolean isUpdated = false;
