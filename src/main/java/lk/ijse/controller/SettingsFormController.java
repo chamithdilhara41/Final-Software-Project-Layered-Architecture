@@ -79,7 +79,7 @@ public class SettingsFormController {
 
     private boolean changeEmail(String username, String email2) throws SQLException, ClassNotFoundException {
 
-        return SQLUtil.execute("update users set email=? where username=?",username,email2);
+        return SQLUtil.execute("update users set email=? where username=?",email2,username);
 
     }
 
@@ -119,7 +119,7 @@ public class SettingsFormController {
 
     private boolean changePassword(String username, String newPassword2) throws SQLException, ClassNotFoundException {
 
-        return SQLUtil.execute("UPDATE `users` SET `password`=? WHERE `username`=?",username,newPassword2);
+        return SQLUtil.execute("UPDATE `users` SET `password`=? WHERE `username`=?",newPassword2,username);
     }
 
 
