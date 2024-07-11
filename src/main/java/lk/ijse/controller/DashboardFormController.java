@@ -17,7 +17,10 @@ import javafx.util.Duration;
 import lk.ijse.bo.BOFactory;
 import lk.ijse.bo.custom.OrderBO;
 import lk.ijse.bo.custom.impl.OrderBOImpl;
+import lk.ijse.dao.SuperDAO;
 import lk.ijse.dao.custom.OrderDAO;
+import lk.ijse.dao.custom.QueryDAO;
+import lk.ijse.dao.custom.impl.QueryDAOImpl;
 import lk.ijse.db.DbConnection;
 
 import java.sql.Connection;
@@ -72,6 +75,7 @@ public class DashboardFormController {
 
     //dependency injection
     OrderBO orderBO = (OrderBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ORDER);
+    QueryDAO queryDAO = new QueryDAOImpl();
 
     public void initialize() throws SQLException, ClassNotFoundException {
         LineChar();
@@ -100,33 +104,18 @@ public class DashboardFormController {
         lblEmployeeCount.setText(String.valueOf(employeeCount));
     }
 
-    private int getEmployeeCount() throws SQLException {
-        String sql = "SELECT COUNT(*) AS employee_count FROM employee";
-        Connection connection = DbConnection.getInstance().getConnection();
-        PreparedStatement pstm = connection.prepareStatement(sql);
-        ResultSet resultSet = pstm.executeQuery();
-        if(resultSet.next()) {
-            return resultSet.getInt("employee_count");
-        }
-        return 0;
+    private int getEmployeeCount() throws SQLException, ClassNotFoundException {
 
+        return queryDAO.employeeCount();
     }
 
     private void setSupplierCount(int supplierCount) {
         lblSupplierCount.setText(String.valueOf(supplierCount));
     }
 
-    private int getSupplierCount() throws SQLException {
-        String sql = "SELECT COUNT(*) AS supplier_count FROM supplier";
+    private int getSupplierCount() throws SQLException, ClassNotFoundException {
 
-        Connection connection = DbConnection.getInstance().getConnection();
-        PreparedStatement pstm = connection.prepareStatement(sql);
-        ResultSet resultSet = pstm.executeQuery();
-
-        if(resultSet.next()) {
-            return resultSet.getInt("supplier_count");
-        }
-        return 0;
+        return queryDAO.supplierCount();
     }
 
     public void btnEmployeeListOnAction(javafx.event.ActionEvent actionEvent) throws JRException, SQLException {
@@ -150,17 +139,8 @@ public class DashboardFormController {
         JasperViewer.viewReport(jasperPrint,false);
     }
 
-    private int getBuyerCount() throws SQLException {
-        String sql = "SELECT COUNT(*) AS buyer_count FROM buyer";
-
-        Connection connection = DbConnection.getInstance().getConnection();
-        PreparedStatement pstm = connection.prepareStatement(sql);
-        ResultSet resultSet = pstm.executeQuery();
-
-        if(resultSet.next()) {
-            return resultSet.getInt("buyer_count");
-        }
-        return 0;
+    private int getBuyerCount() throws SQLException, ClassNotFoundException {
+        return queryDAO.buyerCount();
     }
 
     private void getAllOrderBuyerNames() throws SQLException, ClassNotFoundException {
@@ -180,19 +160,19 @@ public class DashboardFormController {
         lblBuyerCount.setText(String.valueOf(buyerCount));
     }
 
-//    private void LineChar(){
-//        XYChart.Series series = new XYChart.Series<>();
-//        series.getData().add(new XYChart.Data("Monday",8)) ;
-//        series.getData().add(new XYChart.Data("TuesDay",10)) ;
-//        series.getData().add(new XYChart.Data("WendsDay",15)) ;
-//        series.getData().add(new XYChart.Data("ThursDay",5)) ;
-//        series.getData().add(new XYChart.Data("Friday",5)) ;
-//        series.getData().add(new XYChart.Data("Saturday",9)) ;
-//        series.getData().add(new XYChart.Data("Sunday",8)) ;
-//        LineChart.getData().addAll(series);
-//    }
+   /* private void LineChar(){
+        XYChart.Series series = new XYChart.Series<>();
+        series.getData().add(new XYChart.Data("Monday",8)) ;
+        series.getData().add(new XYChart.Data("TuesDay",10)) ;
+        series.getData().add(new XYChart.Data("WendsDay",15)) ;
+        series.getData().add(new XYChart.Data("ThursDay",5)) ;
+        series.getData().add(new XYChart.Data("Friday",5)) ;
+        series.getData().add(new XYChart.Data("Saturday",9)) ;
+        series.getData().add(new XYChart.Data("Sunday",8)) ;
+        LineChart.getData().addAll(series);
+    }*/
 
-    private void LineChar() {
+    private void LineChar() throws SQLException, ClassNotFoundException {
         XYChart.Series series = new XYChart.Series();
 
         Map<String, Double> stocksByDay = getStocksByDay();
@@ -207,24 +187,8 @@ public class DashboardFormController {
         LineChart.lookup(".chart-plot-background").setStyle("-fx-background-color: transparent;");
     }
 
-    public static Map<String, Double> getStocksByDay() {
-        Map<String, Double> stocksByDay = new HashMap<>();
-
-        String sql = " SELECT date,SUM(TotalWeight) AS total_weight FROM stock GROUP BY date;";
-
-        try (PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
-             ResultSet resultSet = pstm.executeQuery()) {
-
-            while (resultSet.next()) {
-                String date = resultSet.getString("date");
-                double totalWeight = resultSet.getDouble("total_weight");
-                stocksByDay.put(date, totalWeight);
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return stocksByDay;
+    public Map<String, Double> getStocksByDay() throws SQLException, ClassNotFoundException {
+        return queryDAO.stocksByDate();
     }
 
 
@@ -268,6 +232,5 @@ public class DashboardFormController {
 
         typingAnimation.play();
     }
-
 
 }
